@@ -13,20 +13,18 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Truck Move",
+                    "type": "Value",
+                    "id": "d0f0f4cc-254a-4290-9b34-e432b022447a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "47f07032-e3aa-460b-b7e1-c0ef343c1d20",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "Left Click",
                     "id": "fb92db5e-369c-40f0-81d7-a3943f16eebb",
@@ -39,7 +37,18 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "modifier",
+                    "name": "binding",
+                    "id": "b52d4bc8-e650-497d-bc70-00087ba422f2",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Modifier",
                     "id": "0dab89cb-efe0-41ea-828f-90f9e14a876b",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -50,13 +59,35 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "binding",
-                    "id": "b52d4bc8-e650-497d-bc70-00087ba422f2",
-                    "path": "<Mouse>/position",
+                    "name": "2D Vector",
+                    "id": "04999936-0e3a-49f5-83ee-2dfb1cfb1367",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
-                    "action": "Shoot",
+                    "groups": "",
+                    "action": "Truck Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "97ec1cf1-93a8-4b80-ac01-216b8b6f48c4",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Truck Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "cb1f6b3c-6405-4c43-b5ea-ecadc5e321ee",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Truck Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
