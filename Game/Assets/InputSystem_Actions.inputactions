@@ -17,17 +17,6 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "47f07032-e3aa-460b-b7e1-c0ef343c1d20",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "Left Click",
                     "id": "fb92db5e-369c-40f0-81d7-a3943f16eebb",
                     "path": "OneModifier",
@@ -39,23 +28,23 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "modifier",
-                    "id": "0dab89cb-efe0-41ea-828f-90f9e14a876b",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse;Joystick;Touch;Gamepad;XR",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "binding",
                     "id": "b52d4bc8-e650-497d-bc70-00087ba422f2",
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "modifier",
+                    "id": "0dab89cb-efe0-41ea-828f-90f9e14a876b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse;Joystick;Touch;Gamepad;XR",
                     "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": true
