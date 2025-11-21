@@ -45,7 +45,7 @@ public class RoadGenerator : MonoBehaviour
         {
             var prefab = RoadTiles[Random.Range(0, RoadTiles.Count)]; 
             var pos = new Vector3(0, 0, currentRoadLength);
-            var newTile = Instantiate(prefab, pos, Quaternion.identity,  transform); 
+            var newTile = Instantiate(prefab, pos, Quaternion.identity); 
             activeRoadTiles.Add(newTile); 
             currentRoadLength += newTile.GetTileLength();
         }
@@ -64,7 +64,6 @@ public class RoadGenerator : MonoBehaviour
 
             first.RecycleToZ(lastMaxZ);
 
-            // 4. Обновляем список
             activeRoadTiles.RemoveAt(0);
             activeRoadTiles.Add(first);
         }

@@ -8,8 +8,8 @@ public class CarMovement : MonoBehaviour
     [SerializeField] private float sideSpeed = 10f;
     [SerializeField] private float maxSidePosition = 4f;
     [Header("Визуальный эффект поворота")]
-    [SerializeField] private float maxSteerAngle = 15f;    // Максимальный угол поворота (Y-ось)
-    [SerializeField] private float rotationSpeed = 5f;       // Скорость поворота при активном вводе
+    [SerializeField] private float maxSteerAngle = 15f;    
+    [SerializeField] private float rotationSpeed = 5f;       
     [SerializeField] private float snapBackSpeed = 20f;
 
     public float SideSpeed
@@ -45,37 +45,24 @@ public class CarMovement : MonoBehaviour
         var clampedX = Mathf.Clamp(currentPosition.x, -MaxSidePosition, MaxSidePosition);
         rb.position = new Vector3(clampedX, currentPosition.y, currentPosition.z);
         
-        // ----------------------------------------
-        
-        // --- 2. ВИЗУАЛЬНОЕ ВРАЩЕНИЕ (ЭФФЕКТ ПОВОРОТА) ---
 
-        // 1. Вычисляем целевой угол
-        float targetAngle = moveInput.x * maxSteerAngle;
+        var targetAngle = moveInput.x * maxSteerAngle;
         
-        // 2. Определяем текущую скорость вращения (по умолчанию - скорость поворота)
-        float currentRotationSpeed = rotationSpeed;
+        var currentRotationSpeed = rotationSpeed;
         
-        // --- БЛОКИРОВКА ПОВОРОТА У ГРАНИЦЫ И БЫСТРЫЙ ВОЗВРАТ ---
         
-        // Проверяем, находится ли машина у границы И пытается ли игрок двигаться дальше.
-        // Используем небольшую дельту (0.01f), чтобы учесть погрешности float.
-        bool atRightBoundary = currentPosition.x >= MaxSidePosition - 0.01f && moveInput.x > 0;
-        bool atLeftBoundary = currentPosition.x <= -MaxSidePosition + 0.01f && moveInput.x < 0;
+        var atRightBoundary = currentPosition.x >= MaxSidePosition - 0.01f && moveInput.x > 0;
+        var atLeftBoundary = currentPosition.x <= -MaxSidePosition + 0.01f && moveInput.x < 0;
 
         if (atRightBoundary || atLeftBoundary)
         {
-            // Если машина достигла предела и продолжает на него давить,
-            // целевой угол должен быть 0, чтобы машина не поворачивалась или выравнивалась.
             targetAngle = 0; 
-            currentRotationSpeed = snapBackSpeed; // Быстрое выравнивание у стены
+            currentRotationSpeed = snapBackSpeed; 
         }
         else if (moveInput.x == 0) 
-        {
-            // Если ввода нет, быстро возвращаем машину в прямое положение (0 градусов).
             currentRotationSpeed = snapBackSpeed;
-        }
 
-        Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
+        var targetRotation = Quaternion.Euler(0, targetAngle, 0);
         rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * currentRotationSpeed);
     }
 }
