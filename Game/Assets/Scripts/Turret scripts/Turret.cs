@@ -18,9 +18,9 @@ public class Turret : MonoBehaviour
         if (currentTarget != null)
         {
             // Поворот к цели
-            Vector3 dir = currentTarget.position - transform.position;
-            Quaternion lookRotation = Quaternion.LookRotation(dir);
-            Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime).eulerAngles;
+            var dir = currentTarget.position - transform.position;
+            var lookRotation = Quaternion.LookRotation(dir);
+            var rotation = Quaternion.Lerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime).eulerAngles;
             transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
             // Стрельба
@@ -35,8 +35,8 @@ public class Turret : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Bullet bullet = bulletGO.GetComponent<Bullet>();
+        var bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        var bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
             bullet.Seek(currentTarget, damage);
     }
