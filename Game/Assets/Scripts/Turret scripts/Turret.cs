@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Turret : MonoBehaviour
 {
@@ -9,11 +11,24 @@ public class Turret : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
-
+    
     private Transform currentTarget;
     private float fireCountdown = 0f;
+    private ObjectPool<GameObject> bulletPool;
 
-    public void Update()
+    public void Awake()
+    {
+        bulletPool = new ObjectPool<GameObject>(
+            createFunc: () => Instantiate(bulletPrefab, firePoint.position, firePoint.rotation), 
+            actionOnGet: (obj) => obj.SetActive(true), 
+            actionOnRelease: (obj) => obj.SetActive(false), 
+            actionOnDestroy: (obj) => Destroy(obj), 
+            collectionCheck: false, 
+            defaultCapacity: 10, 
+            maxSize: 10);
+    }
+
+    public void FixedUpdate()
     {
         if (currentTarget != null)
         {
@@ -35,10 +50,11 @@ public class Turret : MonoBehaviour
 
     private void Shoot()
     {
-        var bulletGO = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        var bulletGO = bulletPool.Get();
+        bulletGO.transform.position = firePoint.position;
         var bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
-            bullet.Seek(currentTarget, damage);
+            bullet.Seek(currentTarget, damage, bulletPool);
     }
 
     public void SetTarget(Transform target)
