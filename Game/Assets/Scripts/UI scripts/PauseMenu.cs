@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,17 +14,28 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
-        if (pauseButton != null)
-            pauseButton.onClick.AddListener(OnClickPause);
-        if (resumeButton != null)
-            resumeButton.onClick.AddListener(OnClickResume);
-        if (menuButton != null)
-            menuButton.onClick.AddListener(OnClickMenu);
-
         if (playerInput != null)
         {
             playerInput.onActionTriggered += OnPause;
         }
+    }
+
+    private void OnEnable()
+    {
+        if (pauseButton != null)
+            pauseButton.onClick.AddListener(OnClickPause);
+        else
+            Debug.Log("РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
+
+        if (resumeButton != null)
+            resumeButton.onClick.AddListener(OnClickResume);
+        else
+            Debug.Log("РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
+
+        if (menuButton != null)
+            menuButton.onClick.AddListener(OnClickMenu);
+        else
+            Debug.Log("РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
     }
 
     private void OnPause(InputAction.CallbackContext context)
@@ -44,19 +55,19 @@ public class PauseMenu : MonoBehaviour
 
     private void OnClickPause()
     {
-        Debug.Log("Нажата кнопка паузы");
+        Debug.Log("РќР°Р¶Р°С‚Р° РєРЅРѕРїРєР° РїР°СѓР·С‹");
         Pause();
     }
 
     private void OnClickResume()
     {
-        Debug.Log("Нажата кнопка продолжить");
+        Debug.Log("РќР°Р¶Р°С‚Р° РєРЅРѕРїРєР° РїСЂРѕРґРѕР»Р¶РёС‚СЊ");
         Resume();
     }
 
     private void OnClickMenu()
     {
-        Debug.Log("Нажата кнопка меню");
+        Debug.Log("РќР°Р¶Р°С‚Р° РєРЅРѕРїРєР° РјРµРЅСЋ");
         LoadMenu();
     }
 
@@ -78,5 +89,12 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+    }
+
+    private void OnDisable()
+    {
+        pauseButton.onClick.RemoveListener(OnClickPause);
+        resumeButton.onClick.RemoveListener(OnClickResume);
+        menuButton.onClick.RemoveListener(OnClickMenu);
     }
 }

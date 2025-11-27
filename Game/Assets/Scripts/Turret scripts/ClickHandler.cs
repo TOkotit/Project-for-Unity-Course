@@ -4,7 +4,9 @@ using UnityEngine.InputSystem;
 public class ClickHandler : MonoBehaviour
 {   
     [Header("References")]
-    [SerializeField] private Turret turret;
+    [SerializeField] private Turret turret1;
+    [SerializeField] private Turret turret2;
+    [SerializeField] private Turret turret3;
     [SerializeField] private LayerMask enemyLayer;
     
     private Camera mainCamera;
@@ -21,12 +23,14 @@ public class ClickHandler : MonoBehaviour
             var mousePosition = context.ReadValue<Vector2>();
             Debug.Log(mousePosition);
             
-            Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-            RaycastHit hit;
+            var ray = mainCamera.ScreenPointToRay(mousePosition);
+            var hit = new RaycastHit();
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, enemyLayer))
             {
-                turret.SetTarget(hit.transform);
+                turret1.SetTarget(hit.transform);
+                turret2.SetTarget(hit.transform);
+                turret3.SetTarget(hit.transform);
                 Debug.Log("Target acquired: " + hit.transform.name);
             }
         }
