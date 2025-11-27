@@ -20,17 +20,17 @@ public class MainMenu : MonoBehaviour
     }
     private void OnClickStart()
     {
-        Debug.Log("Нажата кнопка новая игра");
-        SceneManager.LoadScene("Game");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
+        SceneManager.LoadScene("MainGame");
     }
     private void OnClickOptions()
     {
-        Debug.Log("Нажата кнопка настройки");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
     }
     private void OnClickExit()
     {
-        Debug.Log("Нажата кнопка выхода");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
         Application.Quit();
-        Debug.Log("Пользователь вышел из игры");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ");
     }
 }
