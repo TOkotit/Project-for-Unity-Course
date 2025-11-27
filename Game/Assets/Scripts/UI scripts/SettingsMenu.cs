@@ -1,11 +1,14 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class SettingsMenu : MonoBehaviour
 {
+    [SerializeField] private TMP_Dropdown languageDropDown;
     [SerializeField] private TMP_Dropdown resolutionDropDown;
     [SerializeField] private TMP_Dropdown screenModeDropDown;
     [SerializeField] private Button saveButton;
@@ -15,10 +18,27 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private TMP_Text percentageMusic;
     [SerializeField] private TMP_Text percentageSound;
     private Resolution[] resolutions;
+    PlayerPrefLocaleSelector playerPrefLocaleSelector = new PlayerPrefLocaleSelector();
 
     private void Start()
     {
-        //Загрузка всех разрешений
+        //Р—Р°РіСЂСѓР·РєР° СЏР·С‹РєРѕРІ
+        languageDropDown.ClearOptions();
+        List<string> languages = new List<string>();
+        int currentLanguageIndex = 1;
+
+
+        for (int i = 0; i < LocalizationSettings.AvailableLocales.Locales.Count; i++)
+        {
+            languages.Add(LocalizationSettings.AvailableLocales.Locales[i].ToString());
+            if (LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.Locales[i])
+                currentLanguageIndex = i;
+        }
+
+        languageDropDown.AddOptions(languages);
+        languageDropDown.RefreshShownValue();
+
+        //Р—Р°РіСЂСѓР·РєР° РІСЃРµС… СЂР°Р·СЂРµС€РµРЅРёР№
         resolutionDropDown.ClearOptions();
         List<string> options = new List<string>();
         resolutions = Screen.resolutions;
@@ -35,7 +55,7 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropDown.AddOptions(options);
         resolutionDropDown.RefreshShownValue();
 
-        //Загрузка всех режимов экрана
+        //Р—Р°РіСЂСѓР·РєР° РІСЃРµС… СЂРµР¶РёРјРѕРІ СЌРєСЂР°РЅР°
         screenModeDropDown.ClearOptions();
         string[] allScreenModes = new string[4] {"ExclusiveFullScreen", "FullScreenWindow", "MaximizedWindow", "Windowed" };
         List<string> modes = new List<string>();
@@ -49,26 +69,56 @@ public class SettingsMenu : MonoBehaviour
 
         screenModeDropDown.AddOptions(modes);
         screenModeDropDown.RefreshShownValue();
-        LoadSettings(currentResolutionIndex, currentScreenMode);
+
+        LoadSettings(currentLanguageIndex, currentResolutionIndex, currentScreenMode);
     }
 
-    private void Awake()
+    private void OnEnable()
     {
+        if (languageDropDown != null)
+            languageDropDown.onValueChanged.AddListener(OnSetLanguage);
+        else
+            Debug.Log("РћС‚СЃС‚СѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
+
         if (resolutionDropDown != null)
             resolutionDropDown.onValueChanged.AddListener(OnSetResolution);
+        else
+            Debug.Log("РћС‚СЃС‚СѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
+
         if (screenModeDropDown != null)
             screenModeDropDown.onValueChanged.AddListener(OnSetScreenMode);
+        else
+            Debug.Log("РћС‚СЃС‚СѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
+
         if (saveButton != null)
             saveButton.onClick.AddListener(OnClickSave);
+        else
+            Debug.Log("РћС‚СЃС‚СѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
+
         if (exitButton != null)
             exitButton.onClick.AddListener(OnClickExit);
+        else
+            Debug.Log("РћС‚СЃС‚СѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
+
         if (musicSlider != null)
             musicSlider.onValueChanged.AddListener(OnSetMusicValue);
+        else
+            Debug.Log("РћС‚СЃС‚СѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
+
         if (soundSlider != null)
             soundSlider.onValueChanged.AddListener(OnSetSoundValue);
+        else
+            Debug.Log("РћС‚СЃС‚СѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
     }
 
-    //Настройки Графики
+    //РќР°СЃС‚СЂРѕР№РєРё СЏР·С‹РєР°
+    private void OnSetLanguage(int localeIndex)
+    {
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeIndex];
+        Debug.Log($"РЇР·С‹Рє РёР·РјРµРЅРµРЅ РЅР°: {LocalizationSettings.AvailableLocales.Locales[localeIndex].Identifier}");
+    }
+
+    //РќР°СЃС‚СЂРѕР№РєРё Р“СЂР°С„РёРєРё
 
     private void ScreenModeFind(int screenModeIndex)
     {
@@ -92,24 +142,24 @@ public class SettingsMenu : MonoBehaviour
     private void OnSetScreenMode(int screenModeIndex)
     {
         ScreenModeFind(screenModeIndex);
-        Debug.Log("Режим экрана изменен");
+        Debug.Log("Р РµР¶РёРј СЌРєСЂР°РЅР° РёР·РјРµРЅРµРЅ");
     }
 
     private void OnSetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        Debug.Log("Разрешение изменено");
+        Debug.Log("Р Р°Р·СЂРµС€РµРЅРёРµ РёР·РјРµРЅРµРЅРѕ");
     }
 
-    //Настройка музыки и звука
+    //РќР°СЃС‚СЂРѕР№РєР° РјСѓР·С‹РєРё Рё Р·РІСѓРєР°
 
     private void OnSetMusicValue(float musicValue)
     {
         musicValue = Mathf.RoundToInt(musicValue);
         string stringMusicValue = musicValue.ToString();
         percentageMusic.text = $"{stringMusicValue}%";
-        Debug.Log("Громкость музыки изменена");
+        Debug.Log("Р“СЂРѕРјРєРѕСЃС‚СЊ РјСѓР·С‹РєРё РёР·РјРµРЅРµРЅР°");
     }
 
     private void OnSetSoundValue(float soundValue)
@@ -117,27 +167,34 @@ public class SettingsMenu : MonoBehaviour
         soundValue = Mathf.RoundToInt(soundValue);
         string stringSoundValue = soundValue.ToString();
         percentageSound.text = $"{stringSoundValue}%";
-        Debug.Log("Громкость звука изменена");
+        Debug.Log("Р“СЂРѕРјРєРѕСЃС‚СЊ Р·РІСѓРєР° РёР·РјРµРЅРµРЅР°");
     }
 
-    //Прочие кнопки
+    //РџСЂРѕС‡РёРµ РєРЅРѕРїРєРё
 
     private void OnClickSave()
     {
+        PlayerPrefs.SetInt(playerPrefLocaleSelector.PlayerPreferenceKey, languageDropDown.value);
         PlayerPrefs.SetInt("ResolutionPreference", resolutionDropDown.value);
         PlayerPrefs.SetInt("FullscreenPreference", screenModeDropDown.value);
-        Debug.Log("Изменения сохранены");
+        Debug.Log("РР·РјРµРЅРµРЅРёСЏ СЃРѕС…СЂР°РЅРµРЅС‹");
     }
 
     private void OnClickExit()
     {
-        Debug.Log("Выход из меню настроек");
+        Debug.Log("Р’С‹С…РѕРґ РёР· РјРµРЅСЋ РЅР°СЃС‚СЂРѕРµРє");
     }
 
 
-    //Загрузка старых настроек
-    private void LoadSettings(int currentResolutionIndex, int currentScreenMode)
+    //Р—Р°РіСЂСѓР·РєР° СЃС‚Р°СЂС‹С… РЅР°СЃС‚СЂРѕРµРє
+
+    private void LoadSettings(int currentLanguageIndex, int currentResolutionIndex, int currentScreenMode)
     {
+        if (PlayerPrefs.HasKey(playerPrefLocaleSelector.PlayerPreferenceKey))
+            languageDropDown.value = PlayerPrefs.GetInt(playerPrefLocaleSelector.PlayerPreferenceKey);
+        else
+            languageDropDown.value = currentLanguageIndex;
+
         if (PlayerPrefs.HasKey("ResolutionPreference"))
             resolutionDropDown.value = PlayerPrefs.GetInt("ResolutionPreference");
         else
@@ -147,6 +204,17 @@ public class SettingsMenu : MonoBehaviour
             screenModeDropDown.value = PlayerPrefs.GetInt("FullscreenPreference");
         else
             screenModeDropDown.value = currentScreenMode;
-        Debug.Log("Старые настройки загружены");
+        Debug.Log("РЎС‚Р°СЂС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё Р·Р°РіСЂСѓР¶РµРЅС‹");
+    }
+
+    private void OnDisable()
+    {
+        languageDropDown.onValueChanged.RemoveListener(OnSetLanguage);
+        resolutionDropDown.onValueChanged.RemoveListener(OnSetResolution);
+        screenModeDropDown.onValueChanged.RemoveListener(OnSetScreenMode);
+        saveButton.onClick.RemoveListener(OnClickSave);
+        exitButton.onClick.RemoveListener(OnClickExit);
+        musicSlider.onValueChanged.RemoveListener(OnSetMusicValue);
+        soundSlider.onValueChanged.RemoveListener(OnSetSoundValue);
     }
 }
