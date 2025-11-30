@@ -62,7 +62,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse;Joystick;Touch;Gamepad;XR",
+                    "groups": ";Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
                     "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": true

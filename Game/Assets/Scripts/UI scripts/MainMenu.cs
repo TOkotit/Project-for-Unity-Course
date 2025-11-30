@@ -1,36 +1,51 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private Button startButton;
-    [SerializeField] private Button continueButton;
+    [SerializeField] private Button continueButton; //unactive
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button exitButton;
 
-    private void Awake()
+    private void OnEnable()
     {
         if (startButton != null)
             startButton.onClick.AddListener(OnClickStart);
+        else
+            Debug.Log("РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
+
         if (optionsButton != null)
             optionsButton.onClick.AddListener(OnClickOptions);
+        else
+            Debug.Log("РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
+
         if (exitButton != null)
             exitButton.onClick.AddListener(OnClickExit);
+        else
+            Debug.Log("РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РїСЂРµС„Р°Р±");
     }
+
     private void OnClickStart()
     {
-        Debug.Log("Нажата кнопка новая игра");
-        SceneManager.LoadScene("Game");
+        Debug.Log("РќР°Р¶Р°С‚Р° РєРЅРѕРїРєР° РЅРѕРІР°СЏ РёРіСЂР°");
+        SceneManager.LoadScene("MainGame");
     }
     private void OnClickOptions()
     {
-        Debug.Log("Нажата кнопка настройки");
+        Debug.Log("РќР°Р¶Р°С‚Р° РєРЅРѕРїРєР° РЅР°СЃС‚СЂРѕР№РєРё");
     }
     private void OnClickExit()
     {
-        Debug.Log("Нажата кнопка выхода");
+        Debug.Log("РќР°Р¶Р°С‚Р° РєРЅРѕРїРєР° РІС‹С…РѕРґР°");
         Application.Quit();
-        Debug.Log("Пользователь вышел из игры");
+        Debug.Log("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІС‹С€РµР» РёР· РїСЂРёР»РѕР¶РµРЅРёСЏ");
+    }
+    private void OnDisable()
+    {
+        startButton.onClick.RemoveListener(OnClickStart);
+        optionsButton.onClick.RemoveListener(OnClickOptions);
+        exitButton.onClick.RemoveListener(OnClickExit);
     }
 }
