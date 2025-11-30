@@ -1,28 +1,31 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {   
     [Header("Bullet Parameters")]
     [SerializeField] private float speed = 70f;
-    private Transform target;
-    private float damage;
+    private Transform _target;
+    private float _damage;
+    private ObjectPool<GameObject> _bulletPool;
 
-    public void Seek(Transform _target, float _damage)
+    public void Seek(Transform target, float damage, ObjectPool<GameObject> bulletPool)
     {
-        target = _target;
-        damage = _damage;
+        _target = target;
+        _damage = damage;
+        _bulletPool = bulletPool;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
-        if (target == null)
+        if (_target == null)
         {
             Destroy(gameObject);
             return;
         }
 
-        Vector3 dir = target.position - transform.position;
-        float distanceThisFrame = speed * Time.deltaTime;
+        var dir = _target.position - transform.position;
+        var distanceThisFrame = speed * Time.deltaTime;
 
         if (dir.magnitude <= distanceThisFrame)
         {
@@ -35,11 +38,11 @@ public class Bullet : MonoBehaviour
 
     private void HitTarget()
     {
-        Enemy enemy = target.GetComponent<Enemy>();
+        var enemy = _target.GetComponent<Enemy>();
         if (enemy != null)
         {
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(_damage);
         }
-        Destroy(gameObject);
+        _bulletPool.Release(gameObject);
     }
 }

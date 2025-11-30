@@ -6,12 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/main scenes/MainMenu.unity
+    guid: f3757e5cc5562fa42827468e987fbaf8
+  - enabled: 1
+    path: Assets/Scenes/main scenes/MainGame.unity
+    guid: 1de0cce5dbde4e746a965aeb6e994a7d
+  - enabled: 0
     path: Assets/Scenes/neograne scenes/MainMenu.unity
     guid: fe93c5054bf1a13469d5270be628a662
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/neograne scenes/Game.unity
     guid: 211ee887f6d9c514f94cd185c9a3e47c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/main scene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
