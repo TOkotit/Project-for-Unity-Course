@@ -3,13 +3,16 @@ using UnityEngine;
 using UnityEngine.Pool;
 
 public class Turret : MonoBehaviour
-{
+{   
+    [SerializeField] private TurretType turretType;
     [Header("Ссылки")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     
+    
     public TurretModel turretModel;
     
+    private ScriptableObject scriptableObject;
     private ObjectPool<Bullet> bulletPool;
 
     public Turret()
@@ -26,6 +29,28 @@ public class Turret : MonoBehaviour
             collectionCheck: false, 
             defaultCapacity: 5, 
             maxSize: 5);
+        
+        switch (turretType)
+        {
+            case TurretType.Heavy: Resources
+                    .Load<HeavyTurretStatsSO>("Config/HeavyTurretStatsSO")
+                    .LoadIntoModel(turretModel);
+                break;
+            case TurretType.Medium: Resources
+                    .Load<MediumTurretStatsSO>("Config/MediumTurretStatsSO")
+                    .LoadIntoModel(turretModel);
+                break;
+            case TurretType.Light: Resources
+                    .Load<LightTurretStatsSO>("Config/LightTurretStatsSO")
+                    .LoadIntoModel(turretModel);
+                break;
+            default: Resources
+                    .Load<HeavyTurretStatsSO>("Config/HeavyTurretStatsSO")
+                    .LoadIntoModel(turretModel);
+                break;
+        }
+        
+        turretModel.TurretType = turretType;
     }
 
     public void FixedUpdate()

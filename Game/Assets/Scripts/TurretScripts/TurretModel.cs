@@ -12,7 +12,6 @@ public class TurretModel
     private TurretType turretType;
     
     private Transform currentTarget;
-    private bool isTargetExist;
     
     public float RotationSpeed
     {
@@ -53,10 +52,5 @@ public class TurretModel
     {
         get => currentTarget;
         set => currentTarget = value;
-    }
-    public bool IsTargetExist 
-    {
-        get => isTargetExist;
-        set => isTargetExist = value;
     }
 }

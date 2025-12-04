@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ClickHandler : MonoBehaviour
-{   
+{       
+    // класс нужно переделать, пока не используется
     [Header("References")]
-    [SerializeField] private Turret turret1;
+    [SerializeField] private TurretSystem turretSystem;
     [SerializeField] private LayerMask enemyLayer;
     
     private Camera mainCamera;
@@ -26,8 +27,9 @@ public class ClickHandler : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, enemyLayer))
             {   
-                // переделать!
-                turret1.turretModel.CurrentTarget = hit.transform;
+                turretSystem.turretSystemModel.ChooseTurret(turretSystem.turretSystemModel.Turrets[0]);
+                turretSystem.turretSystemModel.ActivateChosenTurret(hit.transform);
+                
                 Debug.Log("Target acquired: " + hit.transform.name);
             }
         }
