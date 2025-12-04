@@ -1086,6 +1086,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2186525469260081300, guid: 0866bc9c3df551247b47dd892bfe4aa4, type: 3}
   m_PrefabInstance: {fileID: 436984693}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1276101354 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 693310924934210293, guid: b4c3b015b3678714eafd3692e8c80d6c, type: 3}
+  m_PrefabInstance: {fileID: 2594504681933956715}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1355879781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1735,6 +1746,10 @@ PrefabInstance:
       propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
       value: GUID:0fa1eb06695eace49acbf6c0b2d4310a
       objectReference: {fileID: 0}
+    - target: {fileID: 4855170667654279211, guid: b4c3b015b3678714eafd3692e8c80d6c, type: 3}
+      propertyPath: languageDropDown
+      value: 
+      objectReference: {fileID: 1276101354}
     - target: {fileID: 6252282424589338166, guid: b4c3b015b3678714eafd3692e8c80d6c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
