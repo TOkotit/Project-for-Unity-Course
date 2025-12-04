@@ -1,0 +1,47 @@
+using UnityEngine;
+using UnityEngine.Pool;
+
+public class Bullet : MonoBehaviour
+{   
+    private BulletModel bulletModel;
+    private ObjectPool<GameObject> pool;
+
+    public void Seek(Transform bulletTarget, float bulletDamage, 
+        float bulletSpeed,  ObjectPool<GameObject> bulletPool)
+    {
+        bulletModel.Target = bulletTarget;
+        bulletModel.Damage = bulletDamage;
+        pool = bulletPool;
+        bulletModel.Speed = bulletSpeed;
+    }
+
+    public void FixedUpdate()
+    {
+        if (bulletModel.Target == null)
+        {
+            pool.Release(gameObject);
+            return;
+        }
+
+        var dir = bulletModel.Target.position - transform.position;
+        var distanceThisFrame = bulletModel.Speed * Time.deltaTime;
+
+        if (dir.magnitude <= distanceThisFrame)
+        {
+            HitTarget();
+            return;
+        }
+
+        transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+    }
+
+    private void HitTarget()
+    {
+        var enemy = bulletModel.Target.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            enemy.TakeDamage(bulletModel.Damage);
+        }
+        pool.Release(gameObject);
+    }
+}

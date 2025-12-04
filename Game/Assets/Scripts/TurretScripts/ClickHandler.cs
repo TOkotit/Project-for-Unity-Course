@@ -28,9 +28,7 @@ public class ClickHandler : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, enemyLayer))
             {
-                turret1.SetTarget(hit.transform);
-                turret2.SetTarget(hit.transform);
-                turret3.SetTarget(hit.transform);
+
                 Debug.Log("Target acquired: " + hit.transform.name);
             }
         }

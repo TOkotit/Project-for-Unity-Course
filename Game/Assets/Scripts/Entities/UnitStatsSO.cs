@@ -1,8 +1,8 @@
 using UnityEngine;
 
 namespace Entities
-{
-    [CreateAssetMenu(fileName = "NewUnitStats", menuName = "Stats/Unit Stats")]
+{ // Тут и должны быть разные имена??
+    [CreateAssetMenu(fileName = "NewUnitStats", menuName = "Stats/Unit Stats")] 
     public class UnitStatsSO : ScriptableObject
     {
         [Header("Базовые характеристики")]

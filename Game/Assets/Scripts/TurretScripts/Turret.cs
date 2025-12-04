@@ -4,16 +4,12 @@ using UnityEngine.Pool;
 
 public class Turret : MonoBehaviour
 {
-    [Header("Turret Parameters")]
-    [SerializeField] private float rotationSpeed = 5f;
-    [SerializeField] private float fireRate = 1f;
-    [SerializeField] private float damage = 25f;
-    [Header("References")]
+    [Header("Ссылки")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private ScriptableObject turretStats;
+    private TurretModel turretModel;
     
-    private Transform currentTarget;
-    private float fireCountdown = 0f;
     private ObjectPool<GameObject> bulletPool;
 
     public void Awake()
@@ -24,27 +20,28 @@ public class Turret : MonoBehaviour
             actionOnRelease: (obj) => obj.SetActive(false), 
             actionOnDestroy: (obj) => Destroy(obj), 
             collectionCheck: false, 
-            defaultCapacity: 10, 
-            maxSize: 10);
+            defaultCapacity: 5, 
+            maxSize: 5);
     }
 
     public void FixedUpdate()
     {
-        if (currentTarget != null)
+        if (turretModel.CurrentTarget != null)
         {
             // Поворот к цели
-            var dir = currentTarget.position - transform.position;
+            var dir = turretModel.CurrentTarget.position - transform.position;
             var lookRotation = Quaternion.LookRotation(dir);
-            var rotation = Quaternion.Lerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime).eulerAngles;
+            var rotation = Quaternion.Lerp(transform.rotation, lookRotation, 
+                turretModel.RotationSpeed * Time.deltaTime).eulerAngles;
             transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
             // Стрельба
-            if (fireCountdown <= 0f)
+            if (turretModel.FireCountdown <= 0f)
             {
                 Shoot();
-                fireCountdown = 1f / fireRate;
+                turretModel.FireCountdown = 1f / turretModel.FireRate;
             }
-            fireCountdown -= Time.deltaTime;
+            turretModel.FireCountdown -= Time.deltaTime;
         }
     }
 
@@ -53,12 +50,6 @@ public class Turret : MonoBehaviour
         var bulletGO = bulletPool.Get();
         bulletGO.transform.position = firePoint.position;
         var bullet = bulletGO.GetComponent<Bullet>();
-        if (bullet != null)
-            bullet.Seek(currentTarget, damage, bulletPool);
-    }
-
-    public void SetTarget(Transform target)
-    {
-        currentTarget = target;
+        bullet.Seek(turretModel.CurrentTarget, turretModel.Damage, turretModel.BulletSpeed ,bulletPool);
     }
 }
