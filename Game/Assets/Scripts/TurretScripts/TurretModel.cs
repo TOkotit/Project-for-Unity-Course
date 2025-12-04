@@ -9,6 +9,7 @@ public class TurretModel
     private float range;
     private float bulletSpeed;
     private float fireCountdown;
+    private TurretType turretType;
     
     private Transform currentTarget;
     private bool isTargetExist;
@@ -37,6 +38,11 @@ public class TurretModel
     {
         get => fireCountdown;
         set => fireCountdown = value;
+    }
+    public TurretType TurretType
+    {
+        get => turretType;
+        set => turretType = value;
     }
     public float BulletSpeed
     {

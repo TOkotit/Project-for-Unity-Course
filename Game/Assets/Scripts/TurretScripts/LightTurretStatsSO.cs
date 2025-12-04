@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LightTurretStatsSO", menuName = "Scriptable Objects/LightTurretStatsSO")]
+[CreateAssetMenu(fileName = "LightTurretStatsSO", menuName = "Stats/LightTurretStatsSO")]
 public class LightTurretStatsSO : ScriptableObject
 {
     [Header("Базовые характеристики")]

@@ -1,13 +1,19 @@
+using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {   
     private BulletModel bulletModel;
-    private ObjectPool<GameObject> pool;
+    private ObjectPool<Bullet> pool;
+
+    public Bullet()
+    {
+        bulletModel = new BulletModel();
+    }
 
     public void Seek(Transform bulletTarget, float bulletDamage, 
-        float bulletSpeed,  ObjectPool<GameObject> bulletPool)
+        float bulletSpeed,  ObjectPool<Bullet> bulletPool)
     {
         bulletModel.Target = bulletTarget;
         bulletModel.Damage = bulletDamage;
@@ -17,9 +23,9 @@ public class Bullet : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (bulletModel.Target == null)
+        if (bulletModel.Target is null)
         {
-            pool.Release(gameObject);
+            pool.Release(this);
             return;
         }
 
@@ -37,11 +43,6 @@ public class Bullet : MonoBehaviour
 
     private void HitTarget()
     {
-        var enemy = bulletModel.Target.GetComponent<Enemy>();
-        if (enemy != null)
-        {
-            enemy.TakeDamage(bulletModel.Damage);
-        }
-        pool.Release(gameObject);
+        pool.Release(this);
     }
 }

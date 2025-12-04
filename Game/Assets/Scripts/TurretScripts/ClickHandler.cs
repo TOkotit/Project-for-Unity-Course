@@ -5,8 +5,6 @@ public class ClickHandler : MonoBehaviour
 {   
     [Header("References")]
     [SerializeField] private Turret turret1;
-    [SerializeField] private Turret turret2;
-    [SerializeField] private Turret turret3;
     [SerializeField] private LayerMask enemyLayer;
     
     private Camera mainCamera;
@@ -27,8 +25,9 @@ public class ClickHandler : MonoBehaviour
             var hit = new RaycastHit();
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, enemyLayer))
-            {
-
+            {   
+                // переделать!
+                turret1.turretModel.CurrentTarget = hit.transform;
                 Debug.Log("Target acquired: " + hit.transform.name);
             }
         }

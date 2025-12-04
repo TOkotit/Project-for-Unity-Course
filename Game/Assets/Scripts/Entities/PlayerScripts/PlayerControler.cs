@@ -11,8 +11,8 @@ namespace Entities.PlayerScripts
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerController : MonoBehaviour
     {
-        [Header("Конфигурация Автомобиля")] [SerializeField]
-        private CarStatsSO carStats;
+        [Header("Конфигурация Автомобиля")] 
+        [SerializeField] private CarStatsSO carStats;
 
         private Player _playerModel;
         private Rigidbody _rb;

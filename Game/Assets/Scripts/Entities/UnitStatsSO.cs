@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace Entities
-{ // Тут и должны быть разные имена??
+{ 
     [CreateAssetMenu(fileName = "NewUnitStats", menuName = "Stats/Unit Stats")] 
     public class UnitStatsSO : ScriptableObject
     {
