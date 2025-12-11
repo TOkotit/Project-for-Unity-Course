@@ -6,11 +6,11 @@ using UnityEngine.Serialization;
 
 public class RoadGenerator : MonoBehaviour
 {
-    public RoadStatsSO RoadStatsSO = ScriptableObject.CreateInstance<RoadStatsSO>(); 
+    public RoadStatsSO RoadStatsSO; 
     
     public List<RoadTile> roadTilePrefabs;
 
-    public LevelStats00 LevelStats = ScriptableObject.CreateInstance<LevelStats00>();
+    public LevelStats00 LevelStats;
     public float RoadSpeed;
     public int VisibleTilesCount;
     public float RecycleThresholdZ;
@@ -20,7 +20,7 @@ public class RoadGenerator : MonoBehaviour
     public void Awake()
     {
         RoadStatsSO.LoadIntoModel(this);
-        
+        roadTilePrefabs = LevelStats.RoadTiles;
         tileLength = MeasureTileLength(roadTilePrefabs[0]);
         
         if (VisibleTilesCount <= 1)

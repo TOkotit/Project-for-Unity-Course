@@ -15,13 +15,13 @@ namespace Levels
         
         public List<EnemyModel> EnemyPoolConfiguration { get; set; } = new()
         {
-            new EnemyModel(),
-            new EnemyModel(),
-            new EnemyModel(),
-            new EnemyModel(),
-            new EnemyModel(),
-            new EnemyModel(),
-            new EnemyModel()
+            new EnemyModel(EnemyType.Car),
+            new EnemyModel(EnemyType.Drone),
+            new EnemyModel(EnemyType.Car),
+            new EnemyModel(EnemyType.Drone),
+            new EnemyModel(EnemyType.Car),
+            new EnemyModel(EnemyType.Car),
+            new EnemyModel(EnemyType.Drone)
         };
 
         public List<int> WavesConfiguration { get; set; } = new() { 3, 2, 2 };

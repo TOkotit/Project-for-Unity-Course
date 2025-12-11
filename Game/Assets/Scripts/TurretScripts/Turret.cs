@@ -26,7 +26,7 @@ public class Turret : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (turretModel.CurrentTarget == null)
+        if (turretModel.CurrentTarget is null)
         {
             return;
         }

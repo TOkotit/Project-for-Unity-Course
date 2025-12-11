@@ -10,12 +10,7 @@ namespace Levels
 
     public class LevelStats00 : ScriptableObject
     {
-        public List<EnemyModel> EnemyPoolConfiguration = new()
-        {
-            new EnemyModel(),
-            new EnemyModel(),
-            new EnemyModel()
-        };
+        public List<EnemyModel> EnemyPoolConfiguration = new();
         public List<int> WavesConfiguration = new() {1, 2};
 
         public List<RoadTile> RoadTiles;
