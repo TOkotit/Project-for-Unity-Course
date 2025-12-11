@@ -27,7 +27,7 @@ namespace Entities.PlayerScripts
                 return;
             }
 
-            _playerModel = new Player();
+            _playerModel = Game.Instance.playerModel;
 
             _rb = GetComponent<Rigidbody>();
 

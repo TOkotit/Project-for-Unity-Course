@@ -10,8 +10,8 @@ namespace System_Scripts.GameRoot
     public class GameEntryPoint
     {
         private static GameEntryPoint _instance;
-        private Coroutines _coroutines;
-        private UIRootView _uiRootView;
+        private readonly Coroutines _coroutines;
+        private readonly UIRootView _uiRootView;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void AfterStart()
@@ -28,17 +28,25 @@ namespace System_Scripts.GameRoot
             
             _instance = new GameEntryPoint();
             _instance.RunGame();
+            
+            
+
         }
+
+
 
         private GameEntryPoint()
         {
             _coroutines = new GameObject("[Coroutines]").AddComponent<Coroutines>();
             Object.DontDestroyOnLoad(_coroutines.gameObject);
-            
+
             var prefabUIRoot = Resources.Load<UIRootView>("UIRoot");
             _uiRootView = Object.Instantiate(prefabUIRoot);
             Object.DontDestroyOnLoad(_uiRootView.gameObject);
-            
+
+            if (Game.Instance == null)
+                Game.Initialize();
+
         }
 
         private void RunGame() 
@@ -77,7 +85,7 @@ namespace System_Scripts.GameRoot
             var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEnrtyPoint>();
             
             
-            if (sceneEntryPoint != null)
+            if (sceneEntryPoint)
             {
                 sceneEntryPoint.Run();
             }
