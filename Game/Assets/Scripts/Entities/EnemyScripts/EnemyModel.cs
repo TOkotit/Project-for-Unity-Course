@@ -5,4 +5,5 @@ public class EnemyModel : Entity_Model
 {
     private EnemyType enemyType;
     
+    
 }
