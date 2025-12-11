@@ -1,8 +1,8 @@
 using UnityEngine;
 
 namespace Entities
-{
-    [CreateAssetMenu(fileName = "NewUnitStats", menuName = "Stats/Unit Stats")]
+{ 
+    [CreateAssetMenu(fileName = "NewUnitStats", menuName = "Stats/Unit Stats")] 
     public class UnitStatsSO : ScriptableObject
     {
         [Header("Базовые характеристики")]
