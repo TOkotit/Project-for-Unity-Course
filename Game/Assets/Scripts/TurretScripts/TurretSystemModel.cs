@@ -19,7 +19,7 @@ public class TurretSystemModel
             turretModels.Add(new TurretModel(type));
         }
     }
-    public List<TurretModel> Turrets
+    public List<TurretModel> TurretModels
     {
         get => turretModels;
         set => turretModels = value;

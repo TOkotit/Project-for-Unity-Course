@@ -17,6 +17,25 @@ public class TurretModel
     {
         this.turretType = turretType;
         
+        switch (turretType)
+        {
+            case TurretType.Heavy: Resources
+                    .Load<HeavyTurretStatsSO>("Config/HeavyTurretStatsSO")
+                    .LoadIntoModel(this);
+                break;
+            case TurretType.Medium: Resources
+                    .Load<MediumTurretStatsSO>("Config/MediumTurretStatsSO")
+                    .LoadIntoModel(this);
+                break;
+            case TurretType.Light: Resources
+                    .Load<LightTurretStatsSO>("Config/LightTurretStatsSO")
+                    .LoadIntoModel(this);
+                break;
+            default: Resources
+                    .Load<HeavyTurretStatsSO>("Config/HeavyTurretStatsSO")
+                    .LoadIntoModel(this);
+                break;
+        }
         
     }
     
