@@ -9,6 +9,14 @@ namespace Road_scripts
 
         [Header("Генерация")] public int visibleTilesCount = 12;
 
-        public float recycleThresholdZ = -20f;
+        public float recycleThresholdZ = -45f;
+
+        public void LoadIntoModel(RoadGenerator roadGenerator)
+        {
+            roadGenerator.RoadSpeed =  roadSpeed;
+            roadGenerator.VisibleTilesCount = visibleTilesCount; 
+            roadGenerator.RecycleThresholdZ = recycleThresholdZ;
+            
+        }
     }
 }
