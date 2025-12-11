@@ -4,33 +4,31 @@ using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {   
-    private BulletModel bulletModel;
     private ObjectPool<Bullet> pool;
 
-    public Bullet()
-    {
-        bulletModel = new BulletModel();
-    }
+    private Transform target;
+    private float damage;
+    private float speed;
 
     public void Seek(Transform bulletTarget, float bulletDamage, 
         float bulletSpeed,  ObjectPool<Bullet> bulletPool)
     {
-        bulletModel.Target = bulletTarget;
-        bulletModel.Damage = bulletDamage;
+        target = bulletTarget;
+        damage = bulletDamage;
         pool = bulletPool;
-        bulletModel.Speed = bulletSpeed;
+        speed = bulletSpeed;
     }
 
     public void FixedUpdate()
     {
-        if (bulletModel.Target is null)
+        if (target != null)
         {
             pool.Release(this);
             return;
         }
 
-        var dir = bulletModel.Target.position - transform.position;
-        var distanceThisFrame = bulletModel.Speed * Time.deltaTime;
+        var dir = target.position - transform.position;
+        var distanceThisFrame = speed * Time.deltaTime;
 
         if (dir.magnitude <= distanceThisFrame)
         {
@@ -42,7 +40,8 @@ public class Bullet : MonoBehaviour
     }
 
     private void HitTarget()
-    {
+    {   
+        //нанесение урона
         pool.Release(this);
     }
 }
