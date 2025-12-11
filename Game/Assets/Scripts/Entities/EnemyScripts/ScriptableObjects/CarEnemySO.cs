@@ -4,9 +4,10 @@ using UnityEngine;
 public class CarEnemySO : ScriptableObject
 {
     [Header("Базовые характеристики")]
-    public float maxHealth = 100f;
+    public float maxHealth = 500f;
     public float baseDamage = 10f;
     public float movementSpeed = 5f;
+    public float fireRate = 0.5f;
 
     [Header("Специфические настройки")]
     public string unitName = "Default Unit";
@@ -16,5 +17,14 @@ public class CarEnemySO : ScriptableObject
     {
         return baseDamage * bonusMultiplier;
     }
-
+    
+    public void LoadIntoModel(EnemyModel enemyModel)
+    {
+        enemyModel.MaxHp = maxHealth;
+        enemyModel.CurrentHp = maxHealth;
+        enemyModel.BaseDamage = baseDamage;
+        enemyModel.Damage = baseDamage;
+        enemyModel.MovementSpeed = movementSpeed;
+        enemyModel.FireRate = fireRate;
+    }
 }
