@@ -10,7 +10,7 @@ public class Game
     public EnemySpawnerModel enemySpawnerModel;
     public Player playerModel;
 
-    public Game()
+    private Game()
     {
         turretSystemModel = new TurretSystemModel();
         enemySpawnerModel = new EnemySpawnerModel();
