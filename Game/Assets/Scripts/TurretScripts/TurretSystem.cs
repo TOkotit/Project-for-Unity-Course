@@ -4,24 +4,12 @@ using UnityEngine;
 
 public class TurretSystem : MonoBehaviour
 {   
-    [SerializeField] private List<Turret> turrets;
-    public TurretSystemModel turretSystemModel;
+    private List<Turret> turrets;
     
-    
-
-    public TurretSystem()
-    {
-        turretSystemModel = new TurretSystemModel();
-    }
+    private TurretSystemModel turretSystemModel;
 
     public void Awake()
     {
-        //var c = GetComponentsInChildren<Turret>();
-        
-        foreach (var t in turrets)
-        {
-            turretSystemModel.Turrets.Add(t.turretModel);
-        }
-        Debug.Log($"Кол-во турелей{turretSystemModel.Turrets.Count}");
+        turretSystemModel = Game.Instance.turretSystemModel;
     }
 }

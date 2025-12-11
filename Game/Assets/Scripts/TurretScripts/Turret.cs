@@ -9,18 +9,15 @@ public class Turret : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     
-    
     public TurretModel turretModel;
     
-    private ScriptableObject scriptableObject;
     private ObjectPool<Bullet> bulletPool;
 
-    public Turret()
-    {
-        turretModel = new TurretModel();
-    }
     public void Awake()
-    {
+    {   
+        // turretModel = Game.Instance.
+        
+        
         bulletPool = new ObjectPool<Bullet>(
             createFunc: () => Instantiate(bulletPrefab, firePoint.position, firePoint.rotation).GetComponent<Bullet>(), 
             actionOnGet: (obj) => obj.gameObject.SetActive(true), 

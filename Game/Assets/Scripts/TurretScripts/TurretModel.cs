@@ -12,6 +12,13 @@ public class TurretModel
     private TurretType turretType;
     
     private Transform currentTarget;
+
+    public TurretModel(TurretType turretType)
+    {
+        this.turretType = turretType;
+        
+        
+    }
     
     public float RotationSpeed
     {

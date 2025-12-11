@@ -2,18 +2,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TurretSystemModel
-{
-    private List<TurretModel> turrets;
+{   
+    private TurretSystemSO turretSystemSO;
+    
+    private List<TurretModel> turretModels;
     private TurretModel currentTurret;
-
+    
     public TurretSystemModel()
-    {
-        turrets = new List<TurretModel>();
+    {   
+        turretSystemSO = Resources.Load<TurretSystemSO>("Config/TurretSystemSO");
+        
+        turretModels = new List<TurretModel>();
+        
+        foreach (var type in turretSystemSO.startTurrets) 
+        {
+            turretModels.Add(new TurretModel(type));
+        }
     }
     public List<TurretModel> Turrets
     {
-        get => turrets;
-        set => turrets = value;
+        get => turretModels;
+        set => turretModels = value;
     }
 
     public TurretModel CurrentTurret
