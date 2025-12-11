@@ -47,7 +47,7 @@ namespace System_Scripts.GameRoot
                 var sceneName = SceneManager.GetActiveScene().name;
                 if (sceneName == Scenes.GAMEPLAY)
                 {
-                    _coroutines.StartCoroutine(LoadAndSrartGame());
+                    _coroutines.StartCoroutine(LoadAndStartGame());
 
                     return;
                 }
@@ -58,15 +58,16 @@ namespace System_Scripts.GameRoot
                 }
             #endif
 
-            _coroutines.StartCoroutine(LoadAndSrartGame());
+            _coroutines.StartCoroutine(LoadAndStartGame());
         }
 
         // ReSharper disable Unity.PerformanceAnalysis
-        private IEnumerator LoadAndSrartGame()
+        private IEnumerator LoadAndStartGame()
         {
             
             _uiRootView.ShowLoadingScreen();
             
+            yield return LoadScene(Scenes.BOOT);
             yield return LoadScene(Scenes.GAMEPLAY);
             
             
