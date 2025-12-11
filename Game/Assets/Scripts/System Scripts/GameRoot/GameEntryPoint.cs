@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using Scripts.GamePlar.Root;
 using Scripts.Utils;
 using System_Scripts.ManagerScripts;
@@ -11,7 +11,7 @@ namespace System_Scripts.GameRoot
     {
         private static GameEntryPoint _instance;
         private readonly Coroutines _coroutines;
-        private readonly UIRootView _uiRootView;
+        private readonly UIRootView _uiRoot;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void AfterStart()
@@ -22,7 +22,7 @@ namespace System_Scripts.GameRoot
             {
                 return;
             }
-            
+
             Application.targetFrameRate = 60;
             
             
@@ -41,8 +41,8 @@ namespace System_Scripts.GameRoot
             Object.DontDestroyOnLoad(_coroutines.gameObject);
 
             var prefabUIRoot = Resources.Load<UIRootView>("UIRoot");
-            _uiRootView = Object.Instantiate(prefabUIRoot);
-            Object.DontDestroyOnLoad(_uiRootView.gameObject);
+            _uiRoot = Object.Instantiate(prefabUIRoot);
+            Object.DontDestroyOnLoad(_uiRoot.gameObject);
 
             if (Game.Instance == null)
                 Game.Initialize();
@@ -55,7 +55,14 @@ namespace System_Scripts.GameRoot
                 var sceneName = SceneManager.GetActiveScene().name;
                 if (sceneName == Scenes.GAMEPLAY)
                 {
-                    _coroutines.StartCoroutine(LoadAndStartGame());
+                    _coroutines.StartCoroutine(LoadAndStartGameplay());
+
+                    return;
+                }
+
+                if (sceneName == Scenes.MAIN_MENU)
+                {
+                    _coroutines.StartCoroutine(LoadAndStartMainMenu());
 
                     return;
                 }
@@ -66,14 +73,14 @@ namespace System_Scripts.GameRoot
                 }
             #endif
 
-            _coroutines.StartCoroutine(LoadAndStartGame());
+            _coroutines.StartCoroutine(LoadAndStartGameplay());
         }
 
         // ReSharper disable Unity.PerformanceAnalysis
-        private IEnumerator LoadAndStartGame()
+        private IEnumerator LoadAndStartGameplay()
         {
             
-            _uiRootView.ShowLoadingScreen();
+            _uiRoot.ShowLoadingScreen();
             
             yield return LoadScene(Scenes.BOOT);
             yield return LoadScene(Scenes.GAMEPLAY);
@@ -82,19 +89,43 @@ namespace System_Scripts.GameRoot
             yield return new WaitForSeconds(2f);
             yield return null;
              
-            var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEnrtyPoint>();
-            
+            var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
             
             if (sceneEntryPoint)
             {
-                sceneEntryPoint.Run();
+                sceneEntryPoint.Run(_uiRoot);
             }
             else
             {
                 Debug.LogError("Ошибка: Не найдена точка входа в сцену Gameplay!");
             }
             GameManager.Instance.SetState(GameState.Gameplay);
-            _uiRootView.HideLoadingScreen();
+            _uiRoot.HideLoadingScreen();
+        }
+
+        private IEnumerator LoadAndStartMainMenu()
+        {
+
+            _uiRoot.ShowLoadingScreen();
+
+            yield return LoadScene(Scenes.BOOT);
+            yield return LoadScene(Scenes.MAIN_MENU);
+
+
+            yield return new WaitForSeconds(2f);
+
+            var sceneEntryPoint = Object.FindFirstObjectByType<MainMenuEntryPoint>();
+
+            if (sceneEntryPoint)
+            {
+                sceneEntryPoint.Run(_uiRoot);
+            }
+            else
+            {
+                Debug.LogError("Ошибка: Не найдена точка входа в сцену MainMenu!");
+            }
+            GameManager.Instance.SetState(GameState.Menu);
+            _uiRoot.HideLoadingScreen();
         }
 
         private IEnumerator LoadScene(string sceneName)
