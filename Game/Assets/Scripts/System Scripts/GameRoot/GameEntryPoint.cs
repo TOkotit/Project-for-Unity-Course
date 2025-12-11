@@ -10,8 +10,8 @@ namespace System_Scripts.GameRoot
     public class GameEntryPoint
     {
         private static GameEntryPoint _instance;
-        private Coroutines _coroutines;
-        private UIRootView _uiRootView;
+        private readonly Coroutines _coroutines;
+        private readonly UIRootView _uiRootView;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void AfterStart()
@@ -76,7 +76,7 @@ namespace System_Scripts.GameRoot
             var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEnrtyPoint>();
             
             
-            if (sceneEntryPoint != null)
+            if (sceneEntryPoint)
             {
                 sceneEntryPoint.Run();
             }
