@@ -4,7 +4,6 @@ namespace Scripts.GamePlar.Root
 {
     public class GameplayEnrtyPoint :  MonoBehaviour
     {
-        [SerializeField] private GameObject _sceneRootBinder;
         
         private void Awake()
         {

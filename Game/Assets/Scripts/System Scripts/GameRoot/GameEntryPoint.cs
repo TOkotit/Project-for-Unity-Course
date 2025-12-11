@@ -28,17 +28,25 @@ namespace System_Scripts.GameRoot
             
             _instance = new GameEntryPoint();
             _instance.RunGame();
+            
+            
+
         }
+
+
 
         private GameEntryPoint()
         {
             _coroutines = new GameObject("[Coroutines]").AddComponent<Coroutines>();
             Object.DontDestroyOnLoad(_coroutines.gameObject);
-            
+
             var prefabUIRoot = Resources.Load<UIRootView>("UIRoot");
             _uiRootView = Object.Instantiate(prefabUIRoot);
             Object.DontDestroyOnLoad(_uiRootView.gameObject);
-            
+
+            if (Game.Instance == null)
+                Game.Initialize();
+
         }
 
         private void RunGame() 
