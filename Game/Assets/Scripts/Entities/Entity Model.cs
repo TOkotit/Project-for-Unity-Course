@@ -19,11 +19,17 @@ namespace Scripts.Entities
         public readonly HealthParamEvent MaxHpChanged = new();
 
         public readonly UnityEvent ImJustDie = new();
-        
-        
-        
-        public float MaxHp => _maxHp;
-        public float CurrentHp => _currentHp;
+
+        public float MaxHp {
+            get => _maxHp;
+            set => _maxHp = value;
+        }
+
+        public float CurrentHp
+        {
+            get => _currentHp;
+            set => _currentHp = value;
+        }
 
         public Entity_Model()
         {
@@ -45,9 +51,9 @@ namespace Scripts.Entities
 
             _currentHp -= damage;
             
-            _currentHp = Mathf.Clamp(_currentHp, 0, _maxHp); 
+            _currentHp = Mathf.Clamp(_currentHp, 0, MaxHp); 
             
-            CurrentHpChanged.Invoke(_currentHp, _maxHp);
+            CurrentHpChanged.Invoke(_currentHp, MaxHp);
             
             if (_currentHp <= 0)
                 ImJustDie.Invoke();

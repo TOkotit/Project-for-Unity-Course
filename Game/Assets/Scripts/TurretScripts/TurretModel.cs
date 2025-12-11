@@ -14,29 +14,28 @@ public class TurretModel
     private Transform currentTarget;
 
     public TurretModel(TurretType turretType)
-    {
+    {   
         this.turretType = turretType;
-        
+
         switch (turretType)
         {
-            case TurretType.Heavy: Resources
-                    .Load<HeavyTurretStatsSO>("Config/HeavyTurretStatsSO")
+            case TurretType.Heavy:
+                ScriptableObject.CreateInstance<HeavyTurretStatsSO>()
                     .LoadIntoModel(this);
                 break;
-            case TurretType.Medium: Resources
-                    .Load<MediumTurretStatsSO>("Config/MediumTurretStatsSO")
+            case TurretType.Medium:
+                ScriptableObject.CreateInstance<MediumTurretStatsSO>()
                     .LoadIntoModel(this);
                 break;
-            case TurretType.Light: Resources
-                    .Load<LightTurretStatsSO>("Config/LightTurretStatsSO")
+            case TurretType.Light:
+                ScriptableObject.CreateInstance<LightTurretStatsSO>()
                     .LoadIntoModel(this);
                 break;
-            default: Resources
-                    .Load<HeavyTurretStatsSO>("Config/HeavyTurretStatsSO")
+            default:
+                ScriptableObject.CreateInstance<HeavyTurretStatsSO>()
                     .LoadIntoModel(this);
                 break;
         }
-        
     }
     
     public float RotationSpeed

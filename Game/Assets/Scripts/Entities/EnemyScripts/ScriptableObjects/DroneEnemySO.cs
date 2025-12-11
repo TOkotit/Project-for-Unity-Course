@@ -5,8 +5,10 @@ public class DroneEnemySO : ScriptableObject
 {
     [Header("Базовые характеристики")]
     public float maxHealth = 100f;
-    public float baseDamage = 10f;
-    public float movementSpeed = 5f;
+    public float baseDamage = 30f;
+    public float movementSpeed = 10f;
+    public float fireRate = 0.5f;
+
 
     [Header("Специфические настройки")]
     public string unitName = "Default Unit";
@@ -15,5 +17,15 @@ public class DroneEnemySO : ScriptableObject
     public float GetEffectiveDamage(float bonusMultiplier)
     {
         return baseDamage * bonusMultiplier;
+    }
+    
+    public void LoadIntoModel(EnemyModel enemyModel)
+    {
+        enemyModel.MaxHp = maxHealth;
+        enemyModel.CurrentHp = maxHealth;
+        enemyModel.BaseDamage = baseDamage;
+        enemyModel.Damage = baseDamage;
+        enemyModel.MovementSpeed = movementSpeed;
+        enemyModel.FireRate = fireRate;
     }
 }
