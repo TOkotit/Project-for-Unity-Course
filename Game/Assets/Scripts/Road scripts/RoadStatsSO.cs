@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Road_scripts
@@ -10,6 +11,7 @@ namespace Road_scripts
         [Header("Генерация")] public int visibleTilesCount = 12;
 
         public float recycleThresholdZ = -45f;
+        
 
         public void LoadIntoModel(RoadGenerator roadGenerator)
         {

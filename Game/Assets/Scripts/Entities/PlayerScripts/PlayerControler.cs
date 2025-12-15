@@ -26,11 +26,19 @@ namespace Entities.PlayerScripts
                 carStats = Resources.Load<CarStatsSO>("Config/CarStatsSO");
             }
 
-            _playerModel = Game.Instance.playerModel;
+            if (Game.Instance != null)
+            {
+                _playerModel = Game.Instance.playerModel;
+            }
+            else
+            { 
+                _playerModel.Initialize(carStats);
+            }
+            
 
             _rb = GetComponent<Rigidbody>();
 
-            _rb.constraints = carStats.constraints;
+            _rb.constraints = _playerModel.constraints;
 
             _playerModel.ImJustDie.AddListener(HandleDeath);
         }
@@ -52,29 +60,29 @@ namespace Entities.PlayerScripts
 
         public void FixedUpdate()
         {
-            var xVelocity = _moveInput.x * carStats.SideSpeed;
+            var xVelocity = _moveInput.x * _playerModel.SideSpeed;
             _rb.linearVelocity = new Vector3(xVelocity, _rb.linearVelocity.y, 0f); 
 
             var currentPosition = _rb.position;
-            var clampedX = Mathf.Clamp(currentPosition.x, -carStats.maxSidePosition, carStats.maxSidePosition);
+            var clampedX = Mathf.Clamp(currentPosition.x, -_playerModel.maxSidePosition, _playerModel.maxSidePosition);
             
-            _rb.position = new Vector3(clampedX, carStats.fixedYPosition, currentPosition.z);
+            _rb.position = new Vector3(clampedX, _playerModel.fixedYPosition, currentPosition.z);
 
             ApplySteerRotation(currentPosition);
         }
 
         private void ApplySteerRotation(Vector3 currentPosition)
         {
-            var targetAngle = _moveInput.x * carStats.maxSteerAngle;
-            var currentRotationSpeed = carStats.rotationSpeed;
+            var targetAngle = _moveInput.x * _playerModel.maxSteerAngle;
+            var currentRotationSpeed = _playerModel.rotationSpeed;
 
-            var atRightBoundary = currentPosition.x >= carStats.maxSidePosition - 0.01f && _moveInput.x > 0;
-            var atLeftBoundary = currentPosition.x <= -carStats.maxSidePosition + 0.01f && _moveInput.x < 0;
+            var atRightBoundary = currentPosition.x >= _playerModel.maxSidePosition - 0.01f && _moveInput.x > 0;
+            var atLeftBoundary = currentPosition.x <= -_playerModel.maxSidePosition + 0.01f && _moveInput.x < 0;
 
             if (atRightBoundary || atLeftBoundary || _moveInput.x == 0)
             {
                 targetAngle = 0;
-                currentRotationSpeed = carStats.snapBackSpeed;
+                currentRotationSpeed = _playerModel.snapBackSpeed;
             }
 
             var targetRotation = Quaternion.Euler(0, targetAngle, 0);

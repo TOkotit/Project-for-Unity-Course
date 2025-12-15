@@ -10,8 +10,17 @@ namespace Levels
 
     public class LevelStats00 : ScriptableObject
     {
-        public List<EnemyModel> EnemyPoolConfiguration = new();
-        public List<int> WavesConfiguration = new() {1, 2};
+        public List<EnemyModel> EnemyPoolConfiguration = new()
+        {
+            new EnemyModel(EnemyType.Car),
+            new EnemyModel(EnemyType.Drone),
+            new EnemyModel(EnemyType.Car),
+            new EnemyModel(EnemyType.Drone),
+            new EnemyModel(EnemyType.Car),
+            new EnemyModel(EnemyType.Car),
+            new EnemyModel(EnemyType.Drone)
+        };
+        public List<int> WavesConfiguration = new() { 3, 2, 2 };
 
         [SerializeField] public List<RoadTile> RoadTiles;
         

@@ -1,3 +1,4 @@
+using Scripts.Entities;
 using UnityEngine;
 
 namespace Truck_Sripts
@@ -20,5 +21,16 @@ namespace Truck_Sripts
             RigidbodyConstraints.FreezePositionY |
             RigidbodyConstraints.FreezeRotationX | 
             RigidbodyConstraints.FreezeRotationZ;
+        
+        public void LoadIntoModel(Player player)
+        {
+            player.SideSpeed = SideSpeed;
+            player.maxSidePosition = maxSidePosition;
+            player.maxSteerAngle = maxSteerAngle;
+            player.rotationSpeed = rotationSpeed;
+            player.snapBackSpeed = snapBackSpeed;
+            player.constraints = constraints;
+            player.fixedYPosition = fixedYPosition;
+        }
     }
 }

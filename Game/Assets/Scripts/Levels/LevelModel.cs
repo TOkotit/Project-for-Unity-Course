@@ -6,47 +6,41 @@ namespace Levels
 {
     public class LevelModel
     {
-        private List<EnemyModel>  enemies;
+        private List<EnemyModel>  currentEnemiesOnLevelModels = new();
         public UnityEvent EnemiesWaveStarted = new();
         public UnityEvent EnemiesWaveFinished = new();
         
-        private LevelStats00 LevelDataSO = Resources.Load<LevelStats00>("Config/Level1StatsSO");
+        public List<EnemyModel> EnemyPoolConfiguration { get; set; } = new();
+        public List<int> WavesConfiguration { get; set; } = new();
 
-        
-        public List<EnemyModel> EnemyPoolConfiguration { get; set; } = new()
+        public List<EnemyModel> CurrentEnemiesOnLevelModels
         {
-            new EnemyModel(EnemyType.Car),
-            new EnemyModel(EnemyType.Drone),
-            new EnemyModel(EnemyType.Car),
-            new EnemyModel(EnemyType.Drone),
-            new EnemyModel(EnemyType.Car),
-            new EnemyModel(EnemyType.Car),
-            new EnemyModel(EnemyType.Drone)
-        };
-
-        public List<int> WavesConfiguration { get; set; } = new() { 3, 2, 2 };
-
-        public List<EnemyModel> CurrentEnemiesOnLevel
-        {
-            get => enemies;
+            get => currentEnemiesOnLevelModels;
             set
             {
-                enemies = value;
-                if (enemies.Count == 0)
+                currentEnemiesOnLevelModels = value;
+                if (currentEnemiesOnLevelModels != null && currentEnemiesOnLevelModels.Count == 0)
                 {
                     EnemiesWaveFinished.Invoke();
                 }
             }
         }
-
-        public LevelModel()
+        
+        public LevelModel() 
         {
-            LevelDataSO.LoadIntoModel(this);
+            }
+        public void Initialize(LevelStats00 _levelDataSO)
+        {
+            _levelDataSO.LoadIntoModel(this);
         }
         public List<EnemyModel> GetNextEnemyWave()
         {
-            if (CurrentEnemiesOnLevel.Count == 0)
+            
+            if (WavesConfiguration.Count == 0)
+            {
+                Debug.Log("Волны закончились!");
                 return null;
+            }
             
             var waveSize = WavesConfiguration[0];
             WavesConfiguration.RemoveAt(0);
@@ -57,17 +51,30 @@ namespace Levels
             {
                 if (EnemyPoolConfiguration.Count > 0)
                 {
-                    waveEnemies.Add(EnemyPoolConfiguration[0]);
+                    var newEnemy = EnemyPoolConfiguration[0];
+                    waveEnemies.Add(newEnemy);
                     EnemyPoolConfiguration.RemoveAt(0);
+                    currentEnemiesOnLevelModels.Add(newEnemy);
                 }
                 else
                 {
-                    UnityEngine.Debug.LogError("Ошибка конфигурации: Пул врагов закончился раньше, чем волны.");
+                    Debug.LogError("Ошибка конфигурации: Пул врагов закончился раньше, чем волны.");
                     break; 
                 }
             }
             EnemiesWaveStarted.Invoke();
             return waveEnemies;
+        }
+        
+        public void RemoveEnemy(EnemyModel enemy)
+        {
+            if(CurrentEnemiesOnLevelModels.Contains(enemy))
+                CurrentEnemiesOnLevelModels.Remove(enemy);
+            
+            if (CurrentEnemiesOnLevelModels.Count == 0)
+            {
+                EnemiesWaveFinished.Invoke();
+            }
         }
         
     }
