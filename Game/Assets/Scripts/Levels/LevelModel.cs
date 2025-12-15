@@ -10,7 +10,7 @@ namespace Levels
         public UnityEvent EnemiesWaveStarted = new();
         public UnityEvent EnemiesWaveFinished = new();
         
-        private LevelStats00 LevelDataSO = ScriptableObject.CreateInstance<LevelStats00>();
+        private LevelStats00 LevelDataSO = Resources.Load<LevelStats00>("Config/Level1StatsSO");
 
         
         public List<EnemyModel> EnemyPoolConfiguration { get; set; } = new()

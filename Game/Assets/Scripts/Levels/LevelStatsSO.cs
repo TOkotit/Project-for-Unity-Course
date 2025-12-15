@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 namespace Levels
 {
-    [CreateAssetMenu(fileName = "Level1Stats", menuName = "Stats/Level Stats")]
+    [CreateAssetMenu(fileName = "Level1Stats", menuName = "LevelStats/Level1StatsSO")]
 
     public class LevelStats00 : ScriptableObject
     {
