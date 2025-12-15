@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8665277042879471531}
   - component: {fileID: 8660206267334171697}
   - component: {fileID: 1719365960159559596}
+  - component: {fileID: 3901606984615767214}
   m_Layer: 0
   m_Name: HeavyTurret
   m_TagString: Untagged
@@ -89,6 +90,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3901606984615767214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4297209994525133210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d37cc02d54f18a40addd6f7d1b918e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 2473813892723060304, guid: 302de5a493d0bbf42a9d489904df9e6e, type: 3}
+  firePoint: {fileID: 547417638339413609}
 --- !u!1001 &962411600806814432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -197,11 +212,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4901666907410412226, guid: 7eb28d46a18514348a2a92469c8b1792, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7eb28d46a18514348a2a92469c8b1792, type: 3}
+--- !u!4 &547417638339413609 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 775741949558596745, guid: 7eb28d46a18514348a2a92469c8b1792, type: 3}
+  m_PrefabInstance: {fileID: 962411600806814432}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7628170497699908926 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7243926641813663710, guid: 7eb28d46a18514348a2a92469c8b1792, type: 3}

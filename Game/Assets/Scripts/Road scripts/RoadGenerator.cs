@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using Levels;
 using Road_scripts;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class RoadGenerator : MonoBehaviour
 {
@@ -17,8 +19,19 @@ public class RoadGenerator : MonoBehaviour
     private float tileLength; 
     private List<RoadTile> activeRoadTiles = new();
 
+
     public void Awake()
     {
+        if (LevelStats == null)
+        {
+            LevelStats = Resources.Load<LevelStats00>("Config/Level1Stats"); 
+        }
+
+        if (RoadStatsSO == null)
+        {
+            RoadStatsSO = Resources.Load<RoadStatsSO>("Config/RoadStats");
+        }    
+        
         RoadStatsSO.LoadIntoModel(this);
         roadTilePrefabs = LevelStats.RoadTiles;
         tileLength = MeasureTileLength(roadTilePrefabs[0]);
@@ -31,7 +44,6 @@ public class RoadGenerator : MonoBehaviour
         
         SpawnInitialRoad();
     }
-
     private static float MeasureTileLength(RoadTile tilePrefab)
     {
         var renderer = tilePrefab.GetComponent<Renderer>();
