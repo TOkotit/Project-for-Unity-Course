@@ -33,7 +33,7 @@ namespace Scripts.Entities
 
         public Entity_Model()
         {
-            var settings = Resources.Load<UnitStatsSO>("Config/BaseUnitStats");
+            var settings = Resources.Load<UnitStatsSO>("Config/BaseEntityStatsSO");
             
             if (!settings)
             {

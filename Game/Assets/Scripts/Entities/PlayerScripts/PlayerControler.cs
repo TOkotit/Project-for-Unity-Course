@@ -23,8 +23,7 @@ namespace Entities.PlayerScripts
         {
             if (carStats is null)
             {
-                Debug.LogError("PlayerController: CarStatsSO не назначен! Назначьте его в Инспекторе.");
-                return;
+                carStats = Resources.Load<CarStatsSO>("Config/CarStatsSO");
             }
 
             _playerModel = Game.Instance.playerModel;

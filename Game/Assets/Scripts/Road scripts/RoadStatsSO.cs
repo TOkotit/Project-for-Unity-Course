@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Road_scripts
 {
-    [CreateAssetMenu(fileName = "RoadStats", menuName = "Stats/Road Stats")]
+    [CreateAssetMenu(fileName = "RoadStats", menuName = "RoadStats/RoadStatsSO")]
     public class RoadStatsSO : ScriptableObject
     {
         public float roadSpeed = 15f;

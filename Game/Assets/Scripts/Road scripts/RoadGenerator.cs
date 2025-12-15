@@ -24,12 +24,12 @@ public class RoadGenerator : MonoBehaviour
     {
         if (LevelStats == null)
         {
-            LevelStats = Resources.Load<LevelStats00>("Config/Level1Stats"); 
+            LevelStats = Resources.Load<LevelStats00>("Config/Level1StatsSO"); 
         }
 
         if (RoadStatsSO == null)
         {
-            RoadStatsSO = Resources.Load<RoadStatsSO>("Config/RoadStats");
+            RoadStatsSO = Resources.Load<RoadStatsSO>("Config/RoadStatsSO");
         }    
         
         RoadStatsSO.LoadIntoModel(this);
