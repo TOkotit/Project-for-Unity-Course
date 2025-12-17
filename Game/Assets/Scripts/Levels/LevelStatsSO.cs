@@ -48,8 +48,8 @@ namespace Levels
 
         public void LoadIntoModel(LevelModel levelModel)
         {
-            levelModel.EnemyPoolConfiguration = EnemyPoolConfiguration;
-            levelModel.WavesConfiguration = WavesConfiguration;
+            levelModel.EnemyPoolConfiguration = new List<EnemyModel>(EnemyPoolConfiguration);
+            levelModel.WavesConfiguration = new List<int>(WavesConfiguration);
         }
     }
 }

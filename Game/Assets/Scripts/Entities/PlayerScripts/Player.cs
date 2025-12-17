@@ -10,17 +10,6 @@ namespace Scripts.Entities
 {
     public class Player : Entity_Model
     {
-        
-        public float SideSpeed;
-        public float maxSidePosition;
-        public float maxSteerAngle;
-        public float rotationSpeed;
-        public float snapBackSpeed;
-        public float fixedYPosition;
-            
-        public RigidbodyConstraints constraints;
-        
-        
         public int CurrentWeaponIndex { get; private set; } 
         
         public readonly UnityEvent OnWeaponSwitched = new(); 
@@ -34,8 +23,6 @@ namespace Scripts.Entities
         {
             carStatsSO.LoadIntoModel(this);
         }
-        
-        
         public void SwitchWeapon(int newIndex)
         {
             if (newIndex == CurrentWeaponIndex) return;

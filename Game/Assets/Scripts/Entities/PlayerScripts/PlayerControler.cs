@@ -14,6 +14,15 @@ namespace Entities.PlayerScripts
         [Header("Конфигурация Автомобиля")] 
         [SerializeField] private CarStatsSO carStats;
 
+        
+        public float SideSpeed;
+        public float maxSidePosition;
+        public float maxSteerAngle;
+        public float rotationSpeed;
+        public float snapBackSpeed;
+        public float fixedYPosition;
+        public RigidbodyConstraints constraints;
+        
         private Player _playerModel;
         private Rigidbody _rb;
         private Vector2 _moveInput;
@@ -29,18 +38,21 @@ namespace Entities.PlayerScripts
             if (Game.Instance != null)
             {
                 _playerModel = Game.Instance.playerModel;
-            }
-            else
-            { 
                 _playerModel.Initialize(carStats);
             }
-            
+            else
+            {
+                Debug.Log(Game.Instance is null);
+                _playerModel.Initialize(carStats);
+            }
 
+            carStats.LoadIntoController(this);
+           
             _rb = GetComponent<Rigidbody>();
 
-            _rb.constraints = _playerModel.constraints;
+            _rb.constraints = constraints;
 
-            _playerModel.ImJustDie.AddListener(HandleDeath);
+            _playerModel.OnDeath.AddListener(HandleDeath);
         }
         
 
@@ -60,33 +72,39 @@ namespace Entities.PlayerScripts
 
         public void FixedUpdate()
         {
-            var xVelocity = _moveInput.x * _playerModel.SideSpeed;
+            var xVelocity = _moveInput.x * SideSpeed;
             _rb.linearVelocity = new Vector3(xVelocity, _rb.linearVelocity.y, 0f); 
 
             var currentPosition = _rb.position;
-            var clampedX = Mathf.Clamp(currentPosition.x, -_playerModel.maxSidePosition, _playerModel.maxSidePosition);
+            var clampedX = Mathf.Clamp(currentPosition.x, -maxSidePosition, maxSidePosition);
             
-            _rb.position = new Vector3(clampedX, _playerModel.fixedYPosition, currentPosition.z);
+            _rb.position = new Vector3(clampedX, fixedYPosition, currentPosition.z);
 
             ApplySteerRotation(currentPosition);
         }
 
         private void ApplySteerRotation(Vector3 currentPosition)
         {
-            var targetAngle = _moveInput.x * _playerModel.maxSteerAngle;
-            var currentRotationSpeed = _playerModel.rotationSpeed;
+            var targetAngle = _moveInput.x * maxSteerAngle;
+            var currentRotationSpeed = rotationSpeed;
 
-            var atRightBoundary = currentPosition.x >= _playerModel.maxSidePosition - 0.01f && _moveInput.x > 0;
-            var atLeftBoundary = currentPosition.x <= -_playerModel.maxSidePosition + 0.01f && _moveInput.x < 0;
+            var atRightBoundary = currentPosition.x >= maxSidePosition - 0.01f && _moveInput.x > 0;
+            var atLeftBoundary = currentPosition.x <= -maxSidePosition + 0.01f && _moveInput.x < 0;
 
-            if (atRightBoundary || atLeftBoundary || _moveInput.x == 0)
+            if (atRightBoundary || atLeftBoundary || Mathf.Abs(_moveInput.x) < 0.01f)
             {
                 targetAngle = 0;
-                currentRotationSpeed = _playerModel.snapBackSpeed;
+                currentRotationSpeed = snapBackSpeed;
             }
 
             var targetRotation = Quaternion.Euler(0, targetAngle, 0);
+
             _rb.rotation = Quaternion.Slerp(_rb.rotation, targetRotation, Time.fixedDeltaTime * currentRotationSpeed);
+            
+            if (Mathf.Abs(_moveInput.x) < 0.01f && Quaternion.Angle(_rb.rotation, Quaternion.identity) < 0.1f)
+            {
+                _rb.rotation = Quaternion.identity;
+            }
         }
 
 

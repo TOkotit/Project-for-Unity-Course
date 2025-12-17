@@ -31,6 +31,12 @@ public class TurretSystem : MonoBehaviour
     {
         var newTurret = Instantiate(prefab, gameObject.transform.position, Quaternion.identity)
             .GetComponent<Turret>();
+        
+        newTurret.transform.SetParent(this.transform);
+        
+        newTurret.transform.localPosition = Vector3.zero;
+        newTurret.transform.localRotation = Quaternion.identity;
+
         newTurret.turretModel = model;
         turrets.Add(newTurret);
     }

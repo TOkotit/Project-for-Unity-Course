@@ -26,16 +26,19 @@ namespace Levels
         public void Awake()
         {
             
-            if (LevelStats is null)
-                LevelStats = Resources.Load<LevelStats00>("Config/LevelStats00");
+            if (LevelStats == null)
+                LevelStats = Resources.Load<LevelStats00>("Config/Level1StatsSO");
             
             if (Game.Instance != null)
             {
                 _levelModel = Game.Instance.levelModel;
+                _levelModel.Initialize(LevelStats);
             }
-            else
+            if (_levelModel == null)
             {
-                _levelModel.Initialize(LevelStats); 
+                Debug.LogError("LevelController: LevelModel не найден в Game.Instance! " +
+                               "Проверьте Script Execution Order для GameplayEntryPoint.");
+                return;
             }
             
             
@@ -57,8 +60,18 @@ namespace Levels
                     break;
                 }
 
+                Vector3 positionToSpawn;
                 var prefabToSpawn = enemyModel.EnemyType == EnemyType.Car ? carPrefab : dronePrefab;
-                var newEnemyObject = Instantiate(prefabToSpawn, spot.Position, Quaternion.identity);
+                if (enemyModel.EnemyType == EnemyType.Drone)
+                {
+                    positionToSpawn = spot.Position + Vector3.up * 6;
+                }
+                else
+                {
+                    positionToSpawn = spot.Position;
+                }
+                
+                var newEnemyObject = Instantiate(prefabToSpawn, positionToSpawn, Quaternion.identity);
                 newEnemyObject.Initialize(enemyModel);
                 spot.IsFree = false; 
                 _spawnedEnemyViews.Add(newEnemyObject);

@@ -16,14 +16,7 @@ namespace Levels
         public List<EnemyModel> CurrentEnemiesOnLevelModels
         {
             get => currentEnemiesOnLevelModels;
-            set
-            {
-                currentEnemiesOnLevelModels = value;
-                if (currentEnemiesOnLevelModels != null && currentEnemiesOnLevelModels.Count == 0)
-                {
-                    EnemiesWaveFinished.Invoke();
-                }
-            }
+            set => currentEnemiesOnLevelModels = value;
         }
         
         public LevelModel() 
@@ -31,6 +24,12 @@ namespace Levels
             }
         public void Initialize(LevelStats00 _levelDataSO)
         {
+            if (_levelDataSO == null)
+            {
+                Debug.LogError("LevelModel: Попытка инициализации NULL конфигом!");
+                return;
+            }
+            
             _levelDataSO.LoadIntoModel(this);
         }
         public List<EnemyModel> GetNextEnemyWave()
@@ -73,6 +72,7 @@ namespace Levels
             
             if (CurrentEnemiesOnLevelModels.Count == 0)
             {
+                Debug.Log("Волна зачищена!");
                 EnemiesWaveFinished.Invoke();
             }
         }
