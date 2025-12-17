@@ -38,6 +38,7 @@ namespace Truck_Sripts
         public void LoadIntoModel(Player player)
         {
             player.MaxHp =  maxHP;
+            player.CurrentHp = maxHP;
         }
     }
 }

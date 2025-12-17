@@ -7,6 +7,8 @@ namespace Levels
     public class LevelController : MonoBehaviour
     {
         [SerializeField] public LevelStats00 LevelStats;
+        [SerializeField] public CarEnemySO CarEnemyStats;
+        [SerializeField] public DroneEnemySO DroneStats;
         
         [Header("Prefabs")]
         [SerializeField] private Enemy carPrefab;
@@ -28,6 +30,10 @@ namespace Levels
             
             if (LevelStats == null)
                 LevelStats = Resources.Load<LevelStats00>("Config/Level1StatsSO");
+            if (CarEnemyStats == null)
+                CarEnemyStats = Resources.Load<CarEnemySO>("Config/CarEnemyStatsSO");
+            if (DroneStats == null)
+                DroneStats = Resources.Load<DroneEnemySO>("Config/DroneEnemyStatsSO");
             
             if (Game.Instance != null)
             {
@@ -40,7 +46,6 @@ namespace Levels
                                "Проверьте Script Execution Order для GameplayEntryPoint.");
                 return;
             }
-            
             
             SpawnNextWave();
         }
@@ -59,8 +64,18 @@ namespace Levels
                     Debug.LogError("Нет свободных мест для спавна!");
                     break;
                 }
+                
+                if (enemyModel.EnemyType == EnemyType.Car)
+                {
+                    enemyModel.LoadStatsFromSO(CarEnemyStats); 
+                }
+                else if (enemyModel.EnemyType == EnemyType.Drone)
+                {
+                    enemyModel.LoadStatsFromSO(DroneStats);
+                }
 
                 Vector3 positionToSpawn;
+                
                 var prefabToSpawn = enemyModel.EnemyType == EnemyType.Car ? carPrefab : dronePrefab;
                 if (enemyModel.EnemyType == EnemyType.Drone)
                 {

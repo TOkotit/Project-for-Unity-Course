@@ -53,6 +53,8 @@ namespace Entities.PlayerScripts
             _rb.constraints = constraints;
 
             _playerModel.OnDeath.AddListener(HandleDeath);
+            
+            Debug.Log($"Игрок создан с {_playerModel.MaxHp} здоровья");
         }
         
 
@@ -107,11 +109,42 @@ namespace Entities.PlayerScripts
             }
         }
 
-
+        
+        
         private void OnTriggerEnter(Collider other)
         {
+            
             if (other.CompareTag("Enemy"))
-                _playerModel.TakeDamage(10f);
+            {
+                if (other.TryGetComponent(out Enemy enemyScript))
+                {
+                    var enemyModel = enemyScript.Model;
+                    if (enemyModel == null) return;
+                    CalculateCollisionDamage(_playerModel, enemyModel);
+                }
+            }
+        }
+
+        private void CalculateCollisionDamage(Player player, EnemyModel enemy)
+        {
+            Debug.Log($"Player {_playerModel.CurrentHp} HP\n" +
+                      $"Enemy {enemy.CurrentHp} HP");
+            
+            
+            
+            var baseDamage = 20f; 
+
+            var ratio = player.CurrentHp / enemy.CurrentHp;
+
+            ratio = Mathf.Clamp(ratio, 0.1f, 10f);
+
+            var damageToPlayer = baseDamage / ratio;
+            var damageToEnemy = baseDamage * ratio;
+
+            player.TakeDamage(damageToPlayer);
+            enemy.TakeDamage(damageToEnemy);
+
+            Debug.Log($"Столкновение! Ratio: {ratio:F2}. Игрок получил: {damageToPlayer:F1}, Враг получил: {damageToEnemy:F1}");
         }
         
         private void HandleDeath()

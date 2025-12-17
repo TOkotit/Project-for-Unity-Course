@@ -4,7 +4,7 @@ using UnityEngine;
 public class CarEnemySO : ScriptableObject
 {
     [Header("Базовые характеристики")]
-    public float maxHealth = 500f;
+    public float maxHealth = 50f;
     public float baseDamage = 10f;
     public float movementSpeed = 5f;
     public float fireRate = 0.5f;

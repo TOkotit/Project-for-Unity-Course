@@ -334,7 +334,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.92, y: 1.29, z: 6.73}
+  m_Size: {x: 2.5, y: 1.29, z: 6.73}
   m_Center: {x: 0, y: 1.8, z: -0.5031637}
 --- !u!114 &7357928574637548089
 MonoBehaviour:
@@ -349,6 +349,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carStats: {fileID: 11400000, guid: 656b325076acf854caba839fa42a7dc7, type: 2}
+  SideSpeed: 0
+  maxSidePosition: 0
+  maxSteerAngle: 0
+  rotationSpeed: 0
+  snapBackSpeed: 0
+  fixedYPosition: 0
+  constraints: 0
 --- !u!1 &2832053649929983174
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,7 +680,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d37cc02d54f18a40addd6f7d1b918e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretType: 2
   bulletPrefab: {fileID: 2473813892723060304, guid: 022330e415ef7c14dbe20b94b763e144, type: 3}
   firePoint: {fileID: 1271214973285909095}
 --- !u!1 &5916559958846885493
@@ -973,6 +979,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e465c6c6e0125419fe9ed619f33122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heavyTurretPrefab: {fileID: 0}
+  mediumTurretPrefab: {fileID: 0}
+  lightTurretPrefab: {fileID: 0}
+  turrets: []
 --- !u!1 &8058274718900801536
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,7 +1085,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d37cc02d54f18a40addd6f7d1b918e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretType: 1
   bulletPrefab: {fileID: 2473813892723060304, guid: 022330e415ef7c14dbe20b94b763e144, type: 3}
   firePoint: {fileID: 3670396008370222458}
 --- !u!1 &8271149225542881355
@@ -1512,6 +1521,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d37cc02d54f18a40addd6f7d1b918e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretType: 0
   bulletPrefab: {fileID: 2473813892723060304, guid: 302de5a493d0bbf42a9d489904df9e6e, type: 3}
   firePoint: {fileID: 2444763147057529734}
