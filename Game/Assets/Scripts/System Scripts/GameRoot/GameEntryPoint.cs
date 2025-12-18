@@ -28,9 +28,6 @@ namespace System_Scripts.GameRoot
             
             _instance = new GameEntryPoint();
             _instance.RunGame();
-            
-            
-
         }
 
 
@@ -73,7 +70,7 @@ namespace System_Scripts.GameRoot
                 }
             #endif
 
-            _coroutines.StartCoroutine(LoadAndStartGameplay());
+            _coroutines.StartCoroutine(LoadAndStartMainMenu());
         }
 
         // ReSharper disable Unity.PerformanceAnalysis
@@ -84,21 +81,24 @@ namespace System_Scripts.GameRoot
             
             yield return LoadScene(Scenes.BOOT);
             yield return LoadScene(Scenes.GAMEPLAY);
-            
-            
+
             yield return new WaitForSeconds(2f);
-            yield return null;
-             
+
             var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
-            
             if (sceneEntryPoint)
             {
-                sceneEntryPoint.Run(_uiRoot);
+               sceneEntryPoint.Run(_uiRoot);
             }
             else
             {
                 Debug.LogError("Ошибка: Не найдена точка входа в сцену Gameplay!");
             }
+
+            sceneEntryPoint.GoToMainMenuSceneRequested += () =>
+            {
+                _coroutines.StartCoroutine(LoadAndStartMainMenu());
+            };
+
             GameManager.Instance.SetState(GameState.Gameplay);
             _uiRoot.HideLoadingScreen();
         }
@@ -124,6 +124,12 @@ namespace System_Scripts.GameRoot
             {
                 Debug.LogError("Ошибка: Не найдена точка входа в сцену MainMenu!");
             }
+
+            sceneEntryPoint.GoToGameplaySceneRequested += () =>
+            {
+                _coroutines.StartCoroutine(LoadAndStartGameplay());
+            };
+
             GameManager.Instance.SetState(GameState.Menu);
             _uiRoot.HideLoadingScreen();
         }

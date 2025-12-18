@@ -30,7 +30,6 @@ public class MainMenu : MonoBehaviour
     private void OnClickStart()
     {
         Debug.Log("Нажата кнопка новая игра");
-        SceneManager.LoadScene("MainGame");
     }
     private void OnClickOptions()
     {

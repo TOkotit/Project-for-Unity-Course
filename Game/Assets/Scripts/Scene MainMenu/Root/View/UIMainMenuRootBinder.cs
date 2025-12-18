@@ -5,7 +5,7 @@ public class UIMainMenuRootBinder : MonoBehaviour
 {
     public event Action GoToGameplayButtonClicked;
 
-    public void OnClickMainMenu()
+    public void OnClickNewGame()
     {
         GoToGameplayButtonClicked?.Invoke();
     }

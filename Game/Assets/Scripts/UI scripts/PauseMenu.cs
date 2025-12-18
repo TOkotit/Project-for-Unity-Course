@@ -91,7 +91,7 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         pauseButton.onClick.RemoveListener(OnClickPause);
         resumeButton.onClick.RemoveListener(OnClickResume);

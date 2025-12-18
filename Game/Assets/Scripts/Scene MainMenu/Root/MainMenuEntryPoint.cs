@@ -17,10 +17,6 @@ namespace Scripts.GamePlar.Root
                 Game.Initialize();
                 DontDestroyOnLoad(gameObject);
             }
-            else
-            {
-                Destroy(gameObject);
-            }
         }
         public void Run(UIRootView uiRoot)
         {

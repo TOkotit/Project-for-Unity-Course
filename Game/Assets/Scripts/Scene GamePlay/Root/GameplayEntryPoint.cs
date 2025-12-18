@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Scripts.GamePlar.Root
 {
-    public class GameplayEntryPoint :  MonoBehaviour
+    public class GameplayEntryPoint : MonoBehaviour
     {
         [SerializeField] private UIGameplayRootBinder _sceneUIRootBinder;
 
         public event Action GoToMainMenuSceneRequested;
-        
+
         private void Awake()
         {
             if (Game.Instance == null)
@@ -17,14 +17,11 @@ namespace Scripts.GamePlar.Root
                 Game.Initialize();
                 DontDestroyOnLoad(gameObject);
             }
-            else
-            {
-                Destroy(gameObject);
-            }
         }
         public void Run(UIRootView uiRoot)
         {
             Debug.Log("GameplayEntryPoint");
+
             var uiScene = Instantiate(_sceneUIRootBinder);
             uiRoot.AttachSceneUI(uiScene.gameObject);
 

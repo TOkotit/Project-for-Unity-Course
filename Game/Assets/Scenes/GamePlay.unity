@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eeebfa8167540adac3b0edc7a1b3069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneUIRootBinder: {fileID: 4088711848890172230, guid: 0493c96d28f9eb74ba072ad839e238c7, type: 3}
+  _sceneUIRootBinder: {fileID: 6338840839968099406, guid: 5eb2e784236d8da43997e08b4ce5334f, type: 3}
 --- !u!4 &373490265
 Transform:
   m_ObjectHideFlags: 0
@@ -278,8 +278,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373490263}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2343.7778, y: 0.00003, z: 37110.19}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
