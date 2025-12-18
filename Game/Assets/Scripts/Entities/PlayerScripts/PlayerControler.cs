@@ -27,7 +27,11 @@ namespace Entities.PlayerScripts
         private Rigidbody _rb;
         private Vector2 _moveInput;
 
-
+        public Player PlayerModel
+        {
+            get => _playerModel;
+            set => _playerModel = value;
+        }
         public void Awake()
         {
             if (carStats is null)
@@ -64,12 +68,12 @@ namespace Entities.PlayerScripts
             _moveInput = context.ReadValue<Vector2>();
         }
 
-        public void OnSwitchWeapon(InputAction.CallbackContext context)
-        {
-            if (!context.performed) return;
-            var newIndex = 1 - _playerModel.CurrentWeaponIndex;
-            _playerModel.SwitchWeapon(newIndex);
-        }
+        // public void OnSwitchWeapon(InputAction.CallbackContext context)
+        // {
+        //     if (!context.performed) return;
+        //     var newIndex = 1 - _playerModel.CurrentWeaponIndex;
+        //     _playerModel.SwitchWeapon(newIndex);
+        // }
 
 
         public void FixedUpdate()

@@ -38,6 +38,9 @@ public class TurretModel
         }
     }
     
+    
+    
+    
     public float RotationSpeed
     {
         get => rotationSpeed;
