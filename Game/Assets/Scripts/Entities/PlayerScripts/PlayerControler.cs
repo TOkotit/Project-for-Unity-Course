@@ -153,7 +153,7 @@ namespace Entities.PlayerScripts
         
         private void HandleDeath()
         {
-            Debug.Log("You dead.");
+            Debug.Log("You dead. HAHAHA :))))");
         }
     }
 }

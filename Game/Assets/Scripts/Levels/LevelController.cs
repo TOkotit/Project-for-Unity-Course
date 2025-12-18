@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Entities.PlayerScripts;
 using UnityEngine;
 
 namespace Levels
@@ -10,9 +11,11 @@ namespace Levels
         [SerializeField] public CarEnemySO CarEnemyStats;
         [SerializeField] public DroneEnemySO DroneStats;
         
+        
         [Header("Prefabs")]
         [SerializeField] private Enemy carPrefab;
         [SerializeField] private Enemy dronePrefab;
+        [SerializeField] private PlayerController playerPrefab;
         private LevelModel _levelModel;
         
         private List<Enemy> _spawnedEnemyViews = new();
@@ -46,6 +49,7 @@ namespace Levels
                                "Проверьте Script Execution Order для GameplayEntryPoint.");
                 return;
             }
+            Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
             
             SpawnNextWave();
         }
