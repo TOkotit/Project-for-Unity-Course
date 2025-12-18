@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Truck_Sripts
 {
-    [CreateAssetMenu(fileName = "NewCarStats", menuName = "Stats/Car Stats")]
+    [CreateAssetMenu(fileName = "NewCarStats", menuName = "PlayerStats/CarStatsSO")]
     public class CarStatsSO : ScriptableObject
     {
         [Header("Базовые характеристики")]

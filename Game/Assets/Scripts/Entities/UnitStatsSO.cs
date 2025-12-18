@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Entities
 { 
-    [CreateAssetMenu(fileName = "NewUnitStats", menuName = "Stats/Unit Stats")] 
+    [CreateAssetMenu(fileName = "NewUnitStats", menuName = "BaseEntity/UnitStatsSO")] 
     public class UnitStatsSO : ScriptableObject
     {
         [Header("Базовые характеристики")]

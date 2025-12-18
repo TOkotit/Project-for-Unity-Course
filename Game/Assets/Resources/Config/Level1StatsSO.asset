@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10c24057f2bf4007a629b60ff1a96be1, type: 3}
-  m_Name: BaseUnitStats
+  m_Script: {fileID: 11500000, guid: 5dd952d6d71842c49dd7a337e7d92ae2, type: 3}
+  m_Name: Level1StatsSO
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  baseDamage: 10
-  movementSpeed: 5
-  unitName: Default Unit
-  displayColor: {r: 1, g: 1, b: 1, a: 1}
+  WavesConfiguration: 0100000002000000
+  RoadTiles: []

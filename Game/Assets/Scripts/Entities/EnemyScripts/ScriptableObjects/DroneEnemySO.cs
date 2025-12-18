@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DroneEnemySO", menuName = "Scriptable Objects/DroneEnemySO")]
+[CreateAssetMenu(fileName = "DroneEnemySO", menuName = "EnemiesStats/DroneEnemySO")]
 public class DroneEnemySO : ScriptableObject
 {
     [Header("Базовые характеристики")]
