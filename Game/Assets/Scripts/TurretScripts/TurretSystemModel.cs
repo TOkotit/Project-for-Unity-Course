@@ -6,6 +6,7 @@ public class TurretSystemModel
     private TurretSystemSO turretSystemSO;
     
     private List<TurretModel> turretModels;
+    private int currentTurretIndex;
     private TurretModel currentTurret;
     
     public TurretSystemModel()
@@ -18,6 +19,8 @@ public class TurretSystemModel
         {
             turretModels.Add(new TurretModel(type));
         }
+        
+        currentTurret = turretModels[currentTurretIndex];
     }
     public List<TurretModel> TurretModels
     {
@@ -31,11 +34,18 @@ public class TurretSystemModel
         set => currentTurret = value;
     }
 
-    public void ChooseTurret(TurretModel turret)
+    public void ChooseNextTurret()
     {
-        currentTurret = turret;
+        currentTurretIndex = (currentTurretIndex + 1) % turretModels.Count;
+        currentTurret = turretModels[currentTurretIndex];
+        Debug.Log($"Текущаая турель {currentTurret.TurretType}");
     }
-
+    public void ChoosePreviousTurret()
+    {
+        currentTurretIndex = (currentTurretIndex - 1 + turretModels.Count) % turretModels.Count;
+        currentTurret = turretModels[currentTurretIndex];
+        Debug.Log($"Текущаая турель {currentTurret.TurretType}");
+    }
     public void CancelChoosingTurret()
     {
         currentTurret = null;
