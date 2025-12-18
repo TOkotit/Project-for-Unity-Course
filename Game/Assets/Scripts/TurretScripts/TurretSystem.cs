@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TurretSystem : MonoBehaviour
 {   
@@ -10,28 +11,52 @@ public class TurretSystem : MonoBehaviour
     [SerializeField] Turret lightTurretPrefab;
     
     public List<Turret> turrets;
-    private TurretSystemModel turretSystemModel;
+    public TurretSystemModel turretSystemModel;
 
     public void Awake()
     {
         turretSystemModel = Game.Instance.turretSystemModel;
 
+        var turretPosition = new Vector3(0, 0, 0);
+        
         foreach (var elem in turretSystemModel.TurretModels)
         {
             switch (elem.TurretType)
             {
-                case TurretType.Heavy: CreateTurret(heavyTurretPrefab, elem); break;
-                case TurretType.Medium: CreateTurret(mediumTurretPrefab, elem); break;
-                case TurretType.Light: CreateTurret(lightTurretPrefab, elem); break;
+                case TurretType.Heavy: CreateTurret(heavyTurretPrefab, elem, turretPosition); break;
+                case TurretType.Medium: CreateTurret(mediumTurretPrefab, elem, turretPosition); break;
+                case TurretType.Light: CreateTurret(lightTurretPrefab, elem, turretPosition); break;
             }
+            turretPosition += new Vector3(0, 0, -1);
         }
     }
 
-    private void CreateTurret(Turret prefab, TurretModel model)
+    private void CreateTurret(Turret prefab, TurretModel model, Vector3 turretPosition)
     {
-        var newTurret = Instantiate(prefab, gameObject.transform.position, Quaternion.identity)
+        var newTurret = Instantiate(prefab, transform.position, Quaternion.identity)
             .GetComponent<Turret>();
+        
+        newTurret.transform.SetParent(this.transform);
+        
+        newTurret.transform.localPosition = turretPosition;
+        newTurret.transform.localRotation = Quaternion.identity;
+
         newTurret.turretModel = model;
         turrets.Add(newTurret);
+    }
+
+    public void ChoosePrevious(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            turretSystemModel.ChoosePreviousTurret();
+        }
+    }
+    public void ChooseNext(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            turretSystemModel.ChooseNextTurret();
+        }
     }
 }

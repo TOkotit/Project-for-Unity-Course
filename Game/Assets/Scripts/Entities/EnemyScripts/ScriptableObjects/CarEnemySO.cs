@@ -4,10 +4,13 @@ using UnityEngine;
 public class CarEnemySO : ScriptableObject
 {
     [Header("Базовые характеристики")]
-    public float maxHealth = 500f;
+    public float maxHealth = 50f;
     public float baseDamage = 10f;
     public float movementSpeed = 5f;
     public float fireRate = 0.5f;
+    public float rotationSpeed = 5f;
+    public float bulletSpeed = 30f;
+
 
     [Header("Специфические настройки")]
     public string unitName = "Default Unit";
@@ -26,5 +29,7 @@ public class CarEnemySO : ScriptableObject
         enemyModel.Damage = baseDamage;
         enemyModel.MovementSpeed = movementSpeed;
         enemyModel.FireRate = fireRate;
+        enemyModel.BulletSpeed = bulletSpeed;
+        enemyModel.RotationSpeed = rotationSpeed;
     }
 }

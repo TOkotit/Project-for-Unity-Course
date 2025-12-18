@@ -2,24 +2,19 @@ using Scripts.Entities;
 using UnityEngine;
 
 public class EnemyModel : Entity_Model
-{
-    private EnemyType enemyType;
-    
+{ 
+    public EnemyType EnemyType { get; private set; }
     private float baseDamage;
     private float damage;
     private float fireRate;
     private float movementSpeed;
+    private float rotationSpeed;
+    private float bulletSpeed;
+    private float fireCountdown;
 
     public EnemyModel(EnemyType enemyType)
     {
-        this.enemyType = enemyType;
-
-        switch (enemyType)
-        {
-            case EnemyType.Car: ScriptableObject.CreateInstance<CarEnemySO>().LoadIntoModel(this);break;
-            case EnemyType.Drone: ScriptableObject.CreateInstance<DroneEnemySO>().LoadIntoModel(this);break;
-            default: ScriptableObject.CreateInstance<DroneEnemySO>().LoadIntoModel(this);break;
-        }
+        EnemyType = enemyType;
     }
 
     public float BaseDamage
@@ -44,5 +39,32 @@ public class EnemyModel : Entity_Model
     {
         get => movementSpeed;
         set => movementSpeed = value;
+    }
+
+    public float RotationSpeed
+    {
+        get => rotationSpeed;
+        set => rotationSpeed = value;
+    }
+
+    public float FireCountdown
+    {
+        get => fireCountdown;
+        set => fireCountdown = value;
+    }
+
+    public float BulletSpeed
+    {
+        get => bulletSpeed;
+        set => bulletSpeed = value;
+    }
+    public void LoadStatsFromSO(CarEnemySO stats)
+    { 
+        stats.LoadIntoModel(this);
+    }
+
+    public void LoadStatsFromSO(DroneEnemySO stats)
+    {
+        stats.LoadIntoModel(this);
     }
 }

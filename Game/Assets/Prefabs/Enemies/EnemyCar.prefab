@@ -100,9 +100,10 @@ GameObject:
   - component: {fileID: 8149046368853247581}
   - component: {fileID: 6928036674917120135}
   - component: {fileID: 2419152977602692818}
+  - component: {fileID: 9215294799270085173}
   m_Layer: 8
   m_Name: EnemyCar
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,8 +199,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.43927333, y: 0.5419427, z: 1.0094693}
-  m_Center: {x: 0.0015238593, y: 0.3074834, z: 0.041450277}
+  m_Size: {x: 0.4, y: 0.5, z: 1}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!114 &2419152977602692818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +213,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55593c8e3ceccd04c961bd2f6bd7113e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1000
+  enemyBulletPrefab: {fileID: 5125121899520792501, guid: f17a4392cdf60374aab2cf4bbd8153f6, type: 3}
+  firePoint: {fileID: 67493933149310111}
+  enemyTurret: {fileID: 3031048236191693136}
+  _playerController: {fileID: 0}
+--- !u!65 &9215294799270085173
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3818064355631659570}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.4, y: 0.5, z: 1}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &3993681375229273546
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,6 +325,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6014475822626728001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 67493933149310111}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &67493933149310111
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6014475822626728001}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000021855694, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.00917, z: 0.0087}
+  m_LocalScale: {x: 0.008583619, y: 0.0056541665, z: 0.008583619}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2403693923550094314}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2797047209584657409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -374,12 +430,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: a0903477478e1324984b4be642aaeac9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 67493933149310111}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0903477478e1324984b4be642aaeac9, type: 3}
 --- !u!4 &2403693923550094314 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a0903477478e1324984b4be642aaeac9, type: 3}
+  m_PrefabInstance: {fileID: 2797047209584657409}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3031048236191693136 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a0903477478e1324984b4be642aaeac9, type: 3}
   m_PrefabInstance: {fileID: 2797047209584657409}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7577457922351438700
