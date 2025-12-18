@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TurretSystemSO", menuName = "Scriptable Objects/TurretSystemSO")]
+[CreateAssetMenu(fileName = "TurretSystemSO", menuName = "TurrerStats/TurretSystemSO")]
 public class TurretSystemSO : ScriptableObject
 {
     [Header("Базовые характеристики")]

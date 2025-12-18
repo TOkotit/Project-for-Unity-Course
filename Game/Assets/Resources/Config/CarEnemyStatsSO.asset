@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10c24057f2bf4007a629b60ff1a96be1, type: 3}
-  m_Name: BaseUnitStats
+  m_Script: {fileID: 11500000, guid: f8c65b91c785a794d89cae6554353edb, type: 3}
+  m_Name: CarEnemyStatsSO
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 500
   baseDamage: 10
   movementSpeed: 5
+  fireRate: 0.5
   unitName: Default Unit
   displayColor: {r: 1, g: 1, b: 1, a: 1}

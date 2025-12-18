@@ -18,7 +18,7 @@ namespace Scripts.Entities
         private float _maxHp;
         public readonly HealthParamEvent MaxHpChanged = new();
 
-        public readonly UnityEvent ImJustDie = new();
+        public readonly UnityEvent OnDeath = new();
 
         public float MaxHp {
             get => _maxHp;
@@ -31,32 +31,18 @@ namespace Scripts.Entities
             set => _currentHp = value;
         }
 
-        public Entity_Model()
+        public void SetupHealth(float health)
         {
-            var settings = Resources.Load<UnitStatsSO>("Config/BaseUnitStats");
-            
-            if (!settings)
-            {
-                Debug.LogError("Критическая ошибка: UnitStatsSO не найден в Resources/Config!");
-                return;
-            }
-
-            _maxHp = settings.maxHealth;
-            _currentHp = _maxHp;
+            MaxHp = health;
+            CurrentHp = health;
         }
         
-        public void TakeDamage(float damage)
+        public virtual void TakeDamage(float amount)
         {
-            if (_currentHp <= 0) return; 
-
-            _currentHp -= damage;
-            
-            _currentHp = Mathf.Clamp(_currentHp, 0, MaxHp); 
-            
-            CurrentHpChanged.Invoke(_currentHp, MaxHp);
-            
-            if (_currentHp <= 0)
-                ImJustDie.Invoke();
+            if (CurrentHp <= 0) return;
+            CurrentHp = Mathf.Clamp(CurrentHp - amount, 0, MaxHp);
+            CurrentHpChanged.Invoke(CurrentHp, MaxHp);
+            if (CurrentHp <= 0) OnDeath.Invoke();
         }
     }
 }

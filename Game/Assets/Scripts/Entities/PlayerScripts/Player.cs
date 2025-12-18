@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Truck_Sripts;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,8 +18,11 @@ namespace Scripts.Entities
         {
             CurrentWeaponIndex = 0;
         }
-        
-        
+
+        public void Initialize(CarStatsSO carStatsSO)
+        {
+            carStatsSO.LoadIntoModel(this);
+        }
         public void SwitchWeapon(int newIndex)
         {
             if (newIndex == CurrentWeaponIndex) return;
