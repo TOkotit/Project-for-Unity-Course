@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8c65b91c785a794d89cae6554353edb, type: 3}
   m_Name: CarEnemyStatsSO
   m_EditorClassIdentifier: 
-  maxHealth: 500
+  maxHealth: 100
   baseDamage: 10
   movementSpeed: 5
   fireRate: 0.5
