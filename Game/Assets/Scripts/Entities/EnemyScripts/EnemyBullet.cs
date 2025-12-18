@@ -1,17 +1,16 @@
-using System;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Bullet : MonoBehaviour
-{   
-    private ObjectPool<Bullet> pool;
+public class EnemyBullet : MonoBehaviour
+{
+    private ObjectPool<EnemyBullet> pool;
 
     private Transform target;
     private float damage;
     private float speed;
 
     public void Seek(Transform bulletTarget, float bulletDamage, 
-        float bulletSpeed,  ObjectPool<Bullet> bulletPool)
+        float bulletSpeed,  ObjectPool<EnemyBullet> bulletPool)
     {
         target = bulletTarget;
         damage = bulletDamage;

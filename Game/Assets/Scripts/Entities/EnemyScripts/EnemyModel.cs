@@ -8,7 +8,9 @@ public class EnemyModel : Entity_Model
     private float damage;
     private float fireRate;
     private float movementSpeed;
-
+    private float rotationSpeed;
+    private float bulletSpeed;
+    private float fireCountdown;
 
     public EnemyModel(EnemyType enemyType)
     {
@@ -38,7 +40,24 @@ public class EnemyModel : Entity_Model
         get => movementSpeed;
         set => movementSpeed = value;
     }
-    
+
+    public float RotationSpeed
+    {
+        get => rotationSpeed;
+        set => rotationSpeed = value;
+    }
+
+    public float FireCountdown
+    {
+        get => fireCountdown;
+        set => fireCountdown = value;
+    }
+
+    public float BulletSpeed
+    {
+        get => bulletSpeed;
+        set => bulletSpeed = value;
+    }
     public void LoadStatsFromSO(CarEnemySO stats)
     { 
         stats.LoadIntoModel(this);
