@@ -64,10 +64,17 @@ namespace System_Scripts.GameRoot
                     return;
                 }
 
-                if (sceneName != Scenes.BOOT)
+                if (sceneName == Scenes.LEVEL_SELECT)
                 {
+                    _coroutines.StartCoroutine(LoadAndStartLevelSelect());
+
                     return;
                 }
+
+                if (sceneName != Scenes.BOOT)
+                    {
+                        return;
+                    }
             #endif
 
             _coroutines.StartCoroutine(LoadAndStartMainMenu());
@@ -123,6 +130,36 @@ namespace System_Scripts.GameRoot
             else
             {
                 Debug.LogError("Ошибка: Не найдена точка входа в сцену MainMenu!");
+            }
+
+            sceneEntryPoint.GoToGameplaySceneRequested += () =>
+            {
+                _coroutines.StartCoroutine(LoadAndStartGameplay());
+            };
+
+            GameManager.Instance.SetState(GameState.Menu);
+            _uiRoot.HideLoadingScreen();
+        }
+
+        private IEnumerator LoadAndStartLevelSelect()
+        {
+            _uiRoot.ShowLoadingScreen();
+
+            yield return LoadScene(Scenes.BOOT);
+            yield return LoadScene(Scenes.LEVEL_SELECT);
+
+
+            yield return new WaitForSeconds(2f);
+
+            var sceneEntryPoint = Object.FindFirstObjectByType<LevelSelectorEntryPoint>();
+
+            if (sceneEntryPoint)
+            {
+                sceneEntryPoint.Run(_uiRoot);
+            }
+            else
+            {
+                Debug.LogError("Ошибка: Не найдена точка входа в сцену LevelSelect!");
             }
 
             sceneEntryPoint.GoToGameplaySceneRequested += () =>

@@ -20,7 +20,6 @@ namespace Scripts.GamePlar.Root
         }
         public void Run(UIRootView uiRoot)
         {
-            Debug.Log("GameplayEntryPoint");
             var uiScene = Instantiate(_sceneUIRootPrefab);
             uiRoot.AttachSceneUI(uiScene.gameObject);
 
