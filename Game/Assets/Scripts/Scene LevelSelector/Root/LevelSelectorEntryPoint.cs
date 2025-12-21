@@ -7,7 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelectorEntryPoint : MonoBehaviour
 {
-    [SerializeField] private UIMainMenuRootBinder _sceneUIRootPrefab;
+    [SerializeField] private UILevelSelectRootBinder _sceneUIRootPrefab;
+
+    public event Action GoToFirstLevelSceneRequested;
+    public event Action GoToSecondLevelSceneRequested;
 
     public event Action GoToGameplaySceneRequested;
 
@@ -16,8 +19,17 @@ public class LevelSelectorEntryPoint : MonoBehaviour
         var uiScene = Instantiate(_sceneUIRootPrefab);
         uiRoot.AttachSceneUI(uiScene.gameObject);
 
-       // ui.OnLevelSelected += OnLevelSelected;
-       // ui.RefreshView();
+        uiScene.GoToFirstLevelButtonClicked += () =>
+        {
+            GoToGameplaySceneRequested?.Invoke();
+        };
+
+        uiScene.GoToSecondLevelButtonClicked += () =>
+        {
+            GoToGameplaySceneRequested?.Invoke();
+        };
+        // ui.OnLevelSelected += OnLevelSelected;
+        // ui.RefreshView();
     }
 
     private void OnLevelSelected(string sceneName)

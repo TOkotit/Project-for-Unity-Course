@@ -43,7 +43,6 @@ namespace System_Scripts.GameRoot
 
             if (Game.Instance == null)
                 Game.Initialize();
-
         }
 
         private void RunGame() 
@@ -132,9 +131,9 @@ namespace System_Scripts.GameRoot
                 Debug.LogError("Ошибка: Не найдена точка входа в сцену MainMenu!");
             }
 
-            sceneEntryPoint.GoToGameplaySceneRequested += () =>
+            sceneEntryPoint.GoToLevelSelectSceneRequested += () =>
             {
-                _coroutines.StartCoroutine(LoadAndStartGameplay());
+                _coroutines.StartCoroutine(LoadAndStartLevelSelect());
             };
 
             GameManager.Instance.SetState(GameState.Menu);
@@ -162,14 +161,24 @@ namespace System_Scripts.GameRoot
                 Debug.LogError("Ошибка: Не найдена точка входа в сцену LevelSelect!");
             }
 
+            //sceneEntryPoint.GoToLevelSceneRequested += () =>
+            //{
+            //   _coroutines.StartCoroutine(LoadAndStartLevel());
+            //};
+
             sceneEntryPoint.GoToGameplaySceneRequested += () =>
             {
                 _coroutines.StartCoroutine(LoadAndStartGameplay());
             };
 
-            GameManager.Instance.SetState(GameState.Menu);
+            GameManager.Instance.SetState(GameState.LevelSelect);
             _uiRoot.HideLoadingScreen();
         }
+
+        //private IEnumerator LoadAndStartLevel(string levelName)
+        //{
+
+        //}
 
         private IEnumerator LoadScene(string sceneName)
         {

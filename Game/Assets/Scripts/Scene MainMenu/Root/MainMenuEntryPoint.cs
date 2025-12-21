@@ -8,7 +8,7 @@ namespace Scripts.GamePlar.Root
     {
         [SerializeField] private UIMainMenuRootBinder _sceneUIRootPrefab;
 
-        public event Action GoToGameplaySceneRequested;
+        public event Action GoToLevelSelectSceneRequested;
 
         private void Awake()
         {
@@ -23,9 +23,9 @@ namespace Scripts.GamePlar.Root
             var uiScene = Instantiate(_sceneUIRootPrefab);
             uiRoot.AttachSceneUI(uiScene.gameObject);
 
-            uiScene.GoToGameplayButtonClicked += () =>
+            uiScene.GoToLevelSelectButtonClicked += () =>
             {
-                GoToGameplaySceneRequested?.Invoke();
+                GoToLevelSelectSceneRequested?.Invoke();
             };
         }
     }

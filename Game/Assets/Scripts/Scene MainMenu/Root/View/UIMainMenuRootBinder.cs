@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class UIMainMenuRootBinder : MonoBehaviour
 {
-    public event Action GoToGameplayButtonClicked;
+    public event Action GoToLevelSelectButtonClicked;
 
     public void OnClickNewGame()
     {
-        GoToGameplayButtonClicked?.Invoke();
+        GoToLevelSelectButtonClicked?.Invoke();
     }
 }
