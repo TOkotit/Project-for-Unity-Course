@@ -5,6 +5,7 @@ public class TurretSystemModel
 {   
     private TurretSystemSO turretSystemSO;
     
+    private int maxTurretSlots;
     private List<TurretModel> turretModels;
     private int currentTurretIndex;
     private TurretModel currentTurret;
@@ -21,6 +22,7 @@ public class TurretSystemModel
         }
         
         currentTurret = turretModels[currentTurretIndex];
+        maxTurretSlots = turretModels.Count;
     }
     public List<TurretModel> TurretModels
     {
@@ -34,6 +36,11 @@ public class TurretSystemModel
         set => currentTurret = value;
     }
 
+    public int MaxTurretSlots
+    {
+        get => maxTurretSlots;
+        set => maxTurretSlots = value;
+    }
     public void ChooseNextTurret()
     {
         currentTurretIndex = (currentTurretIndex + 1) % turretModels.Count;
@@ -56,6 +63,22 @@ public class TurretSystemModel
         if (currentTurret is not null)
         {
             currentTurret.CurrentTarget = target;
+        }
+    }
+
+    public void ApplyDamageBuff(float buff)
+    {
+        foreach (var turretModel in turretModels)
+        {
+            turretModel.Damage *= 1 + buff;
+        }
+    }
+    
+    public void ApplyFireRateBuff(float buff)
+    {
+        foreach (var turretModel in turretModels)
+        {
+            turretModel.FireRate *= 1 + buff;
         }
     }
 }

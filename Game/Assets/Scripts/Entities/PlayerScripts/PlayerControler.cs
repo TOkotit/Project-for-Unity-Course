@@ -67,15 +67,7 @@ namespace Entities.PlayerScripts
         {
             _moveInput = context.ReadValue<Vector2>();
         }
-
-        // public void OnSwitchWeapon(InputAction.CallbackContext context)
-        // {
-        //     if (!context.performed) return;
-        //     var newIndex = 1 - _playerModel.CurrentWeaponIndex;
-        //     _playerModel.SwitchWeapon(newIndex);
-        // }
-
-
+        
         public void FixedUpdate()
         {
             var xVelocity = _moveInput.x * SideSpeed;

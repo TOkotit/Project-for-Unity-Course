@@ -8,20 +8,24 @@ public class Game
     
     // Модели систем
     public TurretSystemModel  turretSystemModel;
-    public EnemySpawnerModel enemySpawnerModel;
     public Player playerModel;
     public LevelModel levelModel;
-
+    public BuffSystemModel buffModel;
+    
     private Game()
     {
         turretSystemModel = new TurretSystemModel();
-        enemySpawnerModel = new EnemySpawnerModel();
         playerModel = new Player();
         levelModel = new LevelModel();
+        
+        
     }
     
     public static void Initialize()
     {
         Instance = new Game();
+        
+        // Последняя запускаемая система
+        Instance.buffModel = new BuffSystemModel();
     }
 }

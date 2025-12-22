@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     
     private EnemyModel _model;
     
-    [SerializeField] private PlayerController _playerController;
+    private PlayerController _playerController;
     private Player _playerModel;
     
     private ObjectPool<EnemyBullet> bulletPool;
