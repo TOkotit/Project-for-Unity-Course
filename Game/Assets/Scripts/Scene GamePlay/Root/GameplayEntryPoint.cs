@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Levels;
+using System;
 using System_Scripts.GameRoot;
 using UnityEngine;
 
@@ -20,8 +21,6 @@ namespace Scripts.GamePlar.Root
         }
         public void Run(UIRootView uiRoot)
         {
-            Debug.Log("GameplayEntryPoint");
-
             var uiScene = Instantiate(_sceneUIRootBinder);
             uiRoot.AttachSceneUI(uiScene.gameObject);
 
