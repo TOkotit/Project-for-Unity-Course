@@ -58,11 +58,12 @@ public class TurretSystemModel
         currentTurret = null;
     }
 
-    public void ActivateChosenTurret(Transform target)
+    public void ActivateChosenTurret(GameObject target)
     {
         if (currentTurret is not null)
         {
-            currentTurret.CurrentTarget = target;
+            currentTurret.CurrentTarget = target.transform;
+            currentTurret.CurrentEnemy = target.GetComponent<Enemy>().Model;
         }
     }
 

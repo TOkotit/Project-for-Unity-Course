@@ -145,6 +145,7 @@ namespace Entities.PlayerScripts
         
         private void HandleDeath()
         {
+            Destroy(gameObject);
             Debug.Log("You dead. HAHAHA :))))");
         }
     }

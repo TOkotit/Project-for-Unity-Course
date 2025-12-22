@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 1467322205865883004}
   - component: {fileID: 6127155343775579054}
   - component: {fileID: 468504201468061167}
+  - component: {fileID: 3457038874256197086}
   - component: {fileID: 5333738769370598090}
-  - component: {fileID: 4226912927699693860}
   m_Layer: 8
   m_Name: EnemyDrone
   m_TagString: Enemy
@@ -121,6 +121,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3457038874256197086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2808563012799332274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 629c5b0796c5d214e8c02c370be5f564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyBulletPrefab: {fileID: 5125121899520792501, guid: f17a4392cdf60374aab2cf4bbd8153f6, type: 3}
+  firePoint: {fileID: 3243708975154688358}
+  enemyTurret: {fileID: 816283386817651222}
 --- !u!65 &5333738769370598090
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -142,22 +157,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.04638343, y: 0.031449795, z: 0.037504677}
   m_Center: {x: -0.0004586778, y: -0.0074921087, z: -0.0000000012521985}
---- !u!114 &4226912927699693860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2808563012799332274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55593c8e3ceccd04c961bd2f6bd7113e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyBulletPrefab: {fileID: 5125121899520792501, guid: f17a4392cdf60374aab2cf4bbd8153f6, type: 3}
-  firePoint: {fileID: 3243708975154688358}
-  enemyTurret: {fileID: 816283386817651222}
-  _playerController: {fileID: 0}
 --- !u!1001 &546462483420585799
 PrefabInstance:
   m_ObjectHideFlags: 0

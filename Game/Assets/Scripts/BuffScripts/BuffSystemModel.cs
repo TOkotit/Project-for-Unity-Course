@@ -10,7 +10,6 @@ public class BuffSystemModel
     private TurretSystemModel turretSystemModel;
     private Player playerModel;
 
-    // Путь для сохранения файла
     private string savePath;
 
     public BuffSystemModel()
@@ -20,7 +19,6 @@ public class BuffSystemModel
         
         savePath = Path.Combine(Application.persistentDataPath, "buffs_save.json");
         
-        // Инициализация
         Buffs = new List<Buff>();
         
         // Пробуем загрузить, если файла нет - берем из SO
@@ -73,7 +71,7 @@ public class BuffSystemModel
             if (Buffs[index].BuffLevel < Buffs[index].MaxBuffLevel)
             {
                 Buffs[index].BuffLevel++;
-                SaveBuffs(); // Сохраняем сразу после изменения
+                SaveBuffs();
             }
         }
     }
