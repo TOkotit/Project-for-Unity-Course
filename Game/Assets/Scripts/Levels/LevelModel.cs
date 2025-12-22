@@ -38,8 +38,8 @@ namespace Levels
         {
             if (WavesConfiguration.Count == 0)
             {
-                Debug.Log("Волны закончились! Уровень пройден!");
-                LevelCompleted?.Invoke(Game.Instance.CurrentLevelId);
+                Debug.Log("Волны закончились! Уровень пройден!"); // + 
+                LevelCompleted?.Invoke(Game.Instance.CurrentLevelId); // + 
                 return null;
             }
             
