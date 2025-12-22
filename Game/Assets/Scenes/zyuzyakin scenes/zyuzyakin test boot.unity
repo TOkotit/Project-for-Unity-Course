@@ -477,6 +477,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4994837447414125978, guid: 9d83d927cd15f604c8a8cab2e775a9bc, type: 3}
+      propertyPath: carPrefab
+      value: 
+      objectReference: {fileID: 508118687233784773, guid: 1dfa3272d3c8b264b9c2b88b0e50aec0, type: 3}
+    - target: {fileID: 4994837447414125978, guid: 9d83d927cd15f604c8a8cab2e775a9bc, type: 3}
+      propertyPath: dronePrefab
+      value: 
+      objectReference: {fileID: 3457038874256197086, guid: 933b9e55e4a627f42b2bff0e08a32035, type: 3}
+    - target: {fileID: 4994837447414125978, guid: 9d83d927cd15f604c8a8cab2e775a9bc, type: 3}
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 1504148867793684231, guid: d76c54e333b34224da94bfee760245b5, type: 3}

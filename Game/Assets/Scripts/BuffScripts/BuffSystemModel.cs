@@ -5,12 +5,18 @@ using Scripts.Entities;
 
 public class BuffSystemModel
 {
-    public List<Buff> Buffs { get; private set; }
-    
     private TurretSystemModel turretSystemModel;
     private Player playerModel;
 
     private string savePath;
+    public List<Buff> Buffs { get; private set; }
+    private int points;
+
+    public int Points
+    {
+        get => points;
+        set => points = value;
+    }
 
     public BuffSystemModel()
     {
@@ -36,6 +42,7 @@ public class BuffSystemModel
         {
             Buffs.Add(new Buff(buff.Name, buff.Type, buff.Value, buff.BuffLevel, buff.MaxBuffLevel));
         }
+        Debug.Log("Усиления загружены через SO");
     }
 
     public void ApplyAllBuffs()
@@ -79,7 +86,7 @@ public class BuffSystemModel
     // JSON
     public void SaveBuffs()
     {
-        BuffListWrapper wrapper = new BuffListWrapper { list = Buffs };
+        BuffListWrapper wrapper = new BuffListWrapper { list = Buffs, points = points };
         string json = JsonUtility.ToJson(wrapper, true);
         File.WriteAllText(savePath, json);
         Debug.Log("Buffs saved to: " + savePath);
@@ -97,6 +104,7 @@ public class BuffSystemModel
             if (wrapper != null && wrapper.list != null)
             {
                 Buffs = wrapper.list;
+                points = wrapper.points;
                 Debug.Log("Buffs loaded successfully.");
                 return true;
             }
@@ -113,5 +121,6 @@ public class BuffSystemModel
     private class BuffListWrapper
     {
         public List<Buff> list;
+        public int points;
     }
 }
