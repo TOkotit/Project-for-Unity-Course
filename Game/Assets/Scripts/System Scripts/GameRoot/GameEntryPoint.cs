@@ -12,6 +12,7 @@ namespace System_Scripts.GameRoot
         private static GameEntryPoint _instance;
         private readonly Coroutines _coroutines;
         private readonly UIRootView _uiRoot;
+        private string _currentLevelId;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void AfterStart()
@@ -161,24 +162,21 @@ namespace System_Scripts.GameRoot
                 Debug.LogError("Ошибка: Не найдена точка входа в сцену LevelSelect!");
             }
 
-            //sceneEntryPoint.GoToLevelSceneRequested += () =>
-            //{
-            //   _coroutines.StartCoroutine(LoadAndStartLevel());
-            //};
-
-            sceneEntryPoint.GoToGameplaySceneRequested += () =>
+            sceneEntryPoint.GoToMainMenuSceneRequested += () =>
             {
+                _coroutines.StartCoroutine(LoadAndStartMainMenu());
+            };
+
+            sceneEntryPoint.GoToGameplaySceneRequested += (levelId) =>
+            {
+                _currentLevelId = levelId;
+                Game.Instance.CurrentLevelId = levelId;
                 _coroutines.StartCoroutine(LoadAndStartGameplay());
             };
 
             GameManager.Instance.SetState(GameState.LevelSelect);
             _uiRoot.HideLoadingScreen();
         }
-
-        //private IEnumerator LoadAndStartLevel(string levelName)
-        //{
-
-        //}
 
         private IEnumerator LoadScene(string sceneName)
         {

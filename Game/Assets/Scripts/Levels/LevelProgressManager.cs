@@ -8,12 +8,10 @@ namespace Assets.Scripts.Levels
     public class LevelProgressManager
     {
         private static LevelProgressManager _instance;
-        public static LevelProgressManager Instance => _instance ??= new LevelProgressManager();
-
         private Dictionary<string, LevelProgress> _progressDict = new();
-        public IReadOnlyDictionary<string, LevelProgress> Progress => _progressDict;
-
         private const string SAVE_PATH = "progress.json";
+        public static LevelProgressManager Instance => _instance ??= new LevelProgressManager();
+        public IReadOnlyDictionary<string, LevelProgress> Progress => _progressDict;
 
         private LevelProgressManager()
         {
@@ -30,7 +28,7 @@ namespace Assets.Scripts.Levels
                 _progressDict = new Dictionary<string, LevelProgress>();
                 foreach (var p in wrapper.progress)
                     _progressDict[p.levelId] = p;
-                Debug.Log($"Прогресс загружен: {wrapper.progress.Count} уровней");
+                Debug.Log($"Прогресс загружен: пройдено {wrapper.progress.Count} уровней");
             }
             else
             {
@@ -57,10 +55,10 @@ namespace Assets.Scripts.Levels
             string json = JsonUtility.ToJson(wrapper, true);
             string path = Path.Combine(Application.persistentDataPath, SAVE_PATH);
             File.WriteAllText(path, json);
-            Debug.Log($"Прогресс сохранён: {path}");
+            Debug.Log($"Прогресс сохранён в {path}");
         }
 
-        public void CompleteLevel(string levelId, int starsEarned, float timeSeconds)
+        public void CompleteLevel(string levelId, float timeSeconds)
         {
             if (!_progressDict.TryGetValue(levelId, out var progress))
             {
@@ -68,7 +66,7 @@ namespace Assets.Scripts.Levels
                 _progressDict[levelId] = progress;
             }
 
-            progress.Update(starsEarned, timeSeconds);
+            progress.MarkAsCompleted(timeSeconds);
             SaveProgress();
             UnlockNextAvailable();
         }

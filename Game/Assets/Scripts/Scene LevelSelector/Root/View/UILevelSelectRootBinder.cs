@@ -10,6 +10,13 @@ public class UILevelSelectRootBinder : MonoBehaviour
     public event Action GoToFourthLevelButtonClicked;
     public event Action GoToFifthLevelButtonClicked;
 
+    public event Action GoToMainMenuButtonClicked;
+
+    public void OnClickBack()
+    {
+        GoToMainMenuButtonClicked?.Invoke();
+    }
+
     public void OnClickFirstLevel()
     {
         GoToFirstLevelButtonClicked?.Invoke();

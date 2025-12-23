@@ -1,4 +1,4 @@
-using Levels;
+﻿using Levels;
 using Scripts.Entities;
 using UnityEngine;
 
@@ -12,6 +12,8 @@ public class Game
     public LevelModel levelModel;
     public BuffSystemModel buffModel;
     
+    public string CurrentLevelId { get; set; }
+
     private Game()
     {
         turretSystemModel = new TurretSystemModel();

@@ -7,16 +7,14 @@ namespace Assets.Scripts.Levels
     public class LevelProgress
     {
         public string levelId;
-        public bool isCompleted;
-        public int starsEarned;      
+        public bool isCompleted;     
         public float bestTime;       
         public int attempts;
         public long lastPlayedTicks;
 
-        public void Update(int stars, float time)
+        public void MarkAsCompleted(float time)
         {
             isCompleted = true;
-            starsEarned = Mathf.Max(starsEarned, stars);
             bestTime = bestTime == 0 ? time : Mathf.Min(bestTime, time);
             attempts++;
             lastPlayedTicks = DateTime.UtcNow.Ticks;

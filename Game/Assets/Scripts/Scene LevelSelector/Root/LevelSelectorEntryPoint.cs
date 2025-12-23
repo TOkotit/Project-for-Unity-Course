@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Levels;
+using System;
 using System_Scripts.GameRoot;
 using System_Scripts.ManagerScripts;
 using UnityEngine;
@@ -8,46 +9,76 @@ using UnityEngine.SceneManagement;
 public class LevelSelectorEntryPoint : MonoBehaviour
 {
     [SerializeField] private UILevelSelectRootBinder _sceneUIRootPrefab;
-
-    public event Action GoToFirstLevelSceneRequested;
-    public event Action GoToSecondLevelSceneRequested;
-
-    public event Action GoToGameplaySceneRequested;
+    public event Action<string> GoToGameplaySceneRequested;
+    public event Action GoToMainMenuSceneRequested;
 
     public void Run(UIRootView uiRoot)
     {
         var uiScene = Instantiate(_sceneUIRootPrefab);
         uiRoot.AttachSceneUI(uiScene.gameObject);
 
+        uiScene.GoToMainMenuButtonClicked += () =>
+        {
+            GoToMainMenuSceneRequested?.Invoke();
+        };
+
         uiScene.GoToFirstLevelButtonClicked += () =>
         {
-            GoToGameplaySceneRequested?.Invoke();
+            TryStartLevel("Level_01");
         };
 
         uiScene.GoToSecondLevelButtonClicked += () =>
         {
-            GoToGameplaySceneRequested?.Invoke();
+            TryStartLevel("Level_02");
         };
-        // ui.OnLevelSelected += OnLevelSelected;
-        // ui.RefreshView();
+
+        uiScene.GoToThirdLevelButtonClicked += () =>
+        {
+            TryStartLevel("Level_03");
+        };
+
+        uiScene.GoToFourthLevelButtonClicked += () =>
+        {
+            TryStartLevel("Level_04");
+        };
+
+        uiScene.GoToFifthLevelButtonClicked += () =>
+        {
+            TryStartLevel("Level_05");
+        };
+
+        RefreshButtonStates(uiScene);
     }
 
-    private void OnLevelSelected(string sceneName)
+    private void TryStartLevel(string levelId)
     {
-        Debug.Log($"Выбран уровень: {sceneName}");
-
-        // Передаём управление GameManager'у или GameEntryPoint
-        // Вариант 1: через смену состояния
-        //GameManager.Instance.SetState(GameState.Loading);
-
-        // Вариант 2: запустить загрузку напрямую
-        //StartCoroutine(LoadLevel(sceneName));
+        if (LevelProgressManager.Instance.IsLevelUnlocked(levelId))
+        {
+            GoToGameplaySceneRequested?.Invoke(levelId);
+        }
+        else
+        {
+            Debug.Log($"Уровень {levelId} заблокирован. Пройдите предыдущий уровень.");
+        }
     }
-
-    private System.Collections.IEnumerator LoadLevel(string sceneName)
+    private void RefreshButtonStates(UILevelSelectRootBinder uiScene)
     {
-        yield return SceneManager.LoadSceneAsync(sceneName);
-        // Здесь можно вызвать GameplayEntryPoint.Run(...)
+        SetButtonInteractable(uiScene, "Button_Level1", "Level_01");
+        SetButtonInteractable(uiScene, "Button_Level2", "Level_02");
+        SetButtonInteractable(uiScene, "Button_Level3", "Level_03");
+        SetButtonInteractable(uiScene, "Button_Level4", "Level_04");
+        SetButtonInteractable(uiScene, "Button_Level5", "Level_05");
     }
 
+    private void SetButtonInteractable(UILevelSelectRootBinder binder, string buttonName, string levelId)
+    {
+        bool isUnlocked = LevelProgressManager.Instance.IsLevelUnlocked(levelId);
+        var btn = binder.transform.Find(buttonName)?.GetComponent<UnityEngine.UI.Button>();
+        if (btn != null)
+        {
+            btn.interactable = isUnlocked;
+            var lockIcon = btn.transform.Find("LockIcon")?.gameObject;
+            if (lockIcon != null) lockIcon.SetActive(!isUnlocked);
+        }
+    }
 }

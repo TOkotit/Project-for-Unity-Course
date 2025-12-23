@@ -5,5 +5,6 @@
     {
         public string id;            
         public string sceneName;
+        public string configAssetPath;
     }
 }
