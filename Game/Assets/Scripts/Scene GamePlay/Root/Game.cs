@@ -1,4 +1,4 @@
-using Levels;
+﻿using Levels;
 using Scripts.Entities;
 using UnityEngine;
 
@@ -11,6 +11,7 @@ public class Game
     public EnemySpawnerModel enemySpawnerModel;
     public Player playerModel;
     public LevelModel levelModel;
+    public string CurrentLevelId { get; set; }
 
     private Game()
     {

@@ -9,6 +9,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button exitButton;
 
+    [SerializeField] private GameObject optionsPanel;
+    [SerializeField] private GameObject menuPanel;
+
     private void OnEnable()
     {
         if (startButton != null)
@@ -30,11 +33,12 @@ public class MainMenu : MonoBehaviour
     private void OnClickStart()
     {
         Debug.Log("Нажата кнопка новая игра");
-        SceneManager.LoadScene("MainGame");
     }
     private void OnClickOptions()
     {
+        optionsPanel.SetActive(true);
         Debug.Log("Нажата кнопка настройки");
+        menuPanel.SetActive(false);
     }
     private void OnClickExit()
     {
