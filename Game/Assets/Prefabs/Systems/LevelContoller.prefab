@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelStats: {fileID: 11400000, guid: 56a707cbef6f1b0488d61da789f7ed02, type: 2}
-  CarEnemyStats: {fileID: 0}
-  DroneStats: {fileID: 0}
+  CarEnemyStats: {fileID: 11400000, guid: dd4ebcd1e400ad547ae5b2490c4c1f3d, type: 2}
+  DroneStats: {fileID: 11400000, guid: a4b0fb91cc3b8cc4aae3bd40837d26b0, type: 2}
   carPrefab: {fileID: 2419152977602692818, guid: 1dfa3272d3c8b264b9c2b88b0e50aec0, type: 3}
   dronePrefab: {fileID: 4226912927699693860, guid: 933b9e55e4a627f42b2bff0e08a32035, type: 3}
+  playerPrefab: {fileID: 1504148867793684231, guid: d76c54e333b34224da94bfee760245b5, type: 3}
