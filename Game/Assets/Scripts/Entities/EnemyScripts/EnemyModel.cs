@@ -12,12 +12,20 @@ public class EnemyModel : Entity_Model
     private float rotationSpeed;
     private float bulletSpeed;
     private float fireCountdown;
+    private int rewardPoints;
     
     public EnemyModel(EnemyType enemyType)
     {
         EnemyType = enemyType;
+        
+        OnDeath.AddListener(GivePoints);
     }
 
+    private void GivePoints()
+    {
+        Game.Instance.buffModel.AddPoints(rewardPoints); //не знаю как переделать
+    }
+    
     public float BaseDamage
     {
         get => baseDamage;
@@ -58,6 +66,12 @@ public class EnemyModel : Entity_Model
     {
         get => bulletSpeed;
         set => bulletSpeed = value;
+    }
+
+    public int RewardPoints
+    {
+        get => rewardPoints;
+        set => rewardPoints = value;
     }
     public void LoadStatsFromSO(CarEnemySO stats)
     { 

@@ -22,7 +22,7 @@ namespace Scripts.Entities
 
         public Entity_Model()
         {
-            CurrentHpChanged.AddListener(Die);
+            
         }
         
         public float MaxHp {
@@ -48,12 +48,6 @@ namespace Scripts.Entities
             CurrentHp = Mathf.Clamp(CurrentHp - amount, 0, MaxHp);
             CurrentHpChanged.Invoke(CurrentHp, MaxHp);
             if (CurrentHp <= 0) OnDeath.Invoke();
-        }
-
-        public void Die(float curHp, float maxHp)
-        {   
-            if (curHp <= 0)
-                OnDeath.Invoke();
         }
     }
 }

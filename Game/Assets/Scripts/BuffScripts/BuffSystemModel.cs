@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Scripts.Entities;
+using UnityEngine.Events;
 
 public class BuffSystemModel
 {
@@ -10,13 +11,11 @@ public class BuffSystemModel
 
     private string savePath;
     public List<Buff> Buffs { get; private set; }
+    
     private int points;
+    public readonly UnityEvent PointsChanged = new();
 
-    public int Points
-    {
-        get => points;
-        set => points = value;
-    }
+    public int Points => points;
 
     public BuffSystemModel()
     {
@@ -40,7 +39,7 @@ public class BuffSystemModel
         Buffs.Clear();
         foreach (var buff in so.buffs)
         {
-            Buffs.Add(new Buff(buff.Name, buff.Type, buff.Value, buff.BuffLevel, buff.MaxBuffLevel));
+            Buffs.Add(new Buff(buff.Name, buff.ParameterType, buff.Value, buff.BuffLevel, buff.MaxBuffLevel));
         }
         Debug.Log("Усиления загружены через SO");
     }
@@ -49,7 +48,7 @@ public class BuffSystemModel
     {
         foreach (var buff in Buffs)
         {
-            switch (buff.Type)
+            switch (buff.ParameterType)
             {
                 case ParameterType.TurretsDamage:
                     turretSystemModel.ApplyDamageBuff(buff.Value * buff.BuffLevel);
@@ -83,6 +82,13 @@ public class BuffSystemModel
         }
     }
 
+    public void AddPoints(int amount)
+    {
+        points += amount;
+        PointsChanged.Invoke();
+        Debug.Log($"Получено очков {amount}, всего {points}");
+    }
+    
     // JSON
     public void SaveBuffs()
     {
