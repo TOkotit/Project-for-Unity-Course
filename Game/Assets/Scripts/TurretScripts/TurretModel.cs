@@ -12,7 +12,8 @@ public class TurretModel
     private TurretType turretType;
     
     private Transform currentTarget;
-
+    private EnemyModel currentEnemy;
+    
     public TurretModel(TurretType turretType)
     {   
         this.turretType = turretType;
@@ -80,5 +81,11 @@ public class TurretModel
     {
         get => currentTarget;
         set => currentTarget = value;
+    }
+
+    public EnemyModel CurrentEnemy
+    {
+        get => currentEnemy;
+        set => currentEnemy = value;
     }
 }

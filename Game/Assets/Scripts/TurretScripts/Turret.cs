@@ -51,6 +51,7 @@ public class Turret : MonoBehaviour
     {
         var bulletGo = bulletPool.Get();
         bulletGo.transform.position = firePoint.position;
-        bulletGo.Seek(turretModel.CurrentTarget, turretModel.Damage, turretModel.BulletSpeed, bulletPool);
+        bulletGo.Seek(turretModel.CurrentTarget, turretModel.CurrentEnemy, turretModel.Damage, 
+            turretModel.BulletSpeed, bulletPool);
     }
 }

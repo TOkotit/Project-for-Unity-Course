@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 1991040488577540458}
   - component: {fileID: 8149046368853247581}
   - component: {fileID: 6928036674917120135}
-  - component: {fileID: 2419152977602692818}
+  - component: {fileID: 508118687233784773}
   - component: {fileID: 9215294799270085173}
   m_Layer: 8
   m_Name: EnemyCar
@@ -201,7 +201,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.4, y: 0.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
---- !u!114 &2419152977602692818
+--- !u!114 &508118687233784773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,13 +210,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3818064355631659570}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55593c8e3ceccd04c961bd2f6bd7113e, type: 3}
+  m_Script: {fileID: 11500000, guid: c6a533fb648e403699f5d3526340d48b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBulletPrefab: {fileID: 5125121899520792501, guid: f17a4392cdf60374aab2cf4bbd8153f6, type: 3}
   firePoint: {fileID: 67493933149310111}
   enemyTurret: {fileID: 3031048236191693136}
-  _playerController: {fileID: 0}
 --- !u!65 &9215294799270085173
 BoxCollider:
   m_ObjectHideFlags: 0

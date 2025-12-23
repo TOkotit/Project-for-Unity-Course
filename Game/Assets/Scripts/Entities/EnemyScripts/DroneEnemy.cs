@@ -1,16 +1,11 @@
 using UnityEngine;
 
-public class DroneEnemy : MonoBehaviour
+public class DroneEnemy : Enemy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    void  FixedUpdate()
+    {   
+        base.FixedUpdate();
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //Тут будет небольшое колебание позиции дрона
     }
 }

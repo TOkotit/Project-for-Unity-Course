@@ -1,5 +1,6 @@
 using Scripts.Entities;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyModel : Entity_Model
 { 
@@ -11,7 +12,7 @@ public class EnemyModel : Entity_Model
     private float rotationSpeed;
     private float bulletSpeed;
     private float fireCountdown;
-
+    
     public EnemyModel(EnemyType enemyType)
     {
         EnemyType = enemyType;
