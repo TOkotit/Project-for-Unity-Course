@@ -7,13 +7,15 @@ public class Bullet : MonoBehaviour
     private ObjectPool<Bullet> pool;
 
     private Transform target;
+    private EnemyModel enemy;
     private float damage;
     private float speed;
 
-    public void Seek(Transform bulletTarget, float bulletDamage, 
+    public void Seek(Transform bulletTarget, EnemyModel enemyTarget, float bulletDamage, 
         float bulletSpeed,  ObjectPool<Bullet> bulletPool)
     {
         target = bulletTarget;
+        enemy = enemyTarget;
         damage = bulletDamage;
         pool = bulletPool;
         speed = bulletSpeed;
@@ -41,7 +43,7 @@ public class Bullet : MonoBehaviour
 
     private void HitTarget()
     {   
-        //нанесение урона
+        enemy.TakeDamage(damage);
         pool.Release(this);
     }
 }

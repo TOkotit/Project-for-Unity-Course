@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c9f514e021481d84266e2cd0a285d7, type: 3}
   m_Name: CarStatsSO
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 500
   fixedYPosition: 0
   SideSpeed: 10
   maxSidePosition: 5

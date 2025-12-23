@@ -11,12 +11,14 @@ public class Enemy : MonoBehaviour
     
     private EnemyModel _model;
     
-    [SerializeField] private PlayerController _playerController;
+    private PlayerController _playerController;
     private Player _playerModel;
     
     private ObjectPool<EnemyBullet> bulletPool;
     
     public EnemyModel Model => _model;
+    
+    
     
     public void Awake()
     {   
@@ -31,15 +33,22 @@ public class Enemy : MonoBehaviour
         
         _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         _playerModel = _playerController.PlayerModel;
+        
     }
     
     public void Initialize(EnemyModel model)
     {
         _model = model;
+        _model.OnDeath.AddListener(Die);
         Debug.Log($"Враг создан! Тип: {_model.EnemyType}, HP: {_model.MaxHp}");
     }
 
-    private void FixedUpdate()
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
+    
+    protected void FixedUpdate()
     {
         if (_model == null) return;
         
@@ -68,6 +77,6 @@ public class Enemy : MonoBehaviour
     {
         var bulletGo = bulletPool.Get();
         bulletGo.transform.position = firePoint.position;
-        bulletGo.Seek(_playerController.transform, _model.Damage, _model.BulletSpeed, bulletPool);
+        bulletGo.Seek(_playerController.transform, _playerModel, _model.Damage, _model.BulletSpeed, bulletPool);
     }
 }
