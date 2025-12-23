@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System_Scripts.ManagerScripts;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -73,6 +74,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Resume()
     {
+        GameManager.Instance.SetState(GameState.Gameplay);
         panelMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
@@ -80,6 +82,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Pause()
     {
+        GameManager.Instance.SetState(GameState.Paused);
         panelMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
@@ -91,7 +94,7 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         pauseButton.onClick.RemoveListener(OnClickPause);
         resumeButton.onClick.RemoveListener(OnClickResume);

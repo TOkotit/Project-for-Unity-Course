@@ -1,0 +1,13 @@
+﻿using Newtonsoft.Json.Bson;
+using System;
+using UnityEngine;
+
+public class UIGameplayRootBinder : MonoBehaviour
+{
+    public event Action GoToMainMenuButtonClicked;
+
+    public void OnClickMainMenu()
+    {
+        GoToMainMenuButtonClicked?.Invoke();
+    }
+}

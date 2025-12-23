@@ -1,3 +1,4 @@
+﻿using Assets.Scripts.Levels;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,7 +10,8 @@ namespace Levels
         private List<EnemyModel>  currentEnemiesOnLevelModels = new();
         public UnityEvent EnemiesWaveStarted = new();
         public UnityEvent EnemiesWaveFinished = new();
-        
+        public UnityEvent<string> LevelCompleted = new();
+
         public List<EnemyModel> EnemyPoolConfiguration { get; set; } = new();
         public List<int> WavesConfiguration { get; set; } = new();
 
@@ -34,10 +36,10 @@ namespace Levels
         }
         public List<EnemyModel> GetNextEnemyWave()
         {
-            
             if (WavesConfiguration.Count == 0)
             {
-                Debug.Log("Волны закончились!");
+                Debug.Log("Волны закончились! Уровень пройден!"); // + 
+                LevelCompleted?.Invoke(Game.Instance.CurrentLevelId); // + 
                 return null;
             }
             

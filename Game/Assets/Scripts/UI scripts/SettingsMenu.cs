@@ -20,6 +20,9 @@ public class SettingsMenu : MonoBehaviour
     private Resolution[] resolutions;
     PlayerPrefLocaleSelector playerPrefLocaleSelector = new PlayerPrefLocaleSelector();
 
+    [SerializeField] private GameObject optionsPanel;
+    [SerializeField] private GameObject menuPanel;
+
     private void Start()
     {
         //Загрузка языков
@@ -182,7 +185,9 @@ public class SettingsMenu : MonoBehaviour
 
     private void OnClickExit()
     {
+        optionsPanel.SetActive(false);
         Debug.Log("Выход из меню настроек");
+        menuPanel.SetActive(true);
     }
 
 

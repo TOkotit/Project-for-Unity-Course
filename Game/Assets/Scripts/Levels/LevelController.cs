@@ -1,6 +1,7 @@
+﻿using Assets.Scripts.Levels;
+using Entities.PlayerScripts;
 using System;
 using System.Collections.Generic;
-using Entities.PlayerScripts;
 using UnityEngine;
 
 namespace Levels
@@ -16,7 +17,7 @@ namespace Levels
         [SerializeField] private Enemy carPrefab;
         [SerializeField] private Enemy dronePrefab;
         [SerializeField] private PlayerController playerPrefab;
-        private LevelModel _levelModel;
+        private LevelModel _levelModel; // +
         
         private List<Enemy> _spawnedEnemyViews = new();
         public List<EnemySpot> EnemiesSpawnSpots = new()
@@ -30,7 +31,8 @@ namespace Levels
 
         public void Awake()
         {
-            
+            _levelModel.LevelCompleted.AddListener(OnLevelCompleted); //+
+
             if (LevelStats == null)
                 LevelStats = Resources.Load<LevelStats00>("Config/Level1StatsSO");
             if (CarEnemyStats == null)
@@ -104,6 +106,20 @@ namespace Levels
                 if (spot.IsFree) return spot;
             }
             return null;
+        }
+
+        private void OnLevelCompleted(string levelId) // +
+        {
+            float time = Time.time;
+            Debug.Log($"{levelId} пройден за {time:F2} сек");
+
+            LevelProgressManager.Instance.CompleteLevel(levelId, time);
+        }
+
+        private void OnDestroy() // +
+        {
+            if (_levelModel != null)
+                _levelModel.LevelCompleted.RemoveListener(OnLevelCompleted);
         }
     }
 }
