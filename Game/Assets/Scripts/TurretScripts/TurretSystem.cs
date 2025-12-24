@@ -15,7 +15,7 @@ public class TurretSystem : MonoBehaviour
 
     public void Awake()
     {
-        turretSystemModel = Game.Instance.turretSystemModel;
+        turretSystemModel = Game.Instance.TurretSystemModel;
 
         var turretPosition = new Vector3(0, 0, 0);
         

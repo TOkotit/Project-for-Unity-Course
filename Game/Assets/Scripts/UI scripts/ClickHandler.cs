@@ -19,7 +19,6 @@ public class ClickHandler : MonoBehaviour
         if (context.performed)
         {
             var mousePosition = context.ReadValue<Vector2>();
-            Debug.Log(mousePosition);
             
             var ray = mainCamera.ScreenPointToRay(mousePosition);
             var hit = new RaycastHit();

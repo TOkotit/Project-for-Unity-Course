@@ -8,13 +8,14 @@ namespace Levels
     public class LevelModel
     {
         private List<EnemyModel>  currentEnemiesOnLevelModels = new();
+        private BuffSystemModel buffSystemModel;
         public UnityEvent EnemiesWaveStarted = new();
         public UnityEvent EnemiesWaveFinished = new();
         public UnityEvent<string> LevelCompleted = new();
 
         public List<EnemyModel> EnemyPoolConfiguration { get; set; } = new();
         public List<int> WavesConfiguration { get; set; } = new();
-
+        
         public List<EnemyModel> CurrentEnemiesOnLevelModels
         {
             get => currentEnemiesOnLevelModels;
@@ -23,7 +24,8 @@ namespace Levels
         
         public LevelModel() 
         {
-            }
+            
+        }
         public void Initialize(LevelStats00 _levelDataSO)
         {
             if (_levelDataSO == null)
@@ -31,7 +33,8 @@ namespace Levels
                 Debug.LogError("LevelModel: Попытка инициализации NULL конфигом!");
                 return;
             }
-            
+
+            buffSystemModel = Game.Instance.BuffModel;
             _levelDataSO.LoadIntoModel(this);
         }
         public List<EnemyModel> GetNextEnemyWave()
@@ -53,6 +56,7 @@ namespace Levels
                 if (EnemyPoolConfiguration.Count > 0)
                 {
                     var newEnemy = EnemyPoolConfiguration[0];
+                    newEnemy.InitializePointsReward(buffSystemModel);
                     waveEnemies.Add(newEnemy);
                     EnemyPoolConfiguration.RemoveAt(0);
                     currentEnemiesOnLevelModels.Add(newEnemy);

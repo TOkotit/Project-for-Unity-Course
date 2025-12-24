@@ -12,12 +12,26 @@ public class EnemyModel : Entity_Model
     private float rotationSpeed;
     private float bulletSpeed;
     private float fireCountdown;
+    private int rewardPoints;
+
+    private BuffSystemModel buffSystemModel;
     
     public EnemyModel(EnemyType enemyType)
     {
         EnemyType = enemyType;
+        CurrentHpChanged.Invoke(CurrentHp, MaxHp);
     }
 
+    public void InitializePointsReward(BuffSystemModel buffSystem)
+    {
+        buffSystemModel = buffSystem;
+        OnDeath.AddListener(GivePoints);
+    }
+    private void GivePoints()
+    {
+        buffSystemModel.AddPoints(rewardPoints); 
+    }
+    
     public float BaseDamage
     {
         get => baseDamage;
@@ -58,6 +72,12 @@ public class EnemyModel : Entity_Model
     {
         get => bulletSpeed;
         set => bulletSpeed = value;
+    }
+
+    public int RewardPoints
+    {
+        get => rewardPoints;
+        set => rewardPoints = value;
     }
     public void LoadStatsFromSO(CarEnemySO stats)
     { 

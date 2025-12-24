@@ -11,6 +11,8 @@ public class UILevelSelectRootBinder : MonoBehaviour
     public event Action GoToFifthLevelButtonClicked;
 
     public event Action GoToMainMenuButtonClicked;
+    
+    public event Action GoToBuffsMenuButtonClicked;
 
     public void OnClickBack()
     {
@@ -40,5 +42,10 @@ public class UILevelSelectRootBinder : MonoBehaviour
     public void OnClickFifthLevel()
     {
         GoToFifthLevelButtonClicked?.Invoke();
+    }
+
+    public void OnClickBuffsMenu()
+    {
+        GoToBuffsMenuButtonClicked?.Invoke();
     }
 }

@@ -44,7 +44,7 @@ namespace Levels
             
             if (Game.Instance != null)
             {
-                _levelModel = Game.Instance.levelModel;
+                _levelModel = Game.Instance.LevelModel;
                 _levelModel.Initialize(LevelStats);
             }
             if (_levelModel == null)
