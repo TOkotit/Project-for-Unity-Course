@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class BuffSystem : MonoBehaviour
 {
-    [SerializeField] private BuffsSO defaultBuffsDatabase; 
-    
     private BuffSystemModel buffSystemModel;
 
+
+    private void Awake()
+    {
+        buffSystemModel = Game.Instance.BuffModel;
+    }
     private void Start()
     {
-        // Применяем баффы при старте
         buffSystemModel.ApplyAllBuffs();
     }
     

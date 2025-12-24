@@ -36,6 +36,11 @@ public class MainMenu : MonoBehaviour
         AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         Debug.Log("Нажата кнопка новая игра");
     }
+
+    private void OnClickContinue()
+    {
+        Debug.Log("Нажата кнопка продолжить");
+    }
     private void OnClickOptions()
     {
         AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
