@@ -31,6 +31,7 @@ namespace Scripts.GamePlar.Root
             uiScene.GoToLevelSelectButtonClicked += () =>
             {
                 LevelProgressManager.Instance.ClearProgress(); 
+                Game.Instance.BuffModel.ClearBuffsSave();
                 GoToLevelSelectSceneRequested?.Invoke();
             };
             
