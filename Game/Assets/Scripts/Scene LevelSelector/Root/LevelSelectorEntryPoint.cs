@@ -61,6 +61,7 @@ public class LevelSelectorEntryPoint : MonoBehaviour
     {
         if (LevelProgressManager.Instance.IsLevelUnlocked(levelId))
         {
+            Game.Instance.CurrentLevelId = levelId;
             GoToGameplaySceneRequested?.Invoke(levelId);
         }
         else
