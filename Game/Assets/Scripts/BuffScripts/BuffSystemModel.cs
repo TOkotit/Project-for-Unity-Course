@@ -27,7 +27,7 @@ public class BuffSystemModel
         Buffs = new List<Buff>();
         
         // Пробуем загрузить, если файла нет - берем из SO
-        if (!LoadBuffs())
+        //if (!LoadBuffs())
         {
             var defaultBuffsData = Resources.Load<BuffsSO>("Config/BuffsSO");
             InitializeFromSO(defaultBuffsData);
@@ -77,7 +77,7 @@ public class BuffSystemModel
             if (Buffs[index].BuffLevel < Buffs[index].MaxBuffLevel)
             {
                 Buffs[index].BuffLevel++;
-                SaveBuffs();
+                //SaveBuffs();
             }
         }
     }
@@ -89,44 +89,44 @@ public class BuffSystemModel
         Debug.Log($"Получено очков {amount}, всего {points}");
     }
     
-    // JSON
-    public void SaveBuffs()
-    {
-        BuffListWrapper wrapper = new BuffListWrapper { list = Buffs, points = points };
-        string json = JsonUtility.ToJson(wrapper, true);
-        File.WriteAllText(savePath, json);
-        Debug.Log("Buffs saved to: " + savePath);
-    }
-
-    public bool LoadBuffs()
-    {
-        if (!File.Exists(savePath)) return false;
-
-        try
-        {
-            string json = File.ReadAllText(savePath);
-            BuffListWrapper wrapper = JsonUtility.FromJson<BuffListWrapper>(json);
-            
-            if (wrapper != null && wrapper.list != null)
-            {
-                Buffs = wrapper.list;
-                points = wrapper.points;
-                Debug.Log("Buffs loaded successfully.");
-                return true;
-            }
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError("Failed to load buffs: " + e.Message);
-        }
-        return false;
-    }
-
-    // Вспомогательный класс-обертка для JSON
-    [System.Serializable]
-    private class BuffListWrapper
-    {
-        public List<Buff> list;
-        public int points;
-    }
+    // Перенос загрузки баффов в общую систему сохранений
+    // public void SaveBuffs()
+    // {
+    //     BuffListWrapper wrapper = new BuffListWrapper { list = Buffs, points = points };
+    //     string json = JsonUtility.ToJson(wrapper, true);
+    //     File.WriteAllText(savePath, json);
+    //     Debug.Log("Buffs saved to: " + savePath);
+    // }
+    //
+    // public bool LoadBuffs()
+    // {
+    //     if (!File.Exists(savePath)) return false;
+    //
+    //     try
+    //     {
+    //         string json = File.ReadAllText(savePath);
+    //         BuffListWrapper wrapper = JsonUtility.FromJson<BuffListWrapper>(json);
+    //         
+    //         if (wrapper != null && wrapper.list != null)
+    //         {
+    //             Buffs = wrapper.list;
+    //             points = wrapper.points;
+    //             Debug.Log("Buffs loaded successfully.");
+    //             return true;
+    //         }
+    //     }
+    //     catch (System.Exception e)
+    //     {
+    //         Debug.LogError("Failed to load buffs: " + e.Message);
+    //     }
+    //     return false;
+    // }
+    //
+    // // Вспомогательный класс-обертка для JSON
+    // [System.Serializable]
+    // private class BuffListWrapper
+    // {
+    //     public List<Buff> list;
+    //     public int points;
+    // }
 }

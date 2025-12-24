@@ -19,6 +19,7 @@ public class EnemyModel : Entity_Model
     public EnemyModel(EnemyType enemyType)
     {
         EnemyType = enemyType;
+        CurrentHpChanged.Invoke(CurrentHp, MaxHp);
     }
 
     public void InitializePointsReward(BuffSystemModel buffSystem)

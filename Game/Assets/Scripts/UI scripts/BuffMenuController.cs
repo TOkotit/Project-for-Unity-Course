@@ -4,7 +4,7 @@ using UnityEngine;
 public class BuffMenuController : MonoBehaviour
 {
     [SerializeField] private BuffUIItem itemPrefab;
-    [SerializeField] private Transform container;  // Куда складывать объекты (Layout Group)
+    [SerializeField] private Transform container;  
 
     private BuffSystemModel _model;
 
