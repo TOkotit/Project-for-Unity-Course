@@ -1,4 +1,5 @@
-﻿using System_Scripts.ManagerScripts;
+﻿using Assets.Scripts.Audio;
+using System_Scripts.ManagerScripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -56,18 +57,21 @@ public class PauseMenu : MonoBehaviour
 
     private void OnClickPause()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         Debug.Log("Нажата кнопка паузы");
         Pause();
     }
 
     private void OnClickResume()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         Debug.Log("Нажата кнопка продолжить");
         Resume();
     }
 
     private void OnClickMenu()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         Debug.Log("Нажата кнопка меню");
         LoadMenu();
     }
