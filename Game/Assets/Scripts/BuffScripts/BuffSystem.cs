@@ -13,9 +13,4 @@ public class BuffSystem : MonoBehaviour
     {
         buffSystemModel.ApplyAllBuffs();
     }
-    
-    private void OnApplicationQuit()
-    {
-        //buffSystemModel.SaveBuffs(); 
-    }
 }
