@@ -73,12 +73,20 @@ public class LevelSelectorEntryPoint : MonoBehaviour
     private void SetButtonInteractable(UILevelSelectRootBinder binder, string buttonName, string levelId)
     {
         bool isUnlocked = LevelProgressManager.Instance.IsLevelUnlocked(levelId);
-        var btn = binder.transform.Find(buttonName)?.GetComponent<UnityEngine.UI.Button>();
-        if (btn != null)
-        {
-            btn.interactable = isUnlocked;
-            var lockIcon = btn.transform.Find("LockIcon")?.gameObject;
-            if (lockIcon != null) lockIcon.SetActive(!isUnlocked);
+        
+        var btnTransform = binder.transform.Find(buttonName);
+        if (btnTransform != null)        {
+            var btn = btnTransform.GetComponent<UnityEngine.UI.Button>();
+            if (btn != null) btn.interactable = isUnlocked;
+            var lockTransform = btnTransform.Find("LockIcon");
+            if (lockTransform != null)
+            {
+                lockTransform.gameObject.SetActive(!isUnlocked);
+            }
+            else
+            {
+                Debug.LogWarning($"На кнопке {buttonName} не найден объект LockIcon!");
+            }
         }
     }
 }

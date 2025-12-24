@@ -82,6 +82,8 @@ namespace System_Scripts.GameRoot
         {
             
             _uiRoot.ShowLoadingScreen();
+            yield return LoadScene(Scenes.GAMEPLAY);
+            
             
             if (SceneManager.GetActiveScene().name != Scenes.GAMEPLAY)
             {
@@ -118,7 +120,6 @@ namespace System_Scripts.GameRoot
         
         private void OnLevelCompletedHandle(string levelId)
         {
-            Game.Instance.levelModel.LevelCompleted.RemoveListener(OnLevelCompletedHandle);
             _coroutines.StartCoroutine(DelayedReturnToLevelSelect());
         }
         

@@ -121,12 +121,14 @@ namespace Levels
         private void OnLevelCompleted(string levelId)
         {
             var time = Time.time;
-            Debug.Log($"{levelId} пройден! Возврат в меню через 5 секунд...");
-
+            Debug.Log($"<color=yellow>ПОБЕДА! Уровень {levelId} пройден. Сохранение...</color>");
+            
+            
             if (LevelProgressManager.Instance != null)
             {
                 LevelProgressManager.Instance.CompleteLevel(levelId, time);
             }
+            StartCoroutine(ReturnToLevelSelectRoutine());
         }
         
         private IEnumerator ReturnToLevelSelectRoutine()
