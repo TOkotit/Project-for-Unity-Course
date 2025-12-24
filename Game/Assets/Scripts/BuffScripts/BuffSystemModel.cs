@@ -39,13 +39,14 @@ public class BuffSystemModel
         Buffs.Clear();
         foreach (var buff in so.buffs)
         {
-            Buffs.Add(new Buff(buff.Name, buff.ParameterType, buff.Value, buff.BuffLevel, buff.MaxBuffLevel));
+            Buffs.Add(new Buff(buff.Name, buff.ParameterType, buff.Value, buff.BuffLevel, buff.MaxBuffLevel, buff.Cost));
         }
         Debug.Log("Усиления загружены через SO");
     }
 
     public void ApplyAllBuffs()
     {
+        turretSystemModel.ResetTurrets();
         foreach (var buff in Buffs)
         {
             switch (buff.ParameterType)
@@ -76,8 +77,18 @@ public class BuffSystemModel
         {
             if (Buffs[index].BuffLevel < Buffs[index].MaxBuffLevel)
             {
-                Buffs[index].BuffLevel++;
-                //SaveBuffs();
+                if (points >= Buffs[index].Cost)
+                {
+                    Buffs[index].BuffLevel++;
+                    points -= Buffs[index].Cost;
+                    PointsChanged.Invoke();
+                    //SaveBuffs();
+                }
+                else
+                {
+                    Debug.Log("Недостаточно очков");
+                }
+
             }
         }
     }

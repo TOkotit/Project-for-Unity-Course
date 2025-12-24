@@ -21,11 +21,11 @@ namespace Scripts.Entities
             
             
         }
-
-
+        
         public void ApplyHpBuff(float buff)
         {
             MaxHp *= 1 + buff;
+            CurrentHp = MaxHp;
         }
     }
 }
