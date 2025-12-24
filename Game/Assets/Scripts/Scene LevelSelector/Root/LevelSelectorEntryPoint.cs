@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Levels;
 using System;
+using Assets.Scripts.Audio;
 using System_Scripts.GameRoot;
 using System_Scripts.ManagerScripts;
 using UnityEngine;
@@ -34,6 +35,8 @@ public class LevelSelectorEntryPoint : MonoBehaviour
 
         // ОБНОВЛЕНИЕ СОСТОЯНИЯ (передаем данные из uiScene)
         RefreshButtonStates(uiScene);
+        
+        AudioManager.Instance.PlayMenuMusic();
     }
 
     private void TryStartLevel(string levelId)
