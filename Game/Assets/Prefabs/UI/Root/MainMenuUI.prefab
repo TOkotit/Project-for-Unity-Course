@@ -775,6 +775,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2540226523210786958}
     - target: {fileID: 4855170667654279211, guid: b4c3b015b3678714eafd3692e8c80d6c, type: 3}
+      propertyPath: masterMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 9d69b092d426975458ab11d7e045a68d, type: 2}
+    - target: {fileID: 4855170667654279211, guid: b4c3b015b3678714eafd3692e8c80d6c, type: 3}
       propertyPath: optionsPanel
       value: 
       objectReference: {fileID: 9194819902886574171}
