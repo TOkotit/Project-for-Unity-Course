@@ -19,15 +19,12 @@ namespace System_Scripts.GameRoot
         {
             
             var currentSceneName = SceneManager.GetActiveScene().name;
-            if (currentSceneName != Scenes.BOOT)
+            
+            if (_instance == null)
             {
-                return;
+                _instance = new GameEntryPoint();
             }
-
-            Application.targetFrameRate = 60;
             
-            
-            _instance = new GameEntryPoint();
             _instance.RunGame();
         }
 
@@ -85,30 +82,53 @@ namespace System_Scripts.GameRoot
         {
             
             _uiRoot.ShowLoadingScreen();
-            
-            yield return LoadScene(Scenes.BOOT);
             yield return LoadScene(Scenes.GAMEPLAY);
-
-            yield return new WaitForSeconds(2f);
+            
+            
+            if (SceneManager.GetActiveScene().name != Scenes.GAMEPLAY)
+            {
+                yield return LoadScene(Scenes.GAMEPLAY);
+            }
+            
+            if (Game.Instance.levelModel != null)
+            {
+                Game.Instance.levelModel.LevelCompleted.RemoveListener(OnLevelCompletedHandle);
+                Game.Instance.levelModel.LevelCompleted.AddListener(OnLevelCompletedHandle);
+            }
 
             var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
             
             if (sceneEntryPoint)
             {
-               sceneEntryPoint.Run(_uiRoot);
+                sceneEntryPoint.Run(_uiRoot);
             }
             else
             {
                 Debug.LogError("Ошибка: Не найдена точка входа в сцену Gameplay!");
             }
 
-            sceneEntryPoint.GoToMainMenuSceneRequested += () =>
+            if (sceneEntryPoint != null)
             {
-                _coroutines.StartCoroutine(LoadAndStartMainMenu());
-            };
+                sceneEntryPoint.GoToMainMenuSceneRequested += () =>
+                {
+                    _coroutines.StartCoroutine(LoadAndStartMainMenu());
+                };
+            }
 
             GameManager.Instance.SetState(GameState.Gameplay);
             _uiRoot.HideLoadingScreen();
+        }
+        
+        private void OnLevelCompletedHandle(string levelId)
+        {
+            _coroutines.StartCoroutine(DelayedReturnToLevelSelect());
+        }
+        
+        private IEnumerator DelayedReturnToLevelSelect()
+        {
+            Debug.Log("Уровень завершен. Ждем 5 секунд...");
+            yield return new WaitForSeconds(5f);
+            yield return LoadAndStartLevelSelect();
         }
 
         private IEnumerator LoadAndStartMainMenu()
@@ -120,7 +140,7 @@ namespace System_Scripts.GameRoot
             yield return LoadScene(Scenes.MAIN_MENU);
 
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
 
             var sceneEntryPoint = Object.FindFirstObjectByType<MainMenuEntryPoint>();
 

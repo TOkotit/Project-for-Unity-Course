@@ -10,7 +10,7 @@ namespace Scripts.GamePlar.Root
         [SerializeField] private UIGameplayRootBinder _sceneUIRootBinder;
 
         public event Action GoToMainMenuSceneRequested;
-
+    
         private void Awake()
         {
             if (Game.Instance == null)
