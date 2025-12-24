@@ -90,10 +90,10 @@ namespace System_Scripts.GameRoot
                 yield return LoadScene(Scenes.GAMEPLAY);
             }
             
-            if (Game.Instance.levelModel != null)
+            if (Game.Instance.LevelModel != null)
             {
-                Game.Instance.levelModel.LevelCompleted.RemoveListener(OnLevelCompletedHandle);
-                Game.Instance.levelModel.LevelCompleted.AddListener(OnLevelCompletedHandle);
+                Game.Instance.LevelModel.LevelCompleted.RemoveListener(OnLevelCompletedHandle);
+                Game.Instance.LevelModel.LevelCompleted.AddListener(OnLevelCompletedHandle);
             }
 
             var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();

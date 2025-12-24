@@ -1,4 +1,4 @@
-using Entities.PlayerScripts;
+﻿using Entities.PlayerScripts;
 using Levels;
 using Scripts.Entities;
 using UnityEngine;
@@ -51,9 +51,9 @@ public class Enemy : MonoBehaviour
             _mySpot.IsFree = true;
         }
         
-        if (Game.Instance != null && Game.Instance.levelModel != null)
+        if (Game.Instance != null && Game.Instance.LevelModel != null)
         {
-            Game.Instance.levelModel.RemoveEnemy(_model); //
+            Game.Instance.LevelModel.RemoveEnemy(_model); //
         }
         
         Destroy(gameObject);
