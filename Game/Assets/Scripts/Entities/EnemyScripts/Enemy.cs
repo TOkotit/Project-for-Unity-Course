@@ -1,4 +1,5 @@
 using Entities.PlayerScripts;
+using Levels;
 using Scripts.Entities;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -10,7 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject enemyTurret;
     
     private EnemyModel _model;
-    
+    private EnemySpot _mySpot;
     private PlayerController _playerController;
     private Player _playerModel;
     
@@ -36,9 +37,10 @@ public class Enemy : MonoBehaviour
         
     }
     
-    public void Initialize(EnemyModel model)
+    public void Initialize(EnemyModel model, EnemySpot spot)
     {
         _model = model;
+        _mySpot = spot;
         _model.OnDeath.AddListener(Die);
         _model.CurrentHpChanged.Invoke(_model.CurrentHp, _model.MaxHp);
         Debug.Log($"Враг создан! Тип: {_model.EnemyType}, HP: {_model.MaxHp}");
@@ -46,6 +48,16 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        if (_mySpot != null)
+        {
+            _mySpot.IsFree = true;
+        }
+        
+        if (Game.Instance != null && Game.Instance.levelModel != null)
+        {
+            Game.Instance.levelModel.RemoveEnemy(_model); //
+        }
+        
         Destroy(gameObject);
     }
     

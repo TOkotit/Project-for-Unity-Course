@@ -1,7 +1,10 @@
 ﻿using Assets.Scripts.Levels;
 using Entities.PlayerScripts;
 using System;
+using UnityEngine.SceneManagement;
+using System.Collections;
 using System.Collections.Generic;
+using System_Scripts.GameRoot;
 using UnityEngine;
 
 namespace Levels
@@ -18,8 +21,9 @@ namespace Levels
         [SerializeField] private Enemy dronePrefab;
         [SerializeField] private PlayerController playerPrefab;
         private LevelModel _levelModel; // +
-        
-        private List<Enemy> _spawnedEnemyViews = new();
+
+        private List<Enemy> _spawnedEnemyViews = new(); 
+
         public List<EnemySpot> EnemiesSpawnSpots = new()
         {
             new EnemySpot(new Vector3(-5, 0.1f, 0)),
@@ -49,7 +53,11 @@ namespace Levels
                                "Проверьте Script Execution Order для GameplayEntryPoint.");
                 return;
             }
-            _levelModel.LevelCompleted.AddListener(OnLevelCompleted); //+
+            else
+            {
+                _levelModel.EnemiesWaveFinished.AddListener(SpawnNextWave); 
+                _levelModel.LevelCompleted.AddListener(OnLevelCompleted); //
+            }
             Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
             
             SpawnNextWave();
@@ -57,13 +65,15 @@ namespace Levels
         
         public void SpawnNextWave()
         {
+            _spawnedEnemyViews.Clear();
+            
             var enemiesToSpawn = _levelModel.GetNextEnemyWave();
 
             if (enemiesToSpawn == null || enemiesToSpawn.Count == 0) return;
 
             foreach (var enemyModel in enemiesToSpawn)
             {
-                var spot = GetFreeSpot();
+                var spot = GetRandomFreeSpot();
                 if (spot == null)
                 {
                     Debug.LogError("Нет свободных мест для спавна!");
@@ -92,27 +102,39 @@ namespace Levels
                 }
                 
                 var newEnemyObject = Instantiate(prefabToSpawn, positionToSpawn, Quaternion.identity);
-                newEnemyObject.Initialize(enemyModel);
-                spot.IsFree = false; 
+                newEnemyObject.Initialize(enemyModel, spot);
+                spot.IsFree = false;
                 _spawnedEnemyViews.Add(newEnemyObject);
             }
         }
         
-        private EnemySpot GetFreeSpot()
+        private EnemySpot GetRandomFreeSpot()
         {
-            foreach (var spot in EnemiesSpawnSpots)
-            {
-                if (spot.IsFree) return spot;
-            }
-            return null;
+            var freeSpots = EnemiesSpawnSpots.FindAll(s => s.IsFree);
+
+            if (freeSpots.Count == 0) return null;
+
+            var randomIndex = UnityEngine.Random.Range(0, freeSpots.Count);
+            return freeSpots[randomIndex];
         }
 
-        private void OnLevelCompleted(string levelId) // +
+        private void OnLevelCompleted(string levelId)
         {
-            float time = Time.time;
-            Debug.Log($"{levelId} пройден за {time:F2} сек");
-
-            LevelProgressManager.Instance.CompleteLevel(levelId, time);
+            var time = Time.time;
+            Debug.Log($"<color=yellow>ПОБЕДА! Уровень {levelId} пройден. Сохранение...</color>");
+            
+            
+            if (LevelProgressManager.Instance != null)
+            {
+                LevelProgressManager.Instance.CompleteLevel(levelId, time);
+            }
+            StartCoroutine(ReturnToLevelSelectRoutine());
+        }
+        
+        private IEnumerator ReturnToLevelSelectRoutine()
+        {
+            yield return new WaitForSeconds(5f);
+            SceneManager.LoadScene(Scenes.LEVEL_SELECT); 
         }
 
         private void OnDestroy() // +

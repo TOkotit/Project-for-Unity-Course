@@ -67,8 +67,8 @@ namespace Assets.Scripts.Levels
             }
 
             progress.MarkAsCompleted(timeSeconds);
-            SaveProgress();
             UnlockNextAvailable();
+            SaveProgress();
         }
 
         private void UnlockNextAvailable()
@@ -94,6 +94,8 @@ namespace Assets.Scripts.Levels
 
         public bool IsLevelUnlocked(string levelId)
         {
+            if (LevelsConfig.Instance.Levels.Count > 0 && levelId == LevelsConfig.Instance.Levels[0].id)
+                return true;
             return _progressDict.ContainsKey(levelId);
         }
 
