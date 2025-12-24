@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Audio;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider soundSlider;
+    [SerializeField] private AudioMixer masterMixer;
     [SerializeField] private TMP_Text percentageMusic;
     [SerializeField] private TMP_Text percentageSound;
     private Resolution[] resolutions;
@@ -29,7 +31,6 @@ public class SettingsMenu : MonoBehaviour
         languageDropDown.ClearOptions();
         List<string> languages = new List<string>();
         int currentLanguageIndex = 1;
-
 
         for (int i = 0; i < LocalizationSettings.AvailableLocales.Locales.Count; i++)
         {
@@ -73,7 +74,23 @@ public class SettingsMenu : MonoBehaviour
         screenModeDropDown.AddOptions(modes);
         screenModeDropDown.RefreshShownValue();
 
-        LoadSettings(currentLanguageIndex, currentResolutionIndex, currentScreenMode);
+        //Загрузка музыки и звуков
+        float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        float sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        float currentSoundVolume = 1f;
+        float currentMusicVolume = 1f;
+        musicSlider.value = musicVolume;
+        soundSlider.value = sfxVolume;
+
+        UpdateMixerVolume("MusicVolume", musicVolume);
+        UpdateMixerVolume("SFXVolume", sfxVolume);
+
+        OnSetMusicValue(musicSlider.value);
+        OnSetSoundValue(soundSlider.value);
+
+        LoadSettings(currentLanguageIndex, currentResolutionIndex, currentScreenMode, currentSoundVolume, currentMusicVolume);
+        OnSetMusicValue(musicSlider.value);
+        OnSetSoundValue(soundSlider.value);
     }
 
     private void OnEnable()
@@ -117,6 +134,7 @@ public class SettingsMenu : MonoBehaviour
     //Настройки языка
     private void OnSetLanguage(int localeIndex)
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeIndex];
         Debug.Log($"Язык изменен на: {LocalizationSettings.AvailableLocales.Locales[localeIndex].Identifier}");
     }
@@ -144,12 +162,14 @@ public class SettingsMenu : MonoBehaviour
 
     private void OnSetScreenMode(int screenModeIndex)
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         ScreenModeFind(screenModeIndex);
         Debug.Log("Режим экрана изменен");
     }
 
     private void OnSetResolution(int resolutionIndex)
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         Debug.Log("Разрешение изменено");
@@ -159,32 +179,48 @@ public class SettingsMenu : MonoBehaviour
 
     private void OnSetMusicValue(float musicValue)
     {
-        musicValue = Mathf.RoundToInt(musicValue);
-        string stringMusicValue = musicValue.ToString();
-        percentageMusic.text = $"{stringMusicValue}%";
-        Debug.Log("Громкость музыки изменена");
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
+        musicValue = Mathf.RoundToInt(musicValue * 100f) / 100f;
+        int percent = Mathf.RoundToInt(musicValue * 100);
+        percentageMusic.text = $"{percent}%";
+
+        UpdateMixerVolume("MusicVolume", musicValue);
+        PlayerPrefs.SetFloat("MusicVolume", musicValue);
     }
 
     private void OnSetSoundValue(float soundValue)
     {
-        soundValue = Mathf.RoundToInt(soundValue);
-        string stringSoundValue = soundValue.ToString();
-        percentageSound.text = $"{stringSoundValue}%";
-        Debug.Log("Громкость звука изменена");
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
+        soundValue = Mathf.RoundToInt(soundValue * 100f) / 100f;
+        int percent = Mathf.RoundToInt(soundValue * 100);
+        percentageSound.text = $"{percent}%";
+
+        UpdateMixerVolume("SFXVolume", soundValue);
+        PlayerPrefs.SetFloat("SFXVolume", soundValue);
+    }
+
+    private void UpdateMixerVolume(string mixer, float value)
+    {
+        float dB = value > 0 ? Mathf.Log10(value) * 20 : -80;
+        masterMixer.SetFloat(mixer, dB);
     }
 
     //Прочие кнопки
 
     private void OnClickSave()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         PlayerPrefs.SetInt(playerPrefLocaleSelector.PlayerPreferenceKey, languageDropDown.value);
         PlayerPrefs.SetInt("ResolutionPreference", resolutionDropDown.value);
         PlayerPrefs.SetInt("FullscreenPreference", screenModeDropDown.value);
+        PlayerPrefs.SetFloat("SFXVolume", soundSlider.value);
+        PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
         Debug.Log("Изменения сохранены");
     }
 
     private void OnClickExit()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         optionsPanel.SetActive(false);
         Debug.Log("Выход из меню настроек");
         menuPanel.SetActive(true);
@@ -193,7 +229,8 @@ public class SettingsMenu : MonoBehaviour
 
     //Загрузка старых настроек
 
-    private void LoadSettings(int currentLanguageIndex, int currentResolutionIndex, int currentScreenMode)
+    private void LoadSettings(int currentLanguageIndex, int currentResolutionIndex, int currentScreenMode,
+       float currentSoundVolume, float currentMusicVolume)
     {
         if (PlayerPrefs.HasKey(playerPrefLocaleSelector.PlayerPreferenceKey))
             languageDropDown.value = PlayerPrefs.GetInt(playerPrefLocaleSelector.PlayerPreferenceKey);
@@ -209,6 +246,17 @@ public class SettingsMenu : MonoBehaviour
             screenModeDropDown.value = PlayerPrefs.GetInt("FullscreenPreference");
         else
             screenModeDropDown.value = currentScreenMode;
+
+        if (PlayerPrefs.HasKey("SFXVolume"))
+            soundSlider.value = PlayerPrefs.GetFloat("SFXVolume");
+        else
+            soundSlider.value = currentSoundVolume;
+
+        if (PlayerPrefs.HasKey("MusicVolume"))
+            musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+        else
+            musicSlider.value = currentMusicVolume;
+
         Debug.Log("Старые настройки загружены");
     }
 

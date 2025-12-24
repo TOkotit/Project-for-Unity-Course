@@ -1,3 +1,4 @@
+﻿using Assets.Scripts.Audio;
 using System;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -49,6 +50,7 @@ public class Turret : MonoBehaviour
 
     private void Shoot()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShoot);
         var bulletGo = bulletPool.Get();
         bulletGo.transform.position = firePoint.position;
         bulletGo.Seek(turretModel.CurrentTarget, turretModel.CurrentEnemy, turretModel.Damage, 

@@ -1,7 +1,8 @@
-﻿using Assets.Scripts.Levels;
-using System;
+﻿using Assets.Scripts.Audio;
+using Assets.Scripts.Levels;
 using Levels;
 using Scripts.Entities;
+using System;
 using System_Scripts.GameRoot;
 using UnityEngine;
 
@@ -30,6 +31,8 @@ namespace Scripts.GamePlar.Root
             {
                 GoToMainMenuSceneRequested?.Invoke();
             };
+
+            AudioManager.Instance.PlayGameplayMusic();
         }
     }
 }

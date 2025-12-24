@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Audio;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -32,6 +33,7 @@ public class MainMenu : MonoBehaviour
 
     private void OnClickStart()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         Debug.Log("Нажата кнопка новая игра");
     }
 
@@ -41,12 +43,14 @@ public class MainMenu : MonoBehaviour
     }
     private void OnClickOptions()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         optionsPanel.SetActive(true);
         Debug.Log("Нажата кнопка настройки");
         menuPanel.SetActive(false);
     }
     private void OnClickExit()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         Debug.Log("Нажата кнопка выхода");
         Application.Quit();
         Debug.Log("Пользователь вышел из приложения");

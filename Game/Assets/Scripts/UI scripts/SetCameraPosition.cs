@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class SetCameraPosition : MonoBehaviour
@@ -12,6 +12,13 @@ public class SetCameraPosition : MonoBehaviour
     [SerializeField] private float RotationY;
     [SerializeField] private float RotationZ;
 
+    private void Awake()
+    {
+        if (GetComponent<AudioListener>() == null)
+        {
+            gameObject.AddComponent<AudioListener>();
+        }
+    }
 
     public void Update()
     {

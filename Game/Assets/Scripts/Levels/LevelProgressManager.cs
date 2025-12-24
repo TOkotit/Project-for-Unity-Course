@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Levels
@@ -32,13 +33,54 @@ namespace Assets.Scripts.Levels
             }
             else
             {
-                Debug.Log("Файл прогресса не найден - создается default");
-                InitializeDefaultProgress();
+                _progressDict = new Dictionary<string, LevelProgress>();
+                return;
             }
 
+            Debug.Log("Текущее содержимое _progressDict после LoadProgress():");
+            foreach (var kv in _progressDict)
+                Debug.Log($" - {kv.Key} : isCompleted={kv.Value.isCompleted}, bestTime={kv.Value.bestTime}, attempts={kv.Value.attempts}");
+            
+            
             UnlockNextAvailable();
         }
+        
+        public bool HasAnyProgress()
+        {
+            foreach (var p in _progressDict.Values)
+            {
+                if (p.isCompleted) return true;
+            }
+            return false;
+                
+        }
+        
+        public void ClearAllProgress()
+        {
+            _progressDict.Clear();
+    
+            var path = Path.Combine(Application.persistentDataPath, SAVE_PATH);
+            if (File.Exists(path)) File.Delete(path);
 
+            InitializeDefaultProgress(); 
+            UnlockNextAvailable();
+            Debug.Log("Сохранения удалены. Начата новая игра.");
+        }
+        
+        public void ClearProgress()
+        {
+            _progressDict.Clear();
+    
+            var path = Path.Combine(Application.persistentDataPath, SAVE_PATH);
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+            InitializeDefaultProgress();
+            UnlockNextAvailable();
+            Debug.Log("Прогресс полностью сброшен (Новая игра)");
+        }
+        
         private void InitializeDefaultProgress()
         {
             _progressDict.Clear();
@@ -53,6 +95,8 @@ namespace Assets.Scripts.Levels
                 progress = new List<LevelProgress>(_progressDict.Values)
             };
             string json = JsonUtility.ToJson(wrapper, true);
+            Debug.Log($"Saving progress JSON:\n{json}");
+
             string path = Path.Combine(Application.persistentDataPath, SAVE_PATH);
             File.WriteAllText(path, json);
             Debug.Log($"Прогресс сохранён в {path}");
@@ -60,6 +104,10 @@ namespace Assets.Scripts.Levels
 
         public void CompleteLevel(string levelId, float timeSeconds)
         {
+            Debug.Log($"CompleteLevel called for '{levelId}'");
+
+            var levelExistsInConfig = LevelsConfig.Instance.Levels.Any(l => l.id == levelId);
+            if (!levelExistsInConfig) Debug.LogWarning($"CompleteLevel: уровень {levelId} не найден в LevelsConfig!");
             if (!_progressDict.TryGetValue(levelId, out var progress))
             {
                 progress = new LevelProgress { levelId = levelId };
@@ -89,6 +137,14 @@ namespace Assets.Scripts.Levels
                 {
                     break;
                 }
+            }
+            
+            Debug.Log("Состояние _progressDict после UnlockNextAvailable():");
+            for (int i = 0; i < levels.Count; i++)
+            {
+                var id = levels[i].id;
+                var inDict = _progressDict.TryGetValue(id, out var p);
+                Debug.Log($" Level {i+1} ({id}) -> inDict={inDict}, isCompleted={(p != null ? p.isCompleted.ToString() : "N/A")}");
             }
         }
 
