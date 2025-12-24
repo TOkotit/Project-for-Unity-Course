@@ -13,9 +13,17 @@ public class BuffSystemModel
     public List<Buff> Buffs { get; private set; }
     
     private int points;
+
+    private bool hasBuffsSave;
     public readonly UnityEvent PointsChanged = new();
 
     public int Points => points;
+
+    public bool HasBuffsSave
+    {
+        get => hasBuffsSave;
+        set => hasBuffsSave = value;
+    }
 
     public BuffSystemModel(TurretSystemModel turretSystem, Player player)
     {
@@ -25,12 +33,12 @@ public class BuffSystemModel
         savePath = Path.Combine(Application.persistentDataPath, "buffs_save.json");
         
         Buffs = new List<Buff>();
+
+        hasBuffsSave = LoadBuffs();
         
-        // Пробуем загрузить, если файла нет - берем из SO
-        if (!LoadBuffs())
+        if (!hasBuffsSave)
         {
-            var defaultBuffsData = Resources.Load<BuffsSO>("Config/BuffsSO");
-            InitializeFromSO(defaultBuffsData);
+            InitializeFromSO(Resources.Load<BuffsSO>("Config/BuffsSO"));
         }
     }
 
@@ -71,6 +79,17 @@ public class BuffSystemModel
         }
     }
 
+    public void ClearBuffsSave()
+    {
+        InitializeFromSO(Resources.Load<BuffsSO>("Config/BuffsSO"));
+        var path = Path.Combine(Application.persistentDataPath, savePath);
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+        Debug.Log("Прогресс усилений сброшен");
+    }
+    
     public void LevelUpBuff(int index)
     {
         if (index >= 0 && index < Buffs.Count)
