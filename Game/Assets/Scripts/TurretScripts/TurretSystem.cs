@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class TurretSystem : MonoBehaviour
 {   
-    //TODO позже заменить на что-то типо словаря
     [SerializeField] Turret heavyTurretPrefab;
     [SerializeField] Turret mediumTurretPrefab;
     [SerializeField] Turret lightTurretPrefab;
@@ -16,7 +15,7 @@ public class TurretSystem : MonoBehaviour
     public void Awake()
     {
         turretSystemModel = Game.Instance.TurretSystemModel;
-
+        turretSystemModel.Initialize();
         var turretPosition = new Vector3(0, 0, 0);
         
         foreach (var elem in turretSystemModel.TurretModels)
