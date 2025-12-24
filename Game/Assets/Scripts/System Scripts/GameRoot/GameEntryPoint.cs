@@ -97,6 +97,7 @@ namespace System_Scripts.GameRoot
             }
 
             var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
+            
             if (sceneEntryPoint)
             {
                 sceneEntryPoint.Run(_uiRoot);

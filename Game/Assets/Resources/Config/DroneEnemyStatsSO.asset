@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d7df914e2a577409ed7fad51bb650e, type: 3}
   m_Name: DroneEnemyStatsSO
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 200
   baseDamage: 30
   movementSpeed: 10
   fireRate: 0.5
+  rotationSpeed: 10
+  bulletSpeed: 30
+  rewardPoints: 1
   unitName: Default Unit
   displayColor: {r: 1, g: 1, b: 1, a: 1}
