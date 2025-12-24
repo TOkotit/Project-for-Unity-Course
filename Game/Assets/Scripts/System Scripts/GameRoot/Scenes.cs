@@ -6,5 +6,6 @@
         public const string GAMEPLAY = "Gameplay";
         public const string MAIN_MENU = "MainMenu";
         public const string LEVEL_SELECT = "LevelSelect";
+        public const string BUFFS_MENU = "BuffsMenu";
     }
 }

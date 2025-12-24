@@ -31,8 +31,6 @@ namespace Levels
 
         public void Awake()
         {
-            _levelModel.LevelCompleted.AddListener(OnLevelCompleted); //+
-
             if (LevelStats == null)
                 LevelStats = Resources.Load<LevelStats00>("Config/Level1StatsSO");
             if (CarEnemyStats == null)
@@ -42,7 +40,7 @@ namespace Levels
             
             if (Game.Instance != null)
             {
-                _levelModel = Game.Instance.levelModel;
+                _levelModel = Game.Instance.LevelModel;
                 _levelModel.Initialize(LevelStats);
             }
             if (_levelModel == null)
@@ -51,6 +49,7 @@ namespace Levels
                                "Проверьте Script Execution Order для GameplayEntryPoint.");
                 return;
             }
+            _levelModel.LevelCompleted.AddListener(OnLevelCompleted); //+
             Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
             
             SpawnNextWave();

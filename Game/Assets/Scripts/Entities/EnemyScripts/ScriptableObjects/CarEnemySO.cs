@@ -10,6 +10,7 @@ public class CarEnemySO : ScriptableObject
     public float fireRate = 0.5f;
     public float rotationSpeed = 5f;
     public float bulletSpeed = 30f;
+    public int rewardPoints = 1;
 
 
     [Header("Специфические настройки")]
@@ -31,5 +32,6 @@ public class CarEnemySO : ScriptableObject
         enemyModel.FireRate = fireRate;
         enemyModel.BulletSpeed = bulletSpeed;
         enemyModel.RotationSpeed = rotationSpeed;
+        enemyModel.RewardPoints = rewardPoints;
     }
 }

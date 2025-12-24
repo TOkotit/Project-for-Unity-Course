@@ -22,24 +22,32 @@ namespace Scripts.Entities
 
         public Entity_Model()
         {
-            CurrentHpChanged.AddListener(Die);
         }
         
         public float MaxHp {
             get => _maxHp;
-            set => _maxHp = value;
+            set
+            {
+                _maxHp = value;
+                CurrentHpChanged.Invoke(CurrentHp, MaxHp);
+            } 
         }
 
         public float CurrentHp
         {
             get => _currentHp;
-            set => _currentHp = value;
+            set
+            {
+                _currentHp = value;
+                CurrentHpChanged.Invoke(CurrentHp, MaxHp);
+            }
         }
 
         public void SetupHealth(float health)
         {
             MaxHp = health;
             CurrentHp = health;
+            CurrentHpChanged.Invoke(CurrentHp, MaxHp);
         }
         
         public virtual void TakeDamage(float amount)
@@ -48,12 +56,6 @@ namespace Scripts.Entities
             CurrentHp = Mathf.Clamp(CurrentHp - amount, 0, MaxHp);
             CurrentHpChanged.Invoke(CurrentHp, MaxHp);
             if (CurrentHp <= 0) OnDeath.Invoke();
-        }
-
-        public void Die(float curHp, float maxHp)
-        {   
-            if (curHp <= 0)
-                OnDeath.Invoke();
         }
     }
 }
