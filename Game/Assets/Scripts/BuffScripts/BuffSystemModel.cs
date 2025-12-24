@@ -17,10 +17,10 @@ public class BuffSystemModel
 
     public int Points => points;
 
-    public BuffSystemModel()
+    public BuffSystemModel( TurretSystemModel turretSystem, Player player)
     {
-        turretSystemModel = Game.Instance.turretSystemModel;
-        playerModel = Game.Instance.playerModel;
+        turretSystemModel = turretSystem;
+        playerModel = player;
         
         savePath = Path.Combine(Application.persistentDataPath, "buffs_save.json");
         

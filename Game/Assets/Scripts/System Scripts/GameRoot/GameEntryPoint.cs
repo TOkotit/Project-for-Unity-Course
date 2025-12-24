@@ -166,7 +166,7 @@ namespace System_Scripts.GameRoot
             {
                 _coroutines.StartCoroutine(LoadAndStartMainMenu());
             };
-
+            
             sceneEntryPoint.GoToGameplaySceneRequested += (levelId) =>
             {
                 _currentLevelId = levelId;
@@ -174,10 +174,44 @@ namespace System_Scripts.GameRoot
                 _coroutines.StartCoroutine(LoadAndStartGameplay());
             };
 
+            sceneEntryPoint.GoToBuffsMenuSceneRequested += () =>
+            {
+                _coroutines.StartCoroutine(LoadAndStartBuffsMenu());
+            };
+
             GameManager.Instance.SetState(GameState.LevelSelect);
             _uiRoot.HideLoadingScreen();
         }
 
+        private IEnumerator LoadAndStartBuffsMenu()
+        {
+            _uiRoot.ShowLoadingScreen();
+
+            yield return LoadScene(Scenes.BOOT);
+            yield return LoadScene(Scenes.BUFFS_MENU);
+            
+            yield return new WaitForSeconds(2f);
+
+            var sceneEntryPoint = Object.FindFirstObjectByType<BuffsMenuEntryPoint>();
+
+            if (sceneEntryPoint)
+            {
+                sceneEntryPoint.Run(_uiRoot);
+            }
+            else
+            {
+                Debug.LogError("Ошибка: Не найдена точка входа в сцену LevelSelect!");
+            }
+            
+            sceneEntryPoint.GoToLevelSelectSceneRequested += () =>
+            {
+                _coroutines.StartCoroutine(LoadAndStartLevelSelect());
+            };
+            
+            GameManager.Instance.SetState(GameState.LevelSelect);
+            _uiRoot.HideLoadingScreen();
+        }
+        
         private IEnumerator LoadScene(string sceneName)
         {
             yield return SceneManager.LoadSceneAsync(sceneName);

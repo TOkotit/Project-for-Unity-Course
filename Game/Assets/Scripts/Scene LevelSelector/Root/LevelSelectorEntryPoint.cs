@@ -11,6 +11,8 @@ public class LevelSelectorEntryPoint : MonoBehaviour
     [SerializeField] private UILevelSelectRootBinder _sceneUIRootPrefab;
     public event Action<string> GoToGameplaySceneRequested;
     public event Action GoToMainMenuSceneRequested;
+    
+    public event Action GoToBuffsMenuSceneRequested;
 
     public void Run(UIRootView uiRoot)
     {
@@ -47,6 +49,11 @@ public class LevelSelectorEntryPoint : MonoBehaviour
             TryStartLevel("Level_05");
         };
 
+        uiScene.GoToBuffsMenuButtonClicked += () =>
+        {
+            GoToBuffsMenuSceneRequested?.Invoke();
+        };
+        
         RefreshButtonStates(uiScene);
     }
 

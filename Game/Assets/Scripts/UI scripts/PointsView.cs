@@ -9,7 +9,7 @@ public class PointsView : MonoBehaviour
 
     private void Start()
     {
-        buffModel = Game.Instance.buffModel; 
+        buffModel = Game.Instance.BuffModel; 
 
         buffModel.PointsChanged.AddListener(UpdateScoreText);
 
@@ -18,7 +18,7 @@ public class PointsView : MonoBehaviour
     
     private void UpdateScoreText()
     {
-        scoreText.text = $"Очки: {buffModel.Points}";
+        scoreText.text = $"{buffModel.Points}";
     }
 
     private void OnDestroy()

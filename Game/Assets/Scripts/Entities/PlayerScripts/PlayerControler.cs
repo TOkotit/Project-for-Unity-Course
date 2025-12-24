@@ -41,7 +41,7 @@ namespace Entities.PlayerScripts
 
             if (Game.Instance != null)
             {
-                _playerModel = Game.Instance.playerModel;
+                _playerModel = Game.Instance.PlayerModel;
                 _playerModel.Initialize(carStats);
             }
             else

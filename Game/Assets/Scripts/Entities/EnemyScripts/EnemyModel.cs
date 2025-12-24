@@ -13,17 +13,22 @@ public class EnemyModel : Entity_Model
     private float bulletSpeed;
     private float fireCountdown;
     private int rewardPoints;
+
+    private BuffSystemModel buffSystemModel;
     
     public EnemyModel(EnemyType enemyType)
     {
         EnemyType = enemyType;
-        
-        OnDeath.AddListener(GivePoints);
     }
 
+    public void InitializePointsReward(BuffSystemModel buffSystem)
+    {
+        buffSystemModel = buffSystem;
+        OnDeath.AddListener(GivePoints);
+    }
     private void GivePoints()
     {
-        Game.Instance.buffModel.AddPoints(rewardPoints); //не знаю как переделать
+        buffSystemModel.AddPoints(rewardPoints); 
     }
     
     public float BaseDamage

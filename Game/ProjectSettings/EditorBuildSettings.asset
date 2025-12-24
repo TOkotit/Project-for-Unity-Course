@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: 5ae8292b5e2862049a211cae99d30310
+  - enabled: 1
+    path: Assets/Scenes/BuffsMenu.unity
+    guid: c5b66f9748c7ab24691c6961228935a5
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: c249f37e1a47d3a4689b8674b796be64, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
