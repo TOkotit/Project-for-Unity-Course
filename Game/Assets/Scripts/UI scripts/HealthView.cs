@@ -1,6 +1,7 @@
 using Scripts.Entities;
 using TMPro;
 using UnityEngine;
+using System;
 
 public class HealthView : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class HealthView : MonoBehaviour
     
     private void UpdateHealthText(float hp, float maxHp)
     {
-        scoreText.text = $"{hp}/{maxHp}";
+        scoreText.text = $"{Math.Round(hp)}/{maxHp}";
     }
 
     private void OnDestroy()
