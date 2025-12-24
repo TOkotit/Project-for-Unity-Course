@@ -4,6 +4,7 @@ using System_Scripts.GameRoot;
 using System_Scripts.ManagerScripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class LevelSelectorEntryPoint : MonoBehaviour
@@ -13,47 +14,25 @@ public class LevelSelectorEntryPoint : MonoBehaviour
     public event Action GoToMainMenuSceneRequested;
     
     public event Action GoToBuffsMenuSceneRequested;
-
+    
     public void Run(UIRootView uiRoot)
     {
+        LevelProgressManager.Instance.LoadProgress();
+
         var uiScene = Instantiate(_sceneUIRootPrefab);
         uiRoot.AttachSceneUI(uiScene.gameObject);
 
-        uiScene.GoToMainMenuButtonClicked += () =>
-        {
-            GoToMainMenuSceneRequested?.Invoke();
-        };
+        // ПОДПИСКИ
+        uiScene.GoToFirstLevelButtonClicked += () => TryStartLevel("Level_01");
+        uiScene.GoToSecondLevelButtonClicked += () => TryStartLevel("Level_02");
+        uiScene.GoToThirdLevelButtonClicked += () => TryStartLevel("Level_03");
+        uiScene.GoToFourthLevelButtonClicked += () => TryStartLevel("Level_04");
+        uiScene.GoToFifthLevelButtonClicked += () => TryStartLevel("Level_05");
+    
+        uiScene.GoToMainMenuButtonClicked += () => GoToMainMenuSceneRequested?.Invoke();
+        uiScene.GoToBuffsMenuButtonClicked += () => GoToBuffsMenuSceneRequested?.Invoke();
 
-        uiScene.GoToFirstLevelButtonClicked += () =>
-        {
-            TryStartLevel("Level_01");
-        };
-
-        uiScene.GoToSecondLevelButtonClicked += () =>
-        {
-            TryStartLevel("Level_02");
-        };
-
-        uiScene.GoToThirdLevelButtonClicked += () =>
-        {
-            TryStartLevel("Level_03");
-        };
-
-        uiScene.GoToFourthLevelButtonClicked += () =>
-        {
-            TryStartLevel("Level_04");
-        };
-
-        uiScene.GoToFifthLevelButtonClicked += () =>
-        {
-            TryStartLevel("Level_05");
-        };
-
-        uiScene.GoToBuffsMenuButtonClicked += () =>
-        {
-            GoToBuffsMenuSceneRequested?.Invoke();
-        };
-        
+        // ОБНОВЛЕНИЕ СОСТОЯНИЯ (передаем данные из uiScene)
         RefreshButtonStates(uiScene);
     }
 
@@ -71,30 +50,30 @@ public class LevelSelectorEntryPoint : MonoBehaviour
     }
     private void RefreshButtonStates(UILevelSelectRootBinder uiScene)
     {
-        SetButtonInteractable(uiScene, "Button_Level1", "Level_01");
-        SetButtonInteractable(uiScene, "Button_Level2", "Level_02");
-        SetButtonInteractable(uiScene, "Button_Level3", "Level_03");
-        SetButtonInteractable(uiScene, "Button_Level4", "Level_04");
-        SetButtonInteractable(uiScene, "Button_Level5", "Level_05");
+        SetButtonInteractable(uiScene.button1, uiScene.lock1, "Level_01");
+        SetButtonInteractable(uiScene.button2, uiScene.lock2, "Level_02");
+        SetButtonInteractable(uiScene.button3, uiScene.lock3, "Level_03");
+        SetButtonInteractable(uiScene.button4, uiScene.lock4, "Level_04");
+        SetButtonInteractable(uiScene.button5, uiScene.lock5, "Level_05");
     }
 
-    private void SetButtonInteractable(UILevelSelectRootBinder binder, string buttonName, string levelId)
+    private void SetButtonInteractable(Button btn, GameObject lockIcon, string levelId)
     {
-        bool isUnlocked = LevelProgressManager.Instance.IsLevelUnlocked(levelId);
-        
-        var btnTransform = binder.transform.Find(buttonName);
-        if (btnTransform != null)        {
-            var btn = btnTransform.GetComponent<UnityEngine.UI.Button>();
-            if (btn != null) btn.interactable = isUnlocked;
-            var lockTransform = btnTransform.Find("LockIcon");
-            if (lockTransform != null)
-            {
-                lockTransform.gameObject.SetActive(!isUnlocked);
-            }
-            else
-            {
-                Debug.LogWarning($"На кнопке {buttonName} не найден объект LockIcon!");
-            }
+        if (btn == null)
+        {
+            Debug.LogError($"<color=red>[UI Error]</color> Кнопка для {levelId} не привязана в префабе Биндер!");
+            return;
+        }
+
+        var isUnlocked = LevelProgressManager.Instance.IsLevelUnlocked(levelId);
+    
+        btn.interactable = isUnlocked;
+        Debug.Log($"<color=green>[UI Success]</color> Кнопка '{btn.name}' для {levelId} обновлена. Статус: {(isUnlocked ? "Открыта" : "Закрыта")}");
+
+        if (lockIcon != null)
+        {
+            lockIcon.SetActive(!isUnlocked);
+            Debug.Log($"<color=white>[UI Icon]</color> Иконка на кнопке '{btn.name}' успешно {(isUnlocked ? "СКРЫТА" : "ПОКАЗАНА")}");
         }
     }
 }
