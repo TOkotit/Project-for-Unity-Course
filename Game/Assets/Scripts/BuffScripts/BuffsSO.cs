@@ -8,7 +8,6 @@ public class BuffsSO : ScriptableObject
     {
         new Buff("Урон турелей", ParameterType.TurretsDamage, 0.1f, 0, 10),
         new Buff("Скорострельность турелей", ParameterType.TurretsFireRate, 0.1f, 0, 10),
-        new Buff("Количество турелей", ParameterType.TurretSlots, 1, 0, 10),
         
         new Buff("Здоровье игрока", ParameterType.PlayerHp, 0.1f, 0, 10),
     };

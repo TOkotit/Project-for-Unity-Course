@@ -46,6 +46,8 @@ namespace Levels
                 return null;
             }
             
+            currentEnemiesOnLevelModels.Clear();
+            
             var waveSize = WavesConfiguration[0];
             WavesConfiguration.RemoveAt(0);
             
@@ -58,8 +60,11 @@ namespace Levels
                     var newEnemy = EnemyPoolConfiguration[0];
                     newEnemy.InitializePointsReward(buffSystemModel);
                     waveEnemies.Add(newEnemy);
-                    EnemyPoolConfiguration.RemoveAt(0);
+                    
                     currentEnemiesOnLevelModels.Add(newEnemy);
+                    
+                    
+                    EnemyPoolConfiguration.RemoveAt(0);
                 }
                 else
                 {
@@ -73,12 +78,17 @@ namespace Levels
         
         public void RemoveEnemy(EnemyModel enemy)
         {
-            if(CurrentEnemiesOnLevelModels.Contains(enemy))
-                CurrentEnemiesOnLevelModels.Remove(enemy);
             
-            if (CurrentEnemiesOnLevelModels.Count == 0)
+            if (currentEnemiesOnLevelModels.Contains(enemy))
             {
-                Debug.Log("Волна зачищена!");
+                currentEnemiesOnLevelModels.Remove(enemy);
+            }
+            currentEnemiesOnLevelModels.RemoveAll(e => e == null);
+            Debug.Log($"[LevelModel] Враг удален. Осталось в списке: {currentEnemiesOnLevelModels.Count}");
+            
+            if (currentEnemiesOnLevelModels.Count == 0)
+            {
+                Debug.Log("<color=cyan>Событие: Список пуст, вызываю EnemiesWaveFinished</color>");
                 EnemiesWaveFinished.Invoke();
             }
         }

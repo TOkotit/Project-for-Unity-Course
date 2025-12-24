@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
     {
         _model = model;
         _mySpot = spot;
+        _model.OnDeath.RemoveListener(Die);
         _model.OnDeath.AddListener(Die);
         _model.CurrentHpChanged.Invoke(_model.CurrentHp, _model.MaxHp);
         Debug.Log($"Враг создан! Тип: {_model.EnemyType}, HP: {_model.MaxHp}");

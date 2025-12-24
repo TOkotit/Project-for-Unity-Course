@@ -25,6 +25,7 @@ public class EnemyModel : Entity_Model
     public void InitializePointsReward(BuffSystemModel buffSystem)
     {
         buffSystemModel = buffSystem;
+        OnDeath.RemoveListener(GivePoints);
         OnDeath.AddListener(GivePoints);
     }
     private void GivePoints()
