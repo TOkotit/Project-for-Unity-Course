@@ -13,12 +13,12 @@ public class TurretSystemModel
 
     public UnityEvent OnTurretChanged;
     
-    public TurretSystemModel()
+    public void Initialize()
     {   
         turretSystemSO = Resources.Load<TurretSystemSO>("Config/TurretSystemSO");
-        
-        turretModels = new List<TurretModel>();
         OnTurretChanged = new UnityEvent();
+
+        turretModels = new List<TurretModel>();
         
         foreach (var type in turretSystemSO.startTurrets) 
         {
@@ -64,6 +64,10 @@ public class TurretSystemModel
         currentTurret = null;
     }
 
+    public void ResetTurrets()
+    {
+
+    }
     public void ActivateChosenTurret(GameObject target)
     {
         if (currentTurret is not null)

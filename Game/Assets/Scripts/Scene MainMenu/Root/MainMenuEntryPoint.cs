@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Audio;
+using Assets.Scripts.Levels;
+using Assets.Scripts.Audio;
 using System;
 using System_Scripts.GameRoot;
 using UnityEngine;
@@ -23,8 +24,17 @@ namespace Scripts.GamePlar.Root
         {
             var uiScene = Instantiate(_sceneUIRootPrefab);
             uiRoot.AttachSceneUI(uiScene.gameObject);
-
+            
+            var hasSave = LevelProgressManager.Instance.HasAnyProgress();
+            uiScene.SetContinueButtonInteractable(hasSave);
+            
             uiScene.GoToLevelSelectButtonClicked += () =>
+            {
+                LevelProgressManager.Instance.ClearProgress(); 
+                GoToLevelSelectSceneRequested?.Invoke();
+            };
+            
+            uiScene.ContinueButtonClicked += () =>
             {
                 GoToLevelSelectSceneRequested?.Invoke();
             };

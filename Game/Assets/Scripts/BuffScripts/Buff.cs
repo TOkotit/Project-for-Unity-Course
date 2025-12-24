@@ -9,16 +9,17 @@ public class Buff
     [SerializeField] private float value;
     [SerializeField] private int buffLevel;
     [SerializeField] private int maxBuffLevel;
-
+    [SerializeField] private int cost;
     public Buff() { }
 
-    public Buff(string name, ParameterType parameterType, float value, int buffLevel, int maxBuffLevel)
+    public Buff(string name, ParameterType parameterType, float value, int buffLevel, int maxBuffLevel, int cost)
     {
         this.name = name;
         this.parameterType = parameterType;
         this.value = value;
         this.buffLevel = buffLevel;
         this.maxBuffLevel = maxBuffLevel;
+        this.cost = cost;
     }
     
     public string Name
@@ -45,5 +46,11 @@ public class Buff
         set => buffLevel = Mathf.Clamp(value, 0, maxBuffLevel); 
     }
     
-    public int MaxBuffLevel => maxBuffLevel; 
+    public int MaxBuffLevel => maxBuffLevel;
+
+    public int Cost
+    {
+        get => cost;
+        set => cost = value;
+    }
 }

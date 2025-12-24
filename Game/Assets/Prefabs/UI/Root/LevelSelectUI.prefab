@@ -2129,6 +2129,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae511f6e419cc4040a6671c53bf4916c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button1: {fileID: 779844772255145821}
+  button2: {fileID: 6443184156434606506}
+  button3: {fileID: 8877252077004238966}
+  button4: {fileID: 5897784471083830065}
+  button5: {fileID: 7493494652166382946}
+  lock1: {fileID: 4582692249254215091}
+  lock2: {fileID: 364896453626420090}
+  lock3: {fileID: 611636890019677602}
+  lock4: {fileID: 6525937737773171476}
+  lock5: {fileID: 5931149470697268499}
 --- !u!1 &7957297380797756905
 GameObject:
   m_ObjectHideFlags: 0
