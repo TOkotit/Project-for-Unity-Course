@@ -34,6 +34,11 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Нажата кнопка новая игра");
     }
+
+    private void OnClickContinue()
+    {
+        Debug.Log("Нажата кнопка продолжить");
+    }
     private void OnClickOptions()
     {
         optionsPanel.SetActive(true);
