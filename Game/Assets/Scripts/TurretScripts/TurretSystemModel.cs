@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TurretSystemModel
 {   
@@ -9,12 +10,15 @@ public class TurretSystemModel
     private List<TurretModel> turretModels;
     private int currentTurretIndex;
     private TurretModel currentTurret;
+
+    public UnityEvent OnTurretChanged;
     
     public TurretSystemModel()
     {   
         turretSystemSO = Resources.Load<TurretSystemSO>("Config/TurretSystemSO");
         
         turretModels = new List<TurretModel>();
+        OnTurretChanged = new UnityEvent();
         
         foreach (var type in turretSystemSO.startTurrets) 
         {
@@ -46,12 +50,14 @@ public class TurretSystemModel
         currentTurretIndex = (currentTurretIndex + 1) % turretModels.Count;
         currentTurret = turretModels[currentTurretIndex];
         Debug.Log($"Текущаая турель {currentTurret.TurretType}");
+        OnTurretChanged.Invoke();
     }
     public void ChoosePreviousTurret()
     {
         currentTurretIndex = (currentTurretIndex - 1 + turretModels.Count) % turretModels.Count;
         currentTurret = turretModels[currentTurretIndex];
         Debug.Log($"Текущаая турель {currentTurret.TurretType}");
+        OnTurretChanged.Invoke();
     }
     public void CancelChoosingTurret()
     {
