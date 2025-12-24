@@ -53,14 +53,19 @@ namespace Levels
                                "Проверьте Script Execution Order для GameplayEntryPoint.");
                 return;
             }
-            else
-            {
-                _levelModel.EnemiesWaveFinished.AddListener(SpawnNextWave); 
-                _levelModel.LevelCompleted.AddListener(OnLevelCompleted); //
-            }
             Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
             
             SpawnNextWave();
+        }
+        
+        public void Start() // Вместо части логики в Awake
+        {
+            if (_levelModel != null)
+            {
+                _levelModel.EnemiesWaveFinished.AddListener(SpawnNextWave); 
+                _levelModel.LevelCompleted.AddListener(OnLevelCompleted); //
+
+            }
         }
         
         public void SpawnNextWave()
@@ -76,18 +81,14 @@ namespace Levels
                 var spot = GetRandomFreeSpot();
                 if (spot == null)
                 {
-                    Debug.LogError("Нет свободных мест для спавна!");
-                    break;
+                    Debug.LogWarning($"[Spawn] Нет места для врага {enemyModel.EnemyType}. Он возвращается в пул.");         
+                    continue;
                 }
                 
                 if (enemyModel.EnemyType == EnemyType.Car)
-                {
                     enemyModel.LoadStatsFromSO(CarEnemyStats); 
-                }
                 else if (enemyModel.EnemyType == EnemyType.Drone)
-                {
                     enemyModel.LoadStatsFromSO(DroneStats);
-                }
 
                 Vector3 positionToSpawn;
                 
@@ -103,6 +104,7 @@ namespace Levels
                 
                 var newEnemyObject = Instantiate(prefabToSpawn, positionToSpawn, Quaternion.identity);
                 newEnemyObject.Initialize(enemyModel, spot);
+                
                 spot.IsFree = false;
                 _spawnedEnemyViews.Add(newEnemyObject);
             }
@@ -140,7 +142,10 @@ namespace Levels
         private void OnDestroy() // +
         {
             if (_levelModel != null)
+            {
                 _levelModel.LevelCompleted.RemoveListener(OnLevelCompleted);
+                _levelModel.EnemiesWaveFinished.RemoveListener(SpawnNextWave);
+            }
         }
     }
 }

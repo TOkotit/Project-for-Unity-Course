@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
     {
         _model = model;
         _mySpot = spot;
+        _model.OnDeath.RemoveListener(Die);
         _model.OnDeath.AddListener(Die);
         _model.CurrentHpChanged.Invoke(_model.CurrentHp, _model.MaxHp);
         Debug.Log($"Враг создан! Тип: {_model.EnemyType}, HP: {_model.MaxHp}");
@@ -51,9 +52,9 @@ public class Enemy : MonoBehaviour
             _mySpot.IsFree = true;
         }
         
-        if (Game.Instance != null && Game.Instance.levelModel != null)
+        if (Game.Instance != null && Game.Instance.LevelModel != null)
         {
-            Game.Instance.levelModel.RemoveEnemy(_model); //
+            Game.Instance.LevelModel.RemoveEnemy(_model); //
         }
         
         Destroy(gameObject);
