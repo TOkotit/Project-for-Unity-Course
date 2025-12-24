@@ -18,8 +18,6 @@ public class Enemy : MonoBehaviour
     
     public EnemyModel Model => _model;
     
-    
-    
     public void Awake()
     {   
         bulletPool = new ObjectPool<EnemyBullet>(

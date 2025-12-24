@@ -11,6 +11,8 @@ public class DroneEnemySO : ScriptableObject
     public float rotationSpeed = 10f;
     public float bulletSpeed = 30f;
     public int rewardPoints = 1;
+    public float fireCountdown = 4f;
+
 
 
     
@@ -34,6 +36,7 @@ public class DroneEnemySO : ScriptableObject
         enemyModel.BulletSpeed = bulletSpeed;
         enemyModel.RotationSpeed = rotationSpeed;
         enemyModel.RewardPoints = rewardPoints;
+        enemyModel.FireCountdown = fireCountdown;
 
     }
 }

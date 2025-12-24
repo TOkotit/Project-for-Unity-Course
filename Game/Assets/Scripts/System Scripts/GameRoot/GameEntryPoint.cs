@@ -92,6 +92,7 @@ namespace System_Scripts.GameRoot
             yield return new WaitForSeconds(2f);
 
             var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
+            
             if (sceneEntryPoint)
             {
                sceneEntryPoint.Run(_uiRoot);
