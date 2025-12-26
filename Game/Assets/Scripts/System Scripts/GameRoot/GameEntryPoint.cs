@@ -170,7 +170,7 @@ namespace System_Scripts.GameRoot
             yield return LoadScene(Scenes.LEVEL_SELECT);
 
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
 
             var sceneEntryPoint = Object.FindFirstObjectByType<LevelSelectorEntryPoint>();
 
@@ -211,7 +211,7 @@ namespace System_Scripts.GameRoot
             yield return LoadScene(Scenes.BOOT);
             yield return LoadScene(Scenes.BUFFS_MENU);
             
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
 
             var sceneEntryPoint = Object.FindFirstObjectByType<BuffsMenuEntryPoint>();
 
