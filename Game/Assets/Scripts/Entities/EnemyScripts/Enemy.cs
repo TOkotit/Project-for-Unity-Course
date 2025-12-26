@@ -1,4 +1,5 @@
-﻿using Entities.PlayerScripts;
+﻿using Assets.Scripts.Audio;
+using Entities.PlayerScripts;
 using Levels;
 using Scripts.Entities;
 using UnityEngine;
@@ -57,7 +58,8 @@ public class Enemy : MonoBehaviour
         {
             Game.Instance.LevelModel.RemoveEnemy(_model);
         }
-        
+
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.enemyDie);
         Destroy(gameObject);
     }
     
