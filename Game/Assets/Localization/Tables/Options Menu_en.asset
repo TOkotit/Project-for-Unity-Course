@@ -46,6 +46,18 @@ MonoBehaviour:
     m_Localized: Save
     m_Metadata:
       m_Items: []
+  - m_Id: 13775893664854016
+    m_Localized: Rebind keys
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13776484273188864
+    m_Localized: Movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13776614447607808
+    m_Localized: Turret switch
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
