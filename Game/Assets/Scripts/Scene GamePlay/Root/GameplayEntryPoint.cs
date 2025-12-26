@@ -13,9 +13,11 @@ namespace Scripts.GamePlar.Root
         [SerializeField] private UIGameplayRootBinder _sceneUIRootBinder;
         [SerializeField] private LevelController levelController;
         public event Action GoToMainMenuSceneRequested;
-    
+        public static GameplayEntryPoint Instance { get; private set; }    
         private void Awake()
         {
+            
+            Instance = this;
             if (Game.Instance == null)
             {
                 Game.Initialize();
@@ -40,6 +42,11 @@ namespace Scripts.GamePlar.Root
             };
 
             AudioManager.Instance.PlayGameplayMusic();
+        }
+        
+        private void OnDestroy()
+        {
+            if (Instance == this) Instance = null;
         }
     }
 }

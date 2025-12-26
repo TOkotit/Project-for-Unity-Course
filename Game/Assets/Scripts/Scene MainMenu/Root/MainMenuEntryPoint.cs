@@ -10,9 +10,12 @@ namespace Scripts.GamePlar.Root
     {
         [SerializeField] private UIMainMenuRootBinder _sceneUIRootPrefab;
         public event Action GoToLevelSelectSceneRequested;
+        public static MainMenuEntryPoint Instance { get; private set; }    
+
 
         private void Awake()
         {
+            Instance = this;
             if (Game.Instance == null)
             {
                 Game.Initialize();
@@ -41,5 +44,11 @@ namespace Scripts.GamePlar.Root
 
             AudioManager.Instance.PlayMenuMusic();
         }
+        
+        private void OnDestroy()
+        {
+            if (Instance == this) Instance = null;
+        }
     }
+    
 }

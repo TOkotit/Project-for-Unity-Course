@@ -43,7 +43,6 @@ public class Game
         playerModel = new Player();
         levelModel = new LevelModel();
         
-        // Последняя запускаемая система
         buffModel = new BuffSystemModel(turretSystemModel, playerModel);
     }
     

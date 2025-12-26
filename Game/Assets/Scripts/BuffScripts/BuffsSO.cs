@@ -5,7 +5,7 @@ using UnityEngine;
 public class BuffsSO : ScriptableObject
 {
     public int points = 0;
-    public List<Buff> buffs = new List<Buff>()
+    public List<Buff> buffs = new()
     {
         new Buff("Урон турелей", ParameterType.TurretsDamage, 0.1f, 0, 10, 1),
         new Buff("Скорострельность турелей", ParameterType.TurretsFireRate, 0.1f, 0, 10, 1),

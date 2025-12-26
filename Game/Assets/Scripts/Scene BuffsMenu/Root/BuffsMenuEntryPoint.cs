@@ -5,11 +5,12 @@ using UnityEngine;
 public class BuffsMenuEntryPoint : MonoBehaviour
 {
     [SerializeField] private UIBuffsMenuRootBinder _sceneUIRootPrefab;
-
+    public static BuffsMenuEntryPoint Instance { get; private set; }    
     public event Action GoToLevelSelectSceneRequested;
 
     private void Awake()
     {
+        Instance = this;
         if (Game.Instance == null)
         {
             Game.Initialize();
@@ -25,5 +26,10 @@ public class BuffsMenuEntryPoint : MonoBehaviour
         {
             GoToLevelSelectSceneRequested?.Invoke();
         };
+    }
+    
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 }
