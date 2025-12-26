@@ -24,7 +24,12 @@ public class SettingsMenu : MonoBehaviour
 
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject menuPanel;
-
+    
+    [SerializeField] private InputSaveManager inputSaveManager;
+    [SerializeField] private Button openRebind;
+    [SerializeField] private Button closeRebind;
+    [SerializeField] private GameObject rebindMenu;
+    
     private void Start()
     {
         //Загрузка языков
@@ -129,6 +134,16 @@ public class SettingsMenu : MonoBehaviour
             soundSlider.onValueChanged.AddListener(OnSetSoundValue);
         else
             Debug.Log("Отстутствует префаб");
+        
+        if (openRebind != null)
+            openRebind.onClick.AddListener(OnOpenRebindMenu);
+        else
+            Debug.Log("Отстутствует префаб");
+        
+        if (closeRebind != null)
+            closeRebind.onClick.AddListener(OnCloseRebindMenu);
+        else
+            Debug.Log("Отстутствует префаб");
     }
 
     //Настройки языка
@@ -215,6 +230,7 @@ public class SettingsMenu : MonoBehaviour
         PlayerPrefs.SetInt("FullscreenPreference", screenModeDropDown.value);
         PlayerPrefs.SetFloat("SFXVolume", soundSlider.value);
         PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
+        inputSaveManager.SaveBindingOverrides();
         Debug.Log("Изменения сохранены");
     }
 
@@ -226,6 +242,15 @@ public class SettingsMenu : MonoBehaviour
         menuPanel.SetActive(true);
     }
 
+    private void OnOpenRebindMenu()
+    {
+        rebindMenu.SetActive(true);
+    }
+    
+    private void OnCloseRebindMenu()
+    {
+        rebindMenu.SetActive(false);
+    }
 
     //Загрузка старых настроек
 

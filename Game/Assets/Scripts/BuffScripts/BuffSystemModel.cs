@@ -49,7 +49,7 @@ public class BuffSystemModel
         {
             Buffs.Add(new Buff(buff.Name, buff.ParameterType, buff.Value, buff.BuffLevel, buff.MaxBuffLevel, buff.Cost));
         }
-        points = so.Points;
+        points = so.points;
         Debug.Log("Усиления загружены через SO");
     }
 
