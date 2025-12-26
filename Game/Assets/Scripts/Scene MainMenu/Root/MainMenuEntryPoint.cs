@@ -9,7 +9,6 @@ namespace Scripts.GamePlar.Root
     public class MainMenuEntryPoint : MonoBehaviour
     {
         [SerializeField] private UIMainMenuRootBinder _sceneUIRootPrefab;
-
         public event Action GoToLevelSelectSceneRequested;
 
         private void Awake()
