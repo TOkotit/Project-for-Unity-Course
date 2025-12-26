@@ -22,7 +22,8 @@ public class Enemy : MonoBehaviour
     public void Awake()
     {   
         bulletPool = new ObjectPool<EnemyBullet>(
-            createFunc: () => Instantiate(enemyBulletPrefab, firePoint.position, firePoint.rotation).GetComponent<EnemyBullet>(), 
+            createFunc: () => Instantiate(enemyBulletPrefab, firePoint.position, firePoint.rotation)
+                .GetComponent<EnemyBullet>(), 
             actionOnGet: (obj) => obj.gameObject.SetActive(true), 
             actionOnRelease: (obj) => obj.gameObject.SetActive(false), 
             actionOnDestroy: (obj) => Destroy(obj.gameObject), 
@@ -54,7 +55,7 @@ public class Enemy : MonoBehaviour
         
         if (Game.Instance != null && Game.Instance.LevelModel != null)
         {
-            Game.Instance.LevelModel.RemoveEnemy(_model); //
+            Game.Instance.LevelModel.RemoveEnemy(_model);
         }
         
         Destroy(gameObject);
