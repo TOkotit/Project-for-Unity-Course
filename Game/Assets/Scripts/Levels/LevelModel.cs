@@ -16,7 +16,6 @@ namespace Levels
         
         public LevelModel() 
         {
-            
         }
         public void Initialize(LevelStats00 _levelDataSO)
         {
@@ -74,6 +73,8 @@ namespace Levels
                 EnemiesWaveFinished.Invoke();
             }
         }
+        
+
         
     }
 }

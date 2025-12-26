@@ -19,6 +19,7 @@ namespace Assets.Scripts.Audio
         public AudioClip levelComplete;
         public AudioClip playerShoot;
         public AudioClip playerHit;
+        public AudioClip playerDeath;
 
         [Header("Настройки пула")]
         [SerializeField] private int _sfxPoolSize = 8;
@@ -102,6 +103,11 @@ namespace Assets.Scripts.Audio
             PlayMusic(_menuMusic, fade: true);
         }
 
+        public void PlayPlayerDeathMusic()
+        {
+            PlayMusic(playerDeath, fade: false);
+        }
+        
         public void PlayGameplayMusic()
         {
             PlayMusic(_gameplayMusic, fade: true);

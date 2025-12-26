@@ -277,6 +277,7 @@ MonoBehaviour:
   levelComplete: {fileID: 0}
   playerShoot: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
   playerHit: {fileID: 0}
+  playerDeath: {fileID: 8300000, guid: 78ecd7e478ead5544bddca80bdf46c50, type: 3}
   _sfxPoolSize: 8
 --- !u!4 &421949033
 Transform:
