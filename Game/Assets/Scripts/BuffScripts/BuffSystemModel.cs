@@ -119,8 +119,8 @@ public class BuffSystemModel
     
     public void SaveBuffs()
     {
-        BuffListWrapper wrapper = new BuffListWrapper { list = Buffs, points = points };
-        string json = JsonUtility.ToJson(wrapper, true);
+        var wrapper = new BuffListWrapper { list = Buffs, points = points };
+        var json = JsonUtility.ToJson(wrapper, true);
         File.WriteAllText(savePath, json);
         Debug.Log("Buffs saved to: " + savePath);
     }
@@ -131,8 +131,8 @@ public class BuffSystemModel
     
         try
         {
-            string json = File.ReadAllText(savePath);
-            BuffListWrapper wrapper = JsonUtility.FromJson<BuffListWrapper>(json);
+            var json = File.ReadAllText(savePath);
+            var wrapper = JsonUtility.FromJson<BuffListWrapper>(json);
             
             if (wrapper != null && wrapper.list != null)
             {
@@ -149,7 +149,6 @@ public class BuffSystemModel
         return false;
     }
     
-    // Вспомогательный класс-обертка для JSON
     [System.Serializable]
     private class BuffListWrapper
     {

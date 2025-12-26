@@ -96,9 +96,9 @@ namespace System_Scripts.GameRoot
                 Game.Instance.LevelModel.LevelCompleted.AddListener(OnLevelCompletedHandle);
             }
 
-            var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
+            var sceneEntryPoint = GameplayEntryPoint.Instance;
             
-            if (sceneEntryPoint)
+            if (sceneEntryPoint) 
             {
                 sceneEntryPoint.Run(_uiRoot);
             }
@@ -143,7 +143,7 @@ namespace System_Scripts.GameRoot
 
             yield return new WaitForSeconds(0.5f);
 
-            var sceneEntryPoint = Object.FindFirstObjectByType<MainMenuEntryPoint>();
+            var sceneEntryPoint =MainMenuEntryPoint.Instance;
 
             if (sceneEntryPoint)
             {
@@ -173,7 +173,7 @@ namespace System_Scripts.GameRoot
             yield return new WaitForEndOfFrame();
             yield return new WaitForSeconds(0.5f);
 
-            var sceneEntryPoint = Object.FindFirstObjectByType<LevelSelectorEntryPoint>();
+            var sceneEntryPoint = LevelSelectorEntryPoint.Instance;
 
             if (sceneEntryPoint)
             {
@@ -215,7 +215,7 @@ namespace System_Scripts.GameRoot
             
             yield return new WaitForSeconds(0.5f);
 
-            var sceneEntryPoint = Object.FindFirstObjectByType<BuffsMenuEntryPoint>();
+            var sceneEntryPoint =  BuffsMenuEntryPoint.Instance;
 
             if (sceneEntryPoint)
             {

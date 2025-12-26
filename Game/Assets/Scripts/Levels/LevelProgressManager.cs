@@ -122,7 +122,7 @@ namespace Assets.Scripts.Levels
         private void UnlockNextAvailable()
         {
             var levels = LevelsConfig.Instance.Levels;
-            for (int i = 1; i < levels.Count; i++)
+            for (var i = 1; i < levels.Count; i++)
             {
                 var prev = levels[i - 1];
                 var current = levels[i];
@@ -140,7 +140,7 @@ namespace Assets.Scripts.Levels
             }
             
             Debug.Log("Состояние _progressDict после UnlockNextAvailable():");
-            for (int i = 0; i < levels.Count; i++)
+            for (var i = 0; i < levels.Count; i++)
             {
                 var id = levels[i].id;
                 var inDict = _progressDict.TryGetValue(id, out var p);

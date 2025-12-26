@@ -43,7 +43,6 @@ public class EnemyBullet : MonoBehaviour
 
     private void HitTarget()
     {   
-        //нанесение урона
         playerModel.TakeDamage(damage);
         pool.Release(this);
     }

@@ -73,7 +73,7 @@ namespace Assets.Scripts.Audio
             _sfxPoolRoot = new GameObject("[SFX Pool]");
             DontDestroyOnLoad(_sfxPoolRoot);
 
-            for (int i = 0; i < _sfxPoolSize; i++)
+            for (var i = 0; i < _sfxPoolSize; i++)
             {
                 var go = new GameObject($"SFX_Source_{i}");
                 go.transform.SetParent(_sfxPoolRoot.transform);
@@ -132,10 +132,10 @@ namespace Assets.Scripts.Audio
 
         private IEnumerator FadeAndPlayMusic(AudioClip newClip)
         {
-            float startVolume = GetMusicVolume();
-            for (float t = 0; t < 1f; t += Time.unscaledDeltaTime)
+            var startVolume = GetMusicVolume();
+            for (var t = 0f; t < 1f; t += Time.unscaledDeltaTime)
             {
-                float vol = Mathf.Lerp(startVolume, 0f, t);
+                var vol = Mathf.Lerp(startVolume, 0f, t);
                 SetMusicVolume(vol);
                 yield return null;
             }
@@ -143,9 +143,9 @@ namespace Assets.Scripts.Audio
             _musicSource.clip = newClip;
             _musicSource.Play();
 
-            for (float t = 0; t < 1f; t += Time.unscaledDeltaTime)
+            for (var t = 0f; t < 1f; t += Time.unscaledDeltaTime)
             {
-                float vol = Mathf.Lerp(0f, startVolume, t);
+                var vol = Mathf.Lerp(0f, startVolume, t);
                 SetMusicVolume(vol);
                 yield return null;
             }
@@ -199,7 +199,7 @@ namespace Assets.Scripts.Audio
         {
             if (_masterMixer == null) return;
 
-            float dB = normalizedValue > 0 ? Mathf.Log10(normalizedValue) * 20f : -80f;
+            var dB = normalizedValue > 0 ? Mathf.Log10(normalizedValue) * 20f : -80f;
             _masterMixer.SetFloat(paramName, dB);
         }
 
@@ -212,8 +212,8 @@ namespace Assets.Scripts.Audio
 
         private void LoadVolumeSettings()
         {
-            float musicVol = PlayerPrefs.GetFloat("MusicVolume", 1f);
-            float sfxVol = PlayerPrefs.GetFloat("SFXVolume", 1f);
+            var musicVol = PlayerPrefs.GetFloat("MusicVolume", 1f);
+            var sfxVol = PlayerPrefs.GetFloat("SFXVolume", 1f);
             SetMusicVolume(musicVol);
             SetSFXVolume(sfxVol);
         }

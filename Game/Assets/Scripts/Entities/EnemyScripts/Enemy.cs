@@ -72,14 +72,12 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        // Поворот к цели
         var dir = _playerController.transform.position - enemyTurret.transform.position;
         var lookRotation = Quaternion.LookRotation(dir);
         var rotation = Quaternion.Lerp(enemyTurret.transform.rotation, lookRotation, 
             _model.RotationSpeed * Time.deltaTime).eulerAngles;
         enemyTurret.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
-        // Стрельба
         if (_model.FireCountdown <= 0f)
         {
             Shoot();

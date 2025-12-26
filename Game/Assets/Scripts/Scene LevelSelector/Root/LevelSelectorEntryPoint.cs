@@ -15,11 +15,18 @@ public class LevelSelectorEntryPoint : MonoBehaviour
     [SerializeField] private UILevelSelectRootBinder _sceneUIRootPrefab;
     
     [SerializeField] private List<LevelStats00> _levelConfigs = new (5);
+    public static LevelSelectorEntryPoint Instance { get; private set; }    
+
     public event Action<string> GoToGameplaySceneRequested;
     public event Action GoToMainMenuSceneRequested;
     
     public event Action GoToBuffsMenuSceneRequested;
-    
+
+    public void Awake()
+    {
+        Instance = this;
+    }
+
     public void Run(UIRootView uiRoot)
     {
         LevelProgressManager.Instance.LoadProgress();
@@ -27,7 +34,6 @@ public class LevelSelectorEntryPoint : MonoBehaviour
         var uiScene = Instantiate(_sceneUIRootPrefab);
         uiRoot.AttachSceneUI(uiScene.gameObject);
 
-        // ПОДПИСКИ
         uiScene.GoToFirstLevelButtonClicked += () => TryStartLevel("Level_01");
         uiScene.GoToSecondLevelButtonClicked += () => TryStartLevel("Level_02");
         uiScene.GoToThirdLevelButtonClicked += () => TryStartLevel("Level_03");
@@ -37,7 +43,6 @@ public class LevelSelectorEntryPoint : MonoBehaviour
         uiScene.GoToMainMenuButtonClicked += () => GoToMainMenuSceneRequested?.Invoke();
         uiScene.GoToBuffsMenuButtonClicked += () => GoToBuffsMenuSceneRequested?.Invoke();
 
-        // ОБНОВЛЕНИЕ СОСТОЯНИЯ (передаем данные из uiScene)
         RefreshButtonStates(uiScene);
         
         AudioManager.Instance.PlayMenuMusic();
@@ -85,5 +90,10 @@ public class LevelSelectorEntryPoint : MonoBehaviour
             lockIcon.SetActive(!isUnlocked);
             Debug.Log($"<color=white>[UI Icon]</color> Иконка на кнопке '{btn.name}' успешно {(isUnlocked ? "СКРЫТА" : "ПОКАЗАНА")}");
         }
+    }
+    
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 }
