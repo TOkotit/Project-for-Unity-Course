@@ -21,9 +21,8 @@ public class ClickHandler : MonoBehaviour
             var mousePosition = context.ReadValue<Vector2>();
             
             var ray = mainCamera.ScreenPointToRay(mousePosition);
-            var hit = new RaycastHit();
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, enemyLayer))
+            if (Physics.Raycast(ray, out var hit, Mathf.Infinity, enemyLayer))
             {   
                 turretSystem.turretSystemModel.ActivateChosenTurret(hit.transform.gameObject);
                 

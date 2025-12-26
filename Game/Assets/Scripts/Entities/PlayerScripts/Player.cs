@@ -18,8 +18,6 @@ namespace Scripts.Entities
         public void Initialize(CarStatsSO carStatsSO)
         {
             carStatsSO.LoadIntoModel(this);
-            
-            
         }
         
         public void ApplyHpBuff(float buff)

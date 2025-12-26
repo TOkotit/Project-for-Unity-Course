@@ -49,6 +49,7 @@ public class BuffSystemModel
         {
             Buffs.Add(new Buff(buff.Name, buff.ParameterType, buff.Value, buff.BuffLevel, buff.MaxBuffLevel, buff.Cost));
         }
+        points = so.Points;
         Debug.Log("Усиления загружены через SO");
     }
 
@@ -66,10 +67,6 @@ public class BuffSystemModel
                 case ParameterType.TurretsFireRate:
                     turretSystemModel.ApplyFireRateBuff(buff.Value * buff.BuffLevel);
                     Debug.Log($"Applied FireRate Buff: Level {buff.BuffLevel}");
-                    break;
-                case ParameterType.TurretSlots:
-                    turretSystemModel.MaxTurretSlots = buff.BuffLevel;
-                    Debug.Log($"Applied Slots Buff: Level {buff.BuffLevel}");
                     break;
                 case ParameterType.PlayerHp:
                     playerModel.ApplyHpBuff(buff.Value * buff.BuffLevel);
@@ -116,6 +113,7 @@ public class BuffSystemModel
     {
         points += amount;
         PointsChanged.Invoke();
+        SaveBuffs();
         Debug.Log($"Получено очков {amount}, всего {points}");
     }
     

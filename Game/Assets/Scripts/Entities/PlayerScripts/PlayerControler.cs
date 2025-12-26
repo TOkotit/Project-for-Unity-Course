@@ -60,8 +60,6 @@ namespace Entities.PlayerScripts
             
             Debug.Log($"Игрок создан с {_playerModel.MaxHp} здоровья");
         }
-        
-
 
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -125,9 +123,7 @@ namespace Entities.PlayerScripts
         {
             Debug.Log($"Player {_playerModel.CurrentHp} HP\n" +
                       $"Enemy {enemy.CurrentHp} HP");
-            
-            
-            
+
             var baseDamage = 20f; 
 
             var ratio = player.CurrentHp / enemy.CurrentHp;

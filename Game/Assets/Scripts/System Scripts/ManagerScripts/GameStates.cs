@@ -5,6 +5,5 @@
     Paused,    
     GameOver,
     Menu,
-    LevelSelect,
-    Something
+    LevelSelect
 }
