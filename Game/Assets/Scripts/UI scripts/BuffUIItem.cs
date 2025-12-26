@@ -11,7 +11,6 @@ public class BuffUIItem : MonoBehaviour
     private int _buffIndex;
     private BuffSystemModel _model;
 
-    // Метод для инициализации строки данными
     public void Setup(int index, Buff buff, BuffSystemModel model)
     {
         _buffIndex = index;
@@ -20,7 +19,6 @@ public class BuffUIItem : MonoBehaviour
         nameText.text = buff.Name;
         UpdateUI(buff);
 
-        // Подписываемся на кнопку
         upgradeButton.onClick.RemoveAllListeners();
         upgradeButton.onClick.AddListener(OnUpgradeClick);
     }
@@ -28,7 +26,6 @@ public class BuffUIItem : MonoBehaviour
     private void OnUpgradeClick()
     {
         _model.LevelUpBuff(_buffIndex);
-        // Обновляем текст уровня после нажатия
         UpdateUI(_model.Buffs[_buffIndex]);
     }
 
@@ -36,7 +33,6 @@ public class BuffUIItem : MonoBehaviour
     {
         levelText.text = $"{buff.BuffLevel} / {buff.MaxBuffLevel}";
         
-        // Отключаем кнопку, если уровень максимальный
         upgradeButton.interactable = buff.BuffLevel < buff.MaxBuffLevel;
     }
 }

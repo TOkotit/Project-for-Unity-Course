@@ -21,7 +21,7 @@ namespace Assets.Scripts.Levels
 
         public void LoadProgress()
         {
-            string path = Path.Combine(Application.persistentDataPath, SAVE_PATH);
+            var path = Path.Combine(Application.persistentDataPath, SAVE_PATH);
             if (File.Exists(path))
             {
                 var json = File.ReadAllText(path);
@@ -94,10 +94,10 @@ namespace Assets.Scripts.Levels
             {
                 progress = new List<LevelProgress>(_progressDict.Values)
             };
-            string json = JsonUtility.ToJson(wrapper, true);
+            var json = JsonUtility.ToJson(wrapper, true);
             Debug.Log($"Saving progress JSON:\n{json}");
 
-            string path = Path.Combine(Application.persistentDataPath, SAVE_PATH);
+            var path = Path.Combine(Application.persistentDataPath, SAVE_PATH);
             File.WriteAllText(path, json);
             Debug.Log($"Прогресс сохранён в {path}");
         }

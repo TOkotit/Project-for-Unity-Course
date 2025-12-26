@@ -18,11 +18,11 @@ public class BuffMenuController : MonoBehaviour
 
     private void GenerateMenu()
     {
-        List<Buff> buffs = _model.Buffs;
+        var buffs = _model.Buffs;
 
         for (int i = 0; i < buffs.Count; i++)
         {
-            BuffUIItem newItem = Instantiate(itemPrefab, container);
+            var newItem = Instantiate(itemPrefab, container);
             newItem.Setup(i, buffs[i], _model);
         }
     }
