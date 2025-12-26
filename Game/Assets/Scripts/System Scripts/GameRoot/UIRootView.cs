@@ -33,7 +33,7 @@ namespace System_Scripts.GameRoot
         private void ClearSceneUI()
         {
             var childCount = _uiSceneContainer.childCount;
-            for (int i = 0; i < childCount; i++)
+            for (var i = 0; i < childCount; i++)
             {
                 Destroy(_uiSceneContainer.GetChild(i).gameObject);
             }

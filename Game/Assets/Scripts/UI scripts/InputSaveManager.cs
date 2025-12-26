@@ -24,9 +24,7 @@ public class InputSaveManager : MonoBehaviour
     public void ResetAllBindings()
     {
         foreach (var map in actionAsset.actionMaps)
-        {
             map.RemoveAllBindingOverrides();
-        }
         PlayerPrefs.DeleteKey("rebinds");
     }
 }

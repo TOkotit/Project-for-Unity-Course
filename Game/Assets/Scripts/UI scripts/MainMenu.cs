@@ -54,6 +54,9 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Нажата кнопка выхода");
         Application.Quit();
         Debug.Log("Пользователь вышел из приложения");
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
     private void OnDisable()
     {

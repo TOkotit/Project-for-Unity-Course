@@ -32,14 +32,12 @@ public class Turret : MonoBehaviour
             return;
         }
 
-        // Поворот к цели
         var dir = turretModel.CurrentTarget.position - transform.position;
         var lookRotation = Quaternion.LookRotation(dir);
         var rotation = Quaternion.Lerp(transform.rotation, lookRotation, 
             turretModel.RotationSpeed * Time.deltaTime).eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
-        // Стрельба
         if (turretModel.FireCountdown <= 0f)
         {
             Shoot();

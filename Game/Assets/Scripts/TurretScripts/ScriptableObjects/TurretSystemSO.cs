@@ -5,7 +5,7 @@ using UnityEngine;
 public class TurretSystemSO : ScriptableObject
 {
     [Header("Базовые характеристики")]
-    public List<TurretType> startTurrets = new List<TurretType>()
+    public List<TurretType> startTurrets = new()
     {
         TurretType.Heavy, 
         TurretType.Medium, 
