@@ -11,7 +11,7 @@ public class Game
     private Player playerModel;
     private LevelModel levelModel;
     private BuffSystemModel buffModel;
-    
+    public LevelStats00 CurrentLevelConfig { get; set; }
     public string CurrentLevelId { get; set; }
 
     public TurretSystemModel TurretSystemModel
