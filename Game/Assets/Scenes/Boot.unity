@@ -273,7 +273,7 @@ MonoBehaviour:
   _gameplayMusic: {fileID: 8300000, guid: 1c2290c6d05a6ef429c02c7031ffff31, type: 3}
   buttonClick: {fileID: 8300000, guid: aebae0e89d575dc43ae340319487ef87, type: 3}
   enemySpawn: {fileID: 0}
-  enemyDie: {fileID: 0}
+  enemyDie: {fileID: 8300000, guid: a13312a51cbf44c49b5609829cfd9900, type: 3}
   levelComplete: {fileID: 0}
   playerShoot: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
   playerHit: {fileID: 0}

@@ -43,6 +43,18 @@ MonoBehaviour:
     m_Key: optionsMenu.save
     m_Metadata:
       m_Items: []
+  - m_Id: 13775893664854016
+    m_Key: optionsMenu.rebindKey
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13776484273188864
+    m_Key: optionsMenu.movement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13776614447607808
+    m_Key: optionsMenu.turretSwitch
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
