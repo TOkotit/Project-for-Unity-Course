@@ -12,15 +12,7 @@ namespace Levels
         public UnityEvent EnemiesWaveStarted = new();
         public UnityEvent EnemiesWaveFinished = new();
         public UnityEvent<string> LevelCompleted = new();
-
-        public List<EnemyModel> EnemyPoolConfiguration { get; set; } = new();
         public List<int> WavesConfiguration { get; set; } = new();
-        
-        public List<EnemyModel> CurrentEnemiesOnLevelModels
-        {
-            get => currentEnemiesOnLevelModels;
-            set => currentEnemiesOnLevelModels = value;
-        }
         
         public LevelModel() 
         {
@@ -55,22 +47,12 @@ namespace Levels
             
             for (var i = 0; i < waveSize; i++)
             {
-                if (EnemyPoolConfiguration.Count > 0)
-                {
-                    var newEnemy = EnemyPoolConfiguration[0];
-                    newEnemy.InitializePointsReward(buffSystemModel);
-                    waveEnemies.Add(newEnemy);
-                    
-                    currentEnemiesOnLevelModels.Add(newEnemy);
-                    
-                    
-                    EnemyPoolConfiguration.RemoveAt(0);
-                }
-                else
-                {
-                    Debug.LogError("Ошибка конфигурации: Пул врагов закончился раньше, чем волны.");
-                    break; 
-                }
+                var randomType = (EnemyType)Random.Range(0, 2);
+                var newEnemy = new EnemyModel(randomType);
+                newEnemy.InitializePointsReward(buffSystemModel);
+                waveEnemies.Add(newEnemy);
+                
+                currentEnemiesOnLevelModels.Add(newEnemy);
             }
             EnemiesWaveStarted.Invoke();
             return waveEnemies;

@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.Levels;
 using System;
+using System.Collections.Generic;
 using Assets.Scripts.Audio;
+using Levels;
 using System_Scripts.GameRoot;
 using System_Scripts.ManagerScripts;
 using UnityEngine;
@@ -11,6 +13,8 @@ using UnityEngine.UI;
 public class LevelSelectorEntryPoint : MonoBehaviour
 {
     [SerializeField] private UILevelSelectRootBinder _sceneUIRootPrefab;
+    
+    [SerializeField] private List<LevelStats00> _levelConfigs = new (5);
     public event Action<string> GoToGameplaySceneRequested;
     public event Action GoToMainMenuSceneRequested;
     
@@ -43,6 +47,9 @@ public class LevelSelectorEntryPoint : MonoBehaviour
     {
         if (LevelProgressManager.Instance.IsLevelUnlocked(levelId))
         {
+            var index = int.Parse(levelId.Substring(levelId.Length - 2)) - 1;
+            Debug.Log($"{index}, {index.GetType()}");
+            Game.Instance.CurrentLevelConfig = _levelConfigs[int.Parse(levelId.Substring(levelId.Length - 2)) - 1];
             Game.Instance.CurrentLevelId = levelId;
             GoToGameplaySceneRequested?.Invoke(levelId);
         }

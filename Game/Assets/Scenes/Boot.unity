@@ -269,8 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76231154fd98d694d972aa31db91c155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuMusic: {fileID: 8300000, guid: ac81e521cc4fffd4cb560d4ddc70d306, type: 3}
-  _gameplayMusic: {fileID: 8300000, guid: b7da48c15e710a741842583fac3307c7, type: 3}
+  _menuMusic: {fileID: 8300000, guid: 19b4021856b8fb343b8bbb052551766f, type: 3}
+  _gameplayMusic: {fileID: 8300000, guid: 1c2290c6d05a6ef429c02c7031ffff31, type: 3}
   buttonClick: {fileID: 8300000, guid: aebae0e89d575dc43ae340319487ef87, type: 3}
   enemySpawn: {fileID: 0}
   enemyDie: {fileID: 0}

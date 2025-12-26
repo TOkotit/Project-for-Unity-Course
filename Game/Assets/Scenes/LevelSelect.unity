@@ -362,6 +362,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneUIRootPrefab: {fileID: 6364310507310023813, guid: 2e1b848bce9178e43b52c555a0237d1a, type: 3}
+  _levelConfigs:
+  - {fileID: 11400000, guid: 56a707cbef6f1b0488d61da789f7ed02, type: 2}
+  - {fileID: 11400000, guid: 261c10b90716a0a4eb66c6604992cfdb, type: 2}
+  - {fileID: 11400000, guid: c8a7b50d12386d044b9be754cd2a78ac, type: 2}
+  - {fileID: 11400000, guid: a73b23e86f8b9374da1587aa3e4c3a57, type: 2}
+  - {fileID: 11400000, guid: f4b017f429b5edf41a6b3d63b7f7bfbd, type: 2}
 --- !u!4 &1921790834
 Transform:
   m_ObjectHideFlags: 0

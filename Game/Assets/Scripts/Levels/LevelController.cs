@@ -35,8 +35,13 @@ namespace Levels
 
         public void Awake()
         {
+            LevelStats = Game.Instance.CurrentLevelConfig;
+
             if (LevelStats == null)
+            {
+                Debug.LogError("LevelController: Конфиг уровня не был передан через Game.Instance!");
                 LevelStats = Resources.Load<LevelStats00>("Config/Level1StatsSO");
+            }
             if (CarEnemyStats == null)
                 CarEnemyStats = Resources.Load<CarEnemySO>("Config/CarEnemyStatsSO");
             if (DroneStats == null)
