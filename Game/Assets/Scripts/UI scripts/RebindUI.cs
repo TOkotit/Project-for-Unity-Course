@@ -55,7 +55,7 @@ public class RebindUI : MonoBehaviour
         bindingText.text = displayString;
     }
 
-    public void StartRebinding()
+    private void StartRebinding()
     {
         if (_bindingIndex == -1) return;
 

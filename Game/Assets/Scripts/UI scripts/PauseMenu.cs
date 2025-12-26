@@ -42,17 +42,11 @@ public class PauseMenu : MonoBehaviour
 
     private void OnPause(InputAction.CallbackContext context)
     {
-        if (context.action.name == "Pause" && context.performed)
-        {
-            if (isPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-        }
+        if (context.action.name != "Pause" || !context.performed) return;
+        if (isPaused)
+            Resume();
+        else
+            Pause();
     }
 
     private void OnClickPause()

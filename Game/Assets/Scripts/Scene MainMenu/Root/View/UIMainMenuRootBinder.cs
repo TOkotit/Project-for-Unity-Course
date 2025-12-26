@@ -6,7 +6,7 @@ public class UIMainMenuRootBinder : MonoBehaviour
 {
     public event Action GoToLevelSelectButtonClicked;
     public event  Action ContinueButtonClicked;
-    
+    public event Action QuitButtonClicked;
     [SerializeField] private UnityEngine.UI.Button continueButton;
     
     
@@ -24,6 +24,11 @@ public class UIMainMenuRootBinder : MonoBehaviour
     public void OnClickContinue()
     {
         ContinueButtonClicked?.Invoke();
+    }
+    
+    public void OnClickQuit()
+    {
+        QuitButtonClicked?.Invoke();
     }
     
 }

@@ -20,7 +20,7 @@ public class BuffMenuController : MonoBehaviour
     {
         var buffs = _model.Buffs;
 
-        for (int i = 0; i < buffs.Count; i++)
+        for (var i = 0; i < buffs.Count; i++)
         {
             var newItem = Instantiate(itemPrefab, container);
             newItem.Setup(i, buffs[i], _model);

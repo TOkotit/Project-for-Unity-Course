@@ -32,12 +32,11 @@ public class SettingsMenu : MonoBehaviour
     
     private void Start()
     {
-        //Загрузка языков
         languageDropDown.ClearOptions();
-        List<string> languages = new List<string>();
-        int currentLanguageIndex = 1;
+        var languages = new List<string>();
+        var currentLanguageIndex = 1;
 
-        for (int i = 0; i < LocalizationSettings.AvailableLocales.Locales.Count; i++)
+        for (var i = 0; i < LocalizationSettings.AvailableLocales.Locales.Count; i++)
         {
             languages.Add(LocalizationSettings.AvailableLocales.Locales[i].ToString());
             if (LocalizationSettings.SelectedLocale == LocalizationSettings.AvailableLocales.Locales[i])
@@ -47,15 +46,14 @@ public class SettingsMenu : MonoBehaviour
         languageDropDown.AddOptions(languages);
         languageDropDown.RefreshShownValue();
 
-        //Загрузка всех разрешений
         resolutionDropDown.ClearOptions();
-        List<string> options = new List<string>();
+        var options = new List<string>();
         resolutions = Screen.resolutions;
-        int currentResolutionIndex = 0;
+        var currentResolutionIndex = 0;
 
-        for (int i = 0; i < resolutions.Length; i++)
+        for (var i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + "x" + resolutions[i].height + " " + resolutions[i].refreshRateRatio + "Hz";
+            var option = resolutions[i].width + "x" + resolutions[i].height + " " + resolutions[i].refreshRateRatio + "Hz";
             options.Add(option);
             if ((resolutions[i].width == Screen.currentResolution.width) && (resolutions[i].height == Screen.currentResolution.height))
                 currentResolutionIndex = i;
@@ -64,26 +62,23 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropDown.AddOptions(options);
         resolutionDropDown.RefreshShownValue();
 
-        //Загрузка всех режимов экрана
         screenModeDropDown.ClearOptions();
-        string[] allScreenModes = new string[4] {"ExclusiveFullScreen", "FullScreenWindow", "MaximizedWindow", "Windowed" };
-        List<string> modes = new List<string>();
-        int currentScreenMode = 1;
+        var allScreenModes = new[] {"ExclusiveFullScreen", "FullScreenWindow", "MaximizedWindow", "Windowed" };
+        var modes = new List<string>();
+        var currentScreenMode = 1;
 
-        for (int i = 0; i < allScreenModes.Length; i++)
+        foreach (var mode in allScreenModes)
         {
-            string mode = allScreenModes[i];
             modes.Add(mode);
         }
 
         screenModeDropDown.AddOptions(modes);
         screenModeDropDown.RefreshShownValue();
 
-        //Загрузка музыки и звуков
-        float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        float sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
-        float currentSoundVolume = 1f;
-        float currentMusicVolume = 1f;
+        var musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        var sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        var currentSoundVolume = 1f;
+        var currentMusicVolume = 1f;
         musicSlider.value = musicVolume;
         soundSlider.value = sfxVolume;
 
@@ -146,7 +141,6 @@ public class SettingsMenu : MonoBehaviour
             Debug.Log("Отстутствует префаб");
     }
 
-    //Настройки языка
     private void OnSetLanguage(int localeIndex)
     {
         AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
@@ -154,7 +148,6 @@ public class SettingsMenu : MonoBehaviour
         Debug.Log($"Язык изменен на: {LocalizationSettings.AvailableLocales.Locales[localeIndex].Identifier}");
     }
 
-    //Настройки Графики
 
     private void ScreenModeFind(int screenModeIndex)
     {
@@ -189,14 +182,12 @@ public class SettingsMenu : MonoBehaviour
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         Debug.Log("Разрешение изменено");
     }
-
-    //Настройка музыки и звука
-
+    
     private void OnSetMusicValue(float musicValue)
     {
         AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         musicValue = Mathf.RoundToInt(musicValue * 100f) / 100f;
-        int percent = Mathf.RoundToInt(musicValue * 100);
+        var percent = Mathf.RoundToInt(musicValue * 100);
         percentageMusic.text = $"{percent}%";
 
         UpdateMixerVolume("MusicVolume", musicValue);
@@ -207,7 +198,7 @@ public class SettingsMenu : MonoBehaviour
     {
         AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         soundValue = Mathf.RoundToInt(soundValue * 100f) / 100f;
-        int percent = Mathf.RoundToInt(soundValue * 100);
+        var percent = Mathf.RoundToInt(soundValue * 100);
         percentageSound.text = $"{percent}%";
 
         UpdateMixerVolume("SFXVolume", soundValue);
@@ -216,12 +207,10 @@ public class SettingsMenu : MonoBehaviour
 
     private void UpdateMixerVolume(string mixer, float value)
     {
-        float dB = value > 0 ? Mathf.Log10(value) * 20 : -80;
+        var dB = value > 0 ? Mathf.Log10(value) * 20 : -80;
         masterMixer.SetFloat(mixer, dB);
     }
-
-    //Прочие кнопки
-
+    
     private void OnClickSave()
     {
         AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
@@ -252,7 +241,6 @@ public class SettingsMenu : MonoBehaviour
         rebindMenu.SetActive(false);
     }
 
-    //Загрузка старых настроек
 
     private void LoadSettings(int currentLanguageIndex, int currentResolutionIndex, int currentScreenMode,
        float currentSoundVolume, float currentMusicVolume)

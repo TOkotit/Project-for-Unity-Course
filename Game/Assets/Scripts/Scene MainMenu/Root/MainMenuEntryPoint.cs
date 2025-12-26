@@ -41,6 +41,8 @@ namespace Scripts.GamePlar.Root
             {
                 GoToLevelSelectSceneRequested?.Invoke();
             };
+            
+
 
             AudioManager.Instance.PlayMenuMusic();
         }

@@ -69,15 +69,13 @@ namespace System_Scripts.GameRoot
                 }
 
                 if (sceneName != Scenes.BOOT)
-                    {
-                        return;
-                    }
+                {
+                    return;
+                }
             #endif
 
             _coroutines.StartCoroutine(LoadAndStartMainMenu());
         }
-
-        // ReSharper disable Unity.PerformanceAnalysis
         private IEnumerator LoadAndStartGameplay()
         {
             
