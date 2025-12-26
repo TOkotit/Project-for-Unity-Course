@@ -128,7 +128,8 @@ namespace System_Scripts.GameRoot
         {
             Debug.Log("Уровень завершен. Ждем 5 секунд...");
             yield return new WaitForSeconds(5f);
-            yield return LoadAndStartLevelSelect();
+            _coroutines.StartCoroutine(LoadAndStartLevelSelect());
+            
         }
 
         private IEnumerator LoadAndStartMainMenu()
@@ -169,7 +170,7 @@ namespace System_Scripts.GameRoot
             yield return LoadScene(Scenes.BOOT);
             yield return LoadScene(Scenes.LEVEL_SELECT);
 
-
+            yield return new WaitForEndOfFrame();
             yield return new WaitForSeconds(0.5f);
 
             var sceneEntryPoint = Object.FindFirstObjectByType<LevelSelectorEntryPoint>();
@@ -181,6 +182,7 @@ namespace System_Scripts.GameRoot
             else
             {
                 Debug.LogError("Ошибка: Не найдена точка входа в сцену LevelSelect!");
+                yield break;
             }
 
             sceneEntryPoint.GoToMainMenuSceneRequested += () =>

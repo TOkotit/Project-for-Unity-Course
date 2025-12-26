@@ -151,7 +151,6 @@ namespace Levels
             {
                 LevelProgressManager.Instance.CompleteLevel(levelId, time);
             }
-            StartCoroutine(ReturnToLevelSelectRoutine());
         }
 
         private void OnPlayerDead()
