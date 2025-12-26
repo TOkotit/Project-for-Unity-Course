@@ -4,8 +4,11 @@ using System;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Audio;
+using Scripts.Entities;
 using System_Scripts.GameRoot;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Levels
 {
@@ -20,10 +23,12 @@ namespace Levels
         [SerializeField] private Enemy carPrefab;
         [SerializeField] private Enemy dronePrefab;
         [SerializeField] private PlayerController playerPrefab;
+        [SerializeField] private GameObject deathScreen;
         private LevelModel _levelModel; // +
+        private Player _player;
 
         private List<Enemy> _spawnedEnemyViews = new(); 
-
+        public event Action OnExitRequested;
         public List<EnemySpot> EnemiesSpawnSpots = new()
         {
             new EnemySpot(new Vector3(-5, 0.1f, 0)),
@@ -35,6 +40,14 @@ namespace Levels
 
         public void Awake()
         {
+
+            if (deathScreen == null)
+            {
+                Debug.Log("<color=red>deathScreen is null");
+                return;
+            }
+            deathScreen.SetActive(false);
+            
             LevelStats = Game.Instance.CurrentLevelConfig;
 
             if (LevelStats == null)
@@ -51,6 +64,7 @@ namespace Levels
             {
                 _levelModel = Game.Instance.LevelModel;
                 _levelModel.Initialize(LevelStats);
+                _player = Game.Instance.PlayerModel;
             }
             if (_levelModel == null)
             {
@@ -58,19 +72,21 @@ namespace Levels
                                "Проверьте Script Execution Order для GameplayEntryPoint.");
                 return;
             }
+            
             Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
             
             SpawnNextWave();
         }
         
-        public void Start() // Вместо части логики в Awake
+        public void Start()
         {
             if (_levelModel != null)
             {
                 _levelModel.EnemiesWaveFinished.AddListener(SpawnNextWave); 
-                _levelModel.LevelCompleted.AddListener(OnLevelCompleted); //
-
+                _levelModel.LevelCompleted.AddListener(OnLevelCompleted);
             }
+            if (playerPrefab != null)
+                _player.OnDeath.AddListener(OnPlayerDead);
         }
         
         public void SpawnNextWave()
@@ -137,11 +153,18 @@ namespace Levels
             }
             StartCoroutine(ReturnToLevelSelectRoutine());
         }
+
+        private void OnPlayerDead()
+        {
+            deathScreen.SetActive(true);
+            AudioManager.Instance.PlayPlayerDeathMusic();
+            StartCoroutine(ReturnToLevelSelectRoutine());
+        }
         
         private IEnumerator ReturnToLevelSelectRoutine()
         {
             yield return new WaitForSeconds(5f);
-            SceneManager.LoadScene(Scenes.LEVEL_SELECT); 
+            OnExitRequested?.Invoke();
         }
 
         private void OnDestroy() // +
@@ -151,6 +174,8 @@ namespace Levels
                 _levelModel.LevelCompleted.RemoveListener(OnLevelCompleted);
                 _levelModel.EnemiesWaveFinished.RemoveListener(SpawnNextWave);
             }
+            if (_player != null)
+                _player.OnDeath.RemoveListener(OnPlayerDead);
         }
     }
 }

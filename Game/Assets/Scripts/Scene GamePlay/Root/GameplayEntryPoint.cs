@@ -11,7 +11,7 @@ namespace Scripts.GamePlar.Root
     public class GameplayEntryPoint : MonoBehaviour
     {
         [SerializeField] private UIGameplayRootBinder _sceneUIRootBinder;
-
+        [SerializeField] private LevelController levelController;
         public event Action GoToMainMenuSceneRequested;
     
         private void Awake()
@@ -26,7 +26,14 @@ namespace Scripts.GamePlar.Root
         {
             var uiScene = Instantiate(_sceneUIRootBinder);
             uiRoot.AttachSceneUI(uiScene.gameObject);
-
+            if (levelController != null)
+            {
+                levelController.OnExitRequested += () => 
+                {
+                    GoToMainMenuSceneRequested?.Invoke(); 
+                };
+            }
+            
             uiScene.GoToMainMenuButtonClicked += () =>
             {
                 GoToMainMenuSceneRequested?.Invoke();

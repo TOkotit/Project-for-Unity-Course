@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81694645ac7e4b9fa2d6c9af87aae1fa, type: 3}
   m_Name: RoadStatsSO
   m_EditorClassIdentifier: 
-  roadSpeed: 15
+  roadSpeed: 40
   visibleTilesCount: 12
   recycleThresholdZ: -45
